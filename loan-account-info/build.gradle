@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+dependencies {
+    implementation project(path: ':loan-core')
+    implementation project(path: ':loan-data')
+    implementation project(path: ':loan-permission')
+    implementation AndroidX.card_view
+    implementation AndroidX.constraint_layout
+    implementation AppNet.OKHTTP
+    implementation AppNet.RETROFIT
+}

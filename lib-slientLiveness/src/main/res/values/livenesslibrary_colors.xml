@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <!--Dark gray#A9A9A9 -->
+
+    <color name="circle_border">#00FF8F</color>
+    <color name="title_color">#333333</color>
+    <color name="hint_color">#666666</color>
+    <color name="liveness_bottom_color_enable">#E2E2E2</color>
+    <color name="liveness_bottom_color_disable">#3D7DFF </color>
+    <color name="result_mask_color">#CCffffff</color>
+    <color name="liveness_transparent">#00000000</color>
+    <color name="liveness_loading_dialog_bg">#ccffffff</color>
+</resources>

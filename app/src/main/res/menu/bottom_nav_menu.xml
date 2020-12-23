@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/loan_main_model_main"
+        android:icon="@mipmap/loan_ic_home_loan"
+        android:title="@string/loan_home_btn_loan_text" />
+
+    <item
+        android:id="@+id/loan_main_model_account_info"
+        android:icon="@mipmap/loan_ic_home_account"
+        android:title="@string/loan_home_btn_account_text" />
+
+</menu>

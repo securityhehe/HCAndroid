@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+    <variable
+        name="vm"
+        type="com.hc.accountinfo.vm.LoanSettingViewModel" />
+
+        <variable
+            name="navId"
+            type="com.hc.accountinfo.R" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/account_title_bg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_title_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/profile"
+                    style="@style/AccountSettingMenuStyle"
+                    android:drawableTop="@drawable/account_profile"
+                    navId="@{vm.kycId}"
+                    android:text="@string/account_profile" />
+
+                <TextView
+                    android:id="@+id/contactUs"
+                    style="@style/AccountSettingMenuStyle"
+                    android:drawableTop="@drawable/account_contact"
+                    android:text="@string/account_contact_us" />
+
+                <TextView
+                    android:id="@+id/aboutUs"
+                    style="@style/AccountSettingMenuStyle"
+                    android:drawableTop="@drawable/account_about_us"
+                    android:text="@string/account_about_us" />
+
+                <TextView
+                    android:id="@+id/setting"
+                    style="@style/AccountSettingMenuStyle"
+                    android:drawableTop="@drawable/account_settings"
+                    android:text="@string/account_setting" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="256dp"
+            android:layout_height="156dp"
+            android:layout_marginTop="80dp"
+            android:translationZ="2dp"
+            app:cardCornerRadius="20dp"
+
+            app:cardElevation="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.hc.uicomponent.image.CircleImageView
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                app:border_width="1dp"
+                android:src="@{vm.gender==vm.male?@drawable/account_head_boy:vm.gender==vm.female?@drawable/account_head_girl:@drawable/account_head_boy}"
+                />
+
+            <TextView
+                android:layout_width="129dp"
+                android:layout_height="27dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="19dp"
+                android:gravity="center_horizontal"
+                android:text="@{vm.phone}"
+                android:textColor="#ff333333"
+                android:textSize="19sp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

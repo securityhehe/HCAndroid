@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loan_info_model_auth_center"
+    android:id="@+id/loan_info_model_container">
+
+    <fragment
+        android:id="@+id/loan_info_model_auth_center"
+        android:name="com.hc.accountinfo.AccountAuthCenterFragment"
+        tools:layout="@layout/fragment_account_profile">
+        <action
+            android:id="@+id/loan_info_model_auth_center_kyc"
+            app:destination="@id/loan_info_model_kyc"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
+        <action
+            android:id="@+id/loan_info_model_auth_center_profile_info"
+            app:destination="@id/loan_info_model_profile_info"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
+        <action
+            android:id="@+id/loan_info_model_auth_center_bank"
+            app:destination="@id/loan_info_model_bank_info"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
+        <action
+            android:id="@+id/loan_info_model_auth_center_supply_info"
+            app:destination="@id/loan_info_model_profile_supply_info"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_info_model_kyc"
+        android:name="com.hc.accountinfo.AccountKycFragment"
+        tools:layout="@layout/fragmnet_kyc_info">
+        <deepLink app:uri="loan://loan/infoModel/Kyc?formKey={formKey}" />
+        <action
+            android:id="@+id/loan_info_model_kyc_auth_center"
+            app:destination="@id/loan_info_model_auth_center"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/loan_info_model_container"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_info_model_profile_info"
+        android:name="com.hc.accountinfo.AccountProfileInputFragment"
+        tools:layout="@layout/fragment_profile_input_info">
+        <action
+            android:id="@+id/loan_info_model_profile_info_auth_center"
+            app:destination="@id/loan_info_model_auth_center"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_info_model_bank_info"
+        android:name="com.hc.accountinfo.AccountBankInfoFragment"
+        tools:layout="@layout/fragment_bank_info">
+        <action
+            android:id="@+id/loan_info_model_bank_info_auth_center"
+            app:destination="@id/loan_info_model_auth_center"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_info_model_profile_supply_info"
+        android:name="com.hc.accountinfo.AccountSupplyInfoFragment"
+        tools:layout="@layout/fragment_supplementary_info">
+        <action
+            android:id="@+id/loan_info_model_supply_info_auth_center"
+            app:destination="@id/loan_info_model_auth_center"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
+
+</navigation>

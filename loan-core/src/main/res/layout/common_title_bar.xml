@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="baseVm"
+            type="com.hc.uicomponent.base.BaseViewModel" />
+    </data>
+    <com.hc.uicomponent.titlebar.ToolBarContainer xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:onClick="@{()->baseVm.back(commonBack)}"
+            android:id="@+id/common_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:src="@mipmap/common_title_white_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/common_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="39dp"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/common_back"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/app_name" />
+    </com.hc.uicomponent.titlebar.ToolBarContainer>
+</layout>

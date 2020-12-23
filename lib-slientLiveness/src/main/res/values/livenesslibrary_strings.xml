@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="livenesslibrary_start_test">Start</string>
+    <string name="string_network_error_connect_host_error">Connect failed, please check your network.</string>
+	<string name="string_network_error_invalid_argument">Invalid argument of service api.</string>
+	<string name="string_network_error_detection_failed">Antihack detection failed</string>
+	<string name="string_network_error_download_error">Download url image failed.</string>
+	<string name="string_network_error_unauthorized">Authorization failed, please check your API_ID and API_SECRET.</string>
+	<string name="string_network_error_rate_limit_exceeded">Your authorization number is out of range.</string>
+	<string name="string_network_error_not_found">The request URL is not found.</string>
+	<string name="string_network_error_internal_error">It is error when processing in server.</string>
+	<string name="string_network_error_wrong_liveness_data">Invalid liveness data.</string>
+	<string name="string_network_error_rpc_timeout">Detection timeout.</string>
+	<string name="string_network_error_timeout">Time out, please check your network.</string>
+    <string name="string_liveness_base">Liveness</string>
+	<string name="string_silent_liveness">Silent Liveness</string>
+    <string name="livenesslibrary_image_error">error</string>
+	<string name="livenesslibrary_detect_failed">Liveness failed</string>
+    <string name="livenesslibrary_license_expired">Device time is not within the validity period of the license, pls use the valid license</string>
+	<string name="livenesslibrary_livense_bundle_application_id_error">The package name in the license does not match with application ID, please use the right license file</string>
+</resources>

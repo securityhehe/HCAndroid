@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">IDCardCamera</string>
+
+    <string name="no_flash">The device does not support flash!</string>
+    
+    
+  <!--  <string name="camera_aadhaar_front_tip">Government Of India</string>
+    <string name="camera_aadhaar_front_bottom_tip">Please try to align the reference text with the corresponding position on the rectangular box and certificate when shooting.</string>
+
+    <string name="camera_aadhaar_back_tip">AADHAAR</string>
+    <string name="camera_aadhaar_back_india_tip">Unique Identification Authority of India</string>
+
+    <string name="camera_aadhaar_pan_1_tip">INCOME TAX DEPARTMENT</string>
+    <string name="camera_aadhaar_pan_2_tip">GOVT. OF INDIA</string>-->
+    <string name="camera_scan_tip">Please try to align the reference text with the corresponding position on the rectangular box and certificate when shooting.</string>
+
+</resources>

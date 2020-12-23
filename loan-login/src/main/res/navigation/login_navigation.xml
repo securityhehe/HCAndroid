@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginModelNavContainer"
+    app:startDestination="@+id/loginModelStartPage">
+
+    <fragment
+        android:id="@+id/loginModelStartPage"
+        android:name="com.hc.login.NotLoginFragment"
+        tools:layout="@layout/fragment_not_login_layout">
+        <action
+            android:id="@+id/action_noLogin_to_phoneLogin"
+            app:destination="@id/loginModelInputPhoneNumber"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginModelInputPhoneNumber"
+        android:name="com.hc.login.PhoneLoginFragment"
+        tools:layout="@layout/fragment_login_phone_layout">
+        <action
+            android:id="@+id/action_noLogin_to_phoneLogin"
+            app:destination="@id/loginModelInputCode"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginModelInputCode"
+        android:name="com.hc.login.InputCheckCodeFragment"
+        tools:layout="@layout/fragment_login_phone_code_layout" />
+
+    <fragment
+        android:id="@+id/loginModelPermission"
+        android:name="com.hc.login.LoanFragmentPermission"
+        tools:layout="@layout/fragment_permission_desc" />
+
+</navigation>

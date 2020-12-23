@@ -1,0 +1,83 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion Version.compile_sdk
+    buildToolsVersion Version.build_tools
+
+    defaultConfig {
+        minSdkVersion Version.min_sdk
+        targetSdkVersion Version.target_sdk
+        versionCode AppVersion.appVersionCode
+        versionName AppVersion.appVersionName
+        testInstrumentationRunner TEST.android_junit_runner
+        consumerProguardFiles "consumer-rules.pro"
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_APP_DEBUG", "${Config.isDebug}"
+            buildConfigField "boolean", "IS_TEST_ENV", "${Config.isTestEnv}"
+            buildConfigField "String", "IS_TEST_URL", "\"${Config.isTestEnv}\""
+            buildConfigField "String", "CHANNEL_NAME", "\"${Config.channelName}\""
+            buildConfigField "boolean", "isPrivatePackage", "${Config.isPrivatePackage}"
+            buildConfigField "String", "mmkvpasswd", "\"${Config.mmkvpasswd}\""
+        }
+        debug{
+            minifyEnabled false
+            buildConfigField "boolean", "IS_APP_DEBUG", "${Config.isDebug}"
+            buildConfigField "boolean", "IS_TEST_ENV", "${Config.isTestEnv}"
+            buildConfigField "String", "IS_TEST_URL", "\"${Config.isTestEnv}\""
+            buildConfigField "String", "CHANNEL_NAME", "\"${Config.channelName}\""
+            buildConfigField "boolean", "isPrivatePackage", "${Config.isPrivatePackage}"
+            buildConfigField "String", "mmkvpasswd", "\"${Config.mmkvpasswd}\""
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.getName())
+        }
+        generateStubs = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Kotlin.kotlin
+    implementation Kotlin.ANDROID_CORE_KTX
+    implementation Kotlin.KOTLIN_COROUTINES_FOR_ANDROID
+    implementation Kotlin.anko
+    implementation Kotlin.KOTLIN_STDLIB_JDK
+    implementation AndroidX.appcompat
+    implementation AndroidX.navigation
+    implementation Misc.blankj_utilcode
+    implementation Misc.mmkv
+    implementation AndroidX.multiDex
+    implementation FaceBook.appsflyer
+    implementation AndroidX.lifecycleLiveDataKtx
+    implementation Google.gson
+    testImplementation TEST.junit
+    androidTestImplementation TEST.junit_ext
+    androidTestImplementation TEST.espresso_core
+    implementation AndroidX.annotation_v
+    implementation Glide.core
+}

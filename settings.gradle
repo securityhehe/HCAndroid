@@ -1,0 +1,13 @@
+include ':loan-data'
+include ':lib-idcardcamera'
+include ':lib-slientLiveness'
+include ':lib-network'
+include ':lib-tool'
+include ':load'
+include ':loan-account-info'
+include ':loan-permission'
+include ':loan-setting'
+include ':loan-login'
+include ':loan-core'
+include ':app'
+rootProject.name = "Loan"

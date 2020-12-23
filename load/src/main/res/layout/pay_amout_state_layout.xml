@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="5dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/image"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/loan_ic_completed"
+        app:layout_constraintEnd_toStartOf="@id/moneyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/moneyTitle"
+        android:text="Loan Amount"
+        android:gravity="center_horizontal"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@id/dateTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/LoanDetailsValue"/>
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="0dp"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/moneyTitle"
+        app:layout_constraintStart_toStartOf="@id/moneyTitle"
+        app:layout_constraintEnd_toEndOf="@id/moneyTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="₹ 150000000"
+        style="@style/LoanDetailsTitleBold"/>
+
+    <TextView
+        android:text="Repayment Date"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/dateTitle"
+        app:layout_constraintStart_toEndOf="@id/moneyTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/LoanDetailsValue"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:singleLine="true"
+        android:layout_width="0dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/dateTitle"
+        app:layout_constraintStart_toStartOf="@id/dateTitle"
+        app:layout_constraintEnd_toEndOf="@id/dateTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="23-10-2019"
+        style="@style/LoanDetailsTitleBold"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

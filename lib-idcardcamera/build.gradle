@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+dependencies {
+    implementation project(path: ':lib-tool')
+    implementation Misc.blankj_utilcode
+}
+
+

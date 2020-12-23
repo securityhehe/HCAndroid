@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.AuthCenterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            bind:baseVm="@{vm}"
+            android:id="@+id/title"
+            layout="@layout/common_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/account_auth_container"
+            style="@style/AccountProfileItemCardViewStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/account_profile_desc"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/kyc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginEnd="5dp"
+                    android:onClick="@{()->vm.gotoKcyPage(kyc)}">
+
+                    <TextView
+                        android:text="@string/account_profile_kyc_info"
+                        style="@style/AccountProfileItemTextStyle"/>
+
+                    <TextView
+                        style="@style/AccountProfileAuthItemStyle"/>
+                    <View
+                        style="@style/AccountProfileLine"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp" />
+                </FrameLayout>
+
+                <FrameLayout
+
+                    android:onClick="@{()->vm.gotoProfileInfoPage(personal)}"
+                    android:id="@+id/personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="5dp">
+
+                    <TextView
+                        style="@style/AccountProfileItemTextStyle"
+                        android:text="@string/account_profile_personal_info"
+                        android:drawableStart="@drawable/account_ic_personals_info"/>
+
+                    <TextView
+                        style="@style/AccountProfileAuthItemStyle"/>
+
+                    <View
+                        style="@style/AccountProfileLine"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:onClick="@{()->vm.gotoSuppleInfoPage(supple)}"
+                    android:id="@+id/supple"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="5dp">
+
+                    <TextView style="@style/AccountProfileItemTextStyle"
+                        android:text="@string/account_profile_supply_info"
+                        android:drawableStart="@drawable/account_ic_supple_info"
+                        />
+                    <TextView
+                        style="@style/AccountProfileAuthItemStyle"/>
+
+                    <View
+                        style="@style/AccountProfileLine"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/bank"
+                    android:onClick="@{()->vm.gotoBankPage(supple)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="5dp">
+                    <TextView style="@style/AccountProfileItemTextStyle"
+                        android:text="@string/account_profile_bank_info"
+                        android:drawableStart="@drawable/account_ic_bank"
+                        />
+                    <TextView
+                        style="@style/AccountProfileAuthItemStyle"/>
+                    <View
+                        style="@style/AccountProfileLine"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/AccountProfileItemCardViewStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_auth_container">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="110dp"
+                        android:drawableStart="@drawable/account_ic_optional"
+                        android:drawablePadding="9dp"
+                        android:text="Optional"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="29dp"
+                        android:drawablePadding="6dp"
+                        android:paddingBottom="13dp"
+                        android:text="(Higher limits are available upon the completion.)"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp">
+
+                    <TextView
+                        style="@style/AccountProfileItemTextStyle"
+                        android:text="@string/account_profile_mobile_info"
+                        android:drawableStart="@drawable/account_ic_mobile_phone" />
+
+                    <TextView
+                        android:paddingBottom="0dp"
+                        style="@style/AccountProfileAuthItemStyle"/>
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+dependencies {
+    implementation project(path: ':loan-core')
+    implementation AndroidX.card_view
+    implementation AndroidX.constraint_layout
+    implementation project(path: ':loan-data')
+}

@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+android {
+    // 移除lint检查的error
+    defaultConfig {
+        //ACTION LIVE FACE
+        buildConfigField "String", "API_ID" ,'"3660c7934b434f1cbd2721c8fca85768"'
+        buildConfigField "String", "API_SECRET", '"081b6f84df25473eb088d81c1bb81b2d"'
+        buildConfigField "String", "HOST_URL", '"https://cloudapi.accuauth.com"'
+    }
+}
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+}
+
+
+

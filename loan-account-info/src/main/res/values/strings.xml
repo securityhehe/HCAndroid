@@ -1,0 +1,34 @@
+<resources>
+    <string name="account_profile">Profile</string>
+    <string name="account_contact_us">Contact Us</string>
+    <string name="account_about_us">About Us</string>
+    <string name="account_setting">Settings</string>
+    <string name="account_profile_desc">In order to make payment faster, please fill in the information first!</string>
+    <string name="account_profile_personal_info">Personal Info</string>
+    <string name="account_profile_supply_info">Supplementary info</string>
+    <string name="account_profile_kyc_info">KYC Documents</string>
+    <string name="account_profile_bank_info">Bank Account Info</string>
+    <string name="account_profile_mobile_info">Mobile phone authentication</string>
+    <string name="phone_code">+91</string>
+    <string name="account_profile_phone">True information is helpful to increase the loan amount.</string>
+    <string name="account_profile_email">casferre@cadi.com</string>
+    <string name="account_profile_get_opt_sms">OTP</string>
+    <string name="account_profile_input_sms">Please fill in the verification code of work email.</string>
+    <string name="account_profile_commit_info_btn">Submit</string>
+    <string name="account_ic_supply_personal">Reference Info</string>
+    <string name="account_personal_submit">Submit</string>
+    <string name="account_kyc_card">Aadhaar Card</string>
+    <string name="account_kyc_pan_card">PAN Card</string>
+    <string name="account_kyc_face_recognition">Face Recognition</string>
+    <string name="kyc_your_photo">Your Photo</string>
+    <string name="kyc_submit_and_continue">Submit And Continue</string>
+    <string name="kyc_scan_face_error_tip">Please complete Aadhaar card and PAN card authentication first!</string>
+    <string name="kyc_first_entry_error_tip">Your Aadhaar card or PAN card is not certified!</string>
+    <string name="kyc_scan_back_error_tip">Please complete the front of the Aadhaar card for certification!</string>
+    <string name="kyc_scan_pan_error_tip">Please complete Aadhaar card authentication first!</string>
+    <string name="kyc_face_scan_failure">live face scan failed, please try again!</string>
+    <string name="kyc_scan_face_error_tip_no_aadhaar">Please complete PAN card authentication first!</string>
+    <string name="kyc_string_liveness_has_face_and_holdstill_hint">Please hold still</string>  //
+    <string name="kyc_string_liveness_no_face_hint">Please place your face inside the circle</string>//
+    <string name="kyc_liveness_face_not_valid_hint">Please move away from the screen</string>//
+</resources>

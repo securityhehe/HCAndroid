@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+
+dependencies {
+    implementation project(path: ':loan-core')
+    implementation project(path: ':loan-permission')
+}

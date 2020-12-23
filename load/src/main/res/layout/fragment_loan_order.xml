@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="15dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/order_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="start"
+            android:text="EMI#1"
+            android:textColor="#ff333333"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/order_indicator"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/loan_order_indicator" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="start|top"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/order_title">
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:text="@string/loan_repayment_date"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/loan_repayment_principal"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/loan_interest"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/loan_discount_amount"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/loan_overdue_fines"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/loan_repayment_amount"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="5dp"
+        android:gravity="end|top"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/order_title">
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:text="18-10-2019"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="₹ 1500"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="₹ 150"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="₹ -10"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="₹ 40"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:text="₹ 1680"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <Button
+        style="@style/ButtonLoginYellowText"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/loan_replay"
+        app:layout_constraintBottom_toTopOf="@id/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_container" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CACACA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_goneMarginTop="10dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

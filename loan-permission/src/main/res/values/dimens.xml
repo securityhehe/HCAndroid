@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="permission_title_size">18sp</dimen>
+    <dimen name="permission_content_size">15sp</dimen>
+    <dimen name="permission_skip_size">16sp</dimen>
+    <dimen name="permission_privacy_size">14sp</dimen>
+
+</resources>

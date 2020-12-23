@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.hc.login.vm.LoginVM" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <com.hc.uicomponent.titlebar.ToolBarContainer
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:scaleType="center"
+                    android:onClick="@{()->vm.navigateUp(back)}"
+                    android:src="@mipmap/login_title_back" />
+
+            </com.hc.uicomponent.titlebar.ToolBarContainer>
+
+
+            <TextView
+                loginModelCode="@{vm.phoneCode}"
+                loginModelNumber="@{vm.phoneNumber}"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="25dp"
+                android:lines="2"
+                android:textColor="#ff333333"
+                android:textSize="18sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="39dp"
+                android:layout_marginEnd="10dp">
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="55dp"
+                    android:height="24dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="Enter your mobile number"
+                    android:textColor="#333333"
+                    android:textColorHint="#999999"
+                    android:textSize="16sp"
+                    android:maxLength="4"
+                    android:text="@={vm.code}"
+                    app:layout_constraintBottom_toBottomOf="@id/time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/time"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/time" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="34dp"
+                    android:scaleType="center"
+                    android:src="@mipmap/login_del"
+                    android:onClick="@{()->vm.clearNumber(phone)}"
+                    app:layout_constraintBottom_toBottomOf="@id/time"
+                    app:layout_constraintEnd_toStartOf="@id/time"
+                    app:layout_constraintTop_toTopOf="@id/time" />
+
+                <Button
+                    android:id="@+id/time"
+                    style="@style/ButtonLoginCACACAText"
+                    android:layout_width="100dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="@{vm.countDown,default=OPT}"
+                    android:enabled="@{vm.mSmsBtnState,default=true}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="14dp"
+                    android:background="#CACACA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                style="@style/ButtonLoginCACACAText"
+                android:layout_marginTop="44dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/login_opt"
+                android:id="@+id/loginBtn"
+                android:onClick="@{()->vm.doCommitCheckCode(loginBtn)}"
+                android:enabled="@{vm.inputCodeNextBtnState}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/error"
+                android:visibility="@{vm.isShowCheckError}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:background="#CACACA"
+                android:paddingStart="50dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="50dp"
+                android:paddingBottom="5dp"
+                android:text="@string/login_error_hint"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

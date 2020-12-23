@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.KycViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/title"
+            layout="@layout/common_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:baseVm="@{vm}" />
+
+        <TextView
+            android:id="@+id/card_desc"
+            style="@style/AccountProfileInputInfoTitle"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:text="@string/account_kyc_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+        <ImageView
+            android:id="@+id/card_front"
+            android:layout_width="111dp"
+            android:layout_height="67dp"
+            android:layout_marginStart="22dp"
+            android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
+            app:defaultImage="@{@drawable/account_kyc_front}"
+            app:errorImage="@{@drawable/account_kyc_front}"
+            app:layout_constraintEnd_toStartOf="@id/card_bank"
+            app:layout_constraintStart_toEndOf="@id/card_desc"
+            app:layout_constraintTop_toTopOf="@id/card_desc"
+            app:sizeImgHeight="@{67}"
+            app:sizeImgWidth="@{111}"
+            app:src="@{vm.viewData.faceRecPhotoPath}"
+            tools:src="@drawable/account_kyc_front" />
+
+        <TextView
+            android:id="@+id/kyc_front"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/kyc_front"
+            android:textColor="#ff666666"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/card_front"
+            app:layout_constraintStart_toStartOf="@id/card_front"
+            app:layout_constraintTop_toBottomOf="@id/card_front" />
+
+        <ImageView
+            android:id="@+id/card_bank"
+            android:layout_width="111dp"
+            android:layout_height="67dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/account_kyc_back"
+            android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
+            android:visibility="visible"
+            app:defaultImage="@{@drawable/account_kyc_back}"
+            app:errorImage="@{@drawable/account_kyc_back}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_front"
+            app:sizeImgHeight="@{67}"
+            app:sizeImgWidth="@{111}"
+            app:src="@{vm.viewData.faceRecPhotoPath}"
+            tools:src="@drawable/account_kyc_back" />
+
+        <TextView
+            android:id="@+id/back_text"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginTop="5dp"
+            android:text="Back"
+            android:textColor="#ff666666"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/card_bank"
+            app:layout_constraintStart_toStartOf="@id/card_bank"
+            app:layout_constraintTop_toBottomOf="@id/card_bank" />
+
+        <View
+            android:id="@+id/line1"
+            style="@style/AccountProfileLine"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_text" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.viewData.isShowAAbArea()}"
+            app:constraint_referenced_ids="line1,back_text,card_bank,kyc_front,card_front,card_desc" />
+
+        <TextView
+            android:id="@+id/pan_card_title"
+            style="@style/AccountProfileInputInfoTitle"
+            android:layout_width="70dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/account_kyc_pan_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+        <ImageView
+            android:id="@+id/pan_card"
+            android:layout_width="120dp"
+            android:layout_height="76dp"
+            android:layout_marginEnd="15dp"
+            android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
+            app:defaultImage="@{@drawable/account_kyc_photo}"
+            app:errorImage="@{@drawable/account_kyc_photo}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pan_card_title"
+            app:sizeImgHeight="@{76}"
+            app:sizeImgWidth="@{120}"
+            android:contextClickable="@{vm.viewData.isClickableScanFace}"
+            app:src="@{vm.viewData.faceRecPhotoPath}"
+            tools:src="@drawable/account_kyc_photo"
+            />
+
+        <TextView
+            android:id="@+id/pan_card_font"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/kyc_front"
+            android:textColor="#ff666666"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/pan_card"
+            app:layout_constraintStart_toStartOf="@id/pan_card"
+            app:layout_constraintTop_toBottomOf="@id/pan_card" />
+
+        <View
+            android:id="@+id/line2"
+            style="@style/AccountProfileLine"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pan_card_font" />
+
+        <TextView
+            android:id="@+id/face_recognition_title"
+            style="@style/AccountProfileInputInfoTitle"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/account_kyc_face_recognition"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line2" />
+
+        <ImageView
+            android:id="@+id/pan_face_photo"
+            android:layout_width="120dp"
+            android:layout_height="76dp"
+            android:layout_marginEnd="15dp"
+            android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
+            app:defaultImage="@{@drawable/account_kyc_card_front}"
+            app:errorImage="@{@drawable/account_kyc_card_front}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/face_recognition_title"
+            app:sizeImgHeight="@{67}"
+            app:sizeImgWidth="@{120}"
+            app:src="@{vm.viewData.faceRecPhotoPath}"
+            tools:src="@drawable/account_kyc_card_front" />
+
+        <TextView
+            android:id="@+id/pan_face_photo_text"
+            android:layout_width="120dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/kyc_your_photo"
+            android:textColor="#ff666666"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/pan_face_photo"
+            app:layout_constraintStart_toStartOf="@id/pan_face_photo"
+            app:layout_constraintTop_toBottomOf="@id/pan_face_photo" />
+
+        <View
+            android:id="@+id/line3"
+            style="@style/AccountProfileLine"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pan_face_photo_text" />
+        <Button
+            android:onClick="@{vm::commitKycInfo}"
+            android:enabled="@{vm.viewData.isEnable}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/kyc_submit_and_continue"
+            android:layout_marginTop="30dp"
+            android:visibility="@{vm.viewData.isShowAuthCommitBtn}"
+            app:layout_constraintTop_toBottomOf="@id/line3"
+            style="@style/ButtonLoginYellowText"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_link">#FF007335</color>
+    <color name="color_login_not_login">#FDB900</color>
+</resources>

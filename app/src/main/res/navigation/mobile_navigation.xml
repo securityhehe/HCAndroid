@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loan_main_model_container"
+    app:startDestination="@id/loan_main_model_main">
+
+    <action
+        android:id="@+id/main_to_login"
+        app:destination="@id/loginModelNavContainer"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/loan_main_model_container"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/loan_main_model_main"
+        android:name="com.hc.load.LoanMainFragment"
+        tools:layout="@layout/fragment_loan_input_money_layout">
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:action="${applicationId}.DoLoginPage"
+            app:uri="navigation://loan/history/order" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_main_model_account_info"
+        android:name="com.hc.accountinfo.AccountSettingFragment"
+        android:label="@string/account_setting"
+        tools:layout="@layout/fragment_account_info">
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_settings"
+            app:destination="@id/loan_main_model_setting" />
+    </fragment>
+
+    <activity
+        android:id="@+id/loan_main_model_setting"
+        android:name="com.hc.setting.SettingActivity"
+        tools:layout="@layout/loan_setting_layout">
+        <deepLink app:uri="navigation://setting" />
+    </activity>
+
+
+    <activity
+        android:id="@+id/loan_main_model_web_view"
+        android:name="com.hc.uicomponent.WebViewActivity"
+        tools:layout="@layout/common_webview" />
+
+    <fragment
+        android:id="@+id/loan_main_model_history_list"
+        android:name="com.hc.load.LoanHistoryFragment"
+        tools:layout="@layout/fragment_loan_history">
+        <deepLink app:uri="navigation://loan/history/order" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_main_model_message"
+        android:name="com.hc.load.LoanMessageFragment"
+        tools:layout="@layout/fragment_loan_message_layout">
+        <deepLink app:uri="navigation://loan/message" />
+    </fragment>
+
+    <include app:graph="@navigation/loan_info_model"/>
+
+    <include app:graph="@navigation/login_navigation" />
+
+</navigation>

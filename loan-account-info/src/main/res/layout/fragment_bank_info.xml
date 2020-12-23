@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.BankInfoViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            bind:baseVm="@{vm}"
+            android:id="@+id/title"
+            layout="@layout/common_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                style="@style/AccountProfileInputInfoTitle"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/account_ic_supply_personal" />
+
+            <include layout="@layout/account_input_select_item" />
+
+            <include layout="@layout/account_input_middle_item" />
+
+            <include layout="@layout/account_input_middle_item" />
+
+            <include layout="@layout/account_input_name_item" />
+
+            <TextView
+                android:layout_width="331dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Please fill in the blanks and check carefully, and confirm that it is your bank card. You will get the loan in this account after the approval"
+                android:textColor="#ffff9999"
+                android:textSize="14sp" />
+
+            <Button
+                style="@style/ButtonLoginYellowText"
+                android:layout_marginTop="11dp"
+                android:text="@string/account_personal_submit" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

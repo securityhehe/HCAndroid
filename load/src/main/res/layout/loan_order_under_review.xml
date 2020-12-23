@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LoanItemCardViewStyle"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:contentPadding="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/moneyTitle"
+            style="@style/LoanOrderUnderReviewTitle"
+            app:layout_constraintEnd_toStartOf="@id/dateTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            style="@style/LoanOrderUnderReviewTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/moneyTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/money"
+            style="@style/LoanOrderUnderReviewContent"
+            app:layout_constraintEnd_toEndOf="@id/moneyTitle"
+            app:layout_constraintStart_toStartOf="@id/moneyTitle"
+            app:layout_constraintTop_toBottomOf="@id/moneyTitle"
+            tools:text="@string/loan_money_text" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/LoanOrderUnderReviewContent"
+            android:text="@string/loan_date"
+            app:layout_constraintEnd_toEndOf="@id/dateTitle"
+            app:layout_constraintStart_toStartOf="@id/dateTitle"
+            app:layout_constraintTop_toBottomOf="@id/dateTitle" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/money">
+
+            <Button
+                android:id="@+id/loan_delay"
+                style="@style/ButtonLoginYellowText"
+                android:layout_width="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="@string/loan_replay" />
+
+            <Button
+                android:id="@+id/loan_repay"
+                style="@style/ButtonLoginYellowText"
+                android:layout_width="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:text="@string/loan_replay"
+                app:layout_constraintEnd_toStartOf="@id/loan_delay" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="Repayment Plan>>"
+            android:textColor="#fffdb900"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

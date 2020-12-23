@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+dependencies {
+    implementation AndroidX.recyclerview
+    implementation AndroidX.constraint_layout
+    implementation FaceBook.appsflyer
+    implementation FaceBook.facebook_android
+    implementation Firebase.firebase_analytics
+    implementation Firebase.firebase_core
+    implementation Firebase.firebase_dynamic_links
+    implementation Misc.mmkv
+    implementation AppNet.RETROFIT
+    implementation AppNet.RETROFIT_GSON
+    implementation AppNet.OKHTTP
+    implementation AppNet.LOGGING_INTERCEPTOR
+    implementation AppNet.GSON
+    implementation Misc.blankj_utilcode
+    implementation Google.playServicesAnalytics
+    implementation Google.playServicesLocation
+    api project(path: ':lib-network')
+    api project(path: ':lib-idcardcamera')
+    api project(path: ':lib-slientLiveness')
+    api project(path: ':lib-tool')
+    //api project(path: ':loan-permission')
+
+}
+

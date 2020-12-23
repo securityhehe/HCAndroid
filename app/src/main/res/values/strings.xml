@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Loan</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="loan_home_btn_loan_text">Loan</string>
+    <string name="loan_home_btn_account_text">My Account</string>
+    <string name="facebook_app_id">801009967352308</string>
+    <string name="fb_login_protocol_scheme">fb[801009967352308]</string>
+</resources>

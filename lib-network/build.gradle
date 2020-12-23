@@ -1,0 +1,12 @@
+apply plugin: 'com.android.library'
+apply from: Module.baseGradle
+dependencies {
+    implementation AppNet.RETROFIT
+    implementation AppNet.RETROFIT_GSON
+    implementation AppNet.GSON
+    implementation AppNet.LOGGING_INTERCEPTOR
+    implementation AppNet.OKHTTP
+    implementation project(':lib-tool')
+}
+
+

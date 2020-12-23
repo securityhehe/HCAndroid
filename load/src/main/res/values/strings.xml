@@ -1,0 +1,31 @@
+<resources>
+    <string name="loan_receive">Application Received</string>
+    <string name="loan_order_number">Order under review</string>
+    <string name="loan_disbursed_number">Loan Disbursed Successfully</string>
+    <string name="loan_status_received_text">Loan Status:</string>
+    <string name="loan_go">Get Now</string>
+    <string name="loan_money_text">₹ 1500</string>
+    <string name="loan_audit_reject_text">"We are So  Sorry, the loan audit did not pass, Please apply later "</string>
+    <string name="loan_audit_invalid_text">The order is invalid because the loans have failed for many times. It is suggested that you apply again after changing your bank card.</string>
+    <string name="loan_order_close_text">"The order is closed because the payment cannot be made to your bank card. It is suggested that you "</string>
+    <string name="loan_date">23-10-2019</string>
+    <string name="loan_replay">Repay</string>
+    <string name="loan_order_to_overdue_text">You are %s overdue！ The overdue fee is %s</string>
+    <string name="loan_order_to_renewal_text">Your repayment date has been updated.</string>
+    <string name="loan_status_to_repayment_text">Objective don\'t worry, we are waiting for the payment processing result</string>
+    <string name="loan_total_interest">Total Interest：</string>
+    <string name="loan_emi_1">EMI#1</string>
+    <string name="loan_emi_2">EMI#2</string>
+    <string name="loan_emi_content_1">Repayment in %s\nRepayment amount %s</string>
+    <string name="loan_emi_content_2">Repayment in %s\nRepayment amount %s</string>
+    <string name="loan_message_time">23-10-2019 13：02：01</string>
+    <string name="loan_message">The loan application has been submitted.</string>
+    <string name="loan_order_messge_title">Order Message</string>
+    <string name="loan_announcement_title">Announcement</string>
+    <string name="loan_repayment_date">Repayment Date：</string>
+    <string name="loan_repayment_principal">Repayment Principal：</string>
+    <string name="loan_interest">Interest：</string>
+    <string name="loan_discount_amount">Discount Amount：</string>
+    <string name="loan_overdue_fines">Overdue Fines：</string>
+    <string name="loan_repayment_amount">Repayment Amount：</string>
+</resources>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="permission_photos_media_files">Photos/Media/Files</string>
+    <string name="permission_location">Location</string>
+    <string name="permission_phone">Phone</string>
+    <string name="permission_contacts">Contacts</string>
+    <string name="permission_sms">SMS</string>
+
+    <string name="permission_photos_text">To store your application information on the device</string>
+    <string name="permission_location_text">To verify your location</string>
+    <string name="permission_phone_text">To register your phone as a trusted device</string>
+    <string name="permission_contacts_text">To decide your credit limit.Your contacts will be uploa securely and can be accessed only in case we are not to reach you.Your loan details. will never be shared wit contacts.</string>
+    <string name="permission_phone_sms">smsmsmsmsmmssmmsssssssssssssss\nsssssssssssssssssss\nsssssssssssssssssssss\nsmsmsmmsmsmsmsmmsms</string>
+    <string name="permission_title_desc">Dear Customer,To approve and disburse your loan quickly, we need information below:</string>
+    <string name="permission_go">Let\'s start it</string>
+    <string name="comon_error_msg">We are sorry that you are unable to apply for a loan for the time being.</string>
+    <string name="permission_title">Congratulations！</string>
+    <string name="permission_success_msg">Now You are eligible for a loan of up to RS ₹1500!</string>
+    <string name="permission_steps_title">Borrowing steps</string>
+    <string name="permission_button_apply">Continue To Apply</string>
+    <string name="permission_tips">Tips: The more you apply for a loan on our platform, we can help you to build a better credit history and increase your loan limit.</string>
+    <string name="loan_setting_language_text">Language Settings</string>
+    <string name="loan_setting_version_text">Version Checking</string>
+    <string name="loan_setting_feedback_text">Feedback or Suggestions</string>
+</resources>

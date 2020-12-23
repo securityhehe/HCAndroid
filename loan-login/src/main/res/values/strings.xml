@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="login_not_login_loan">Loan</string>
+    <string name="login_not_login_content">"Now You are eligible for a loan of up to "</string>
+    <string name="login_not_get_loan_desc">3 Steps to get a loan</string>
+    <string name="login_not_login_info">Submit Info</string>
+    <string name="login_not_login_money">Get Money</string>
+    <string name="login_not_login_credit">Get Credit</string>
+    <string name="phoneCode">+91</string>
+    <string name="login_phone_next_text">Next</string>
+    <string name="login_terms"><![CDATA[By continuing you agree to UCah\'s Terms & Conditions.]]></string>
+    <string name="login_opt">Login Via OTP</string>
+    <string name="login_error_hint">OTP input error !</string>
+    <string name="login_opt_get">OTP</string>
+    <string name="lan_login_language_en">English</string>
+    <string name="loan_login_language_hindi">Hindi</string>
+    <string name="login_phone_hint_msg">Enter the OTP we sent to %s \n%s </string>
+    <string name="loan_login_skip">Skip</string>
+    <string name="permission_tip">Please enable [%1$s] permission in the settings to continue using the app!</string>
+    <string name="permission_handle_tip">Please manually open the [%1$s] permission in the settings!</string>
+    <string name="permission_open_location_service_tip">Please turn on the "network location service" of the mobile phone system!</string>
+    <string name="permission_handle_open_location_service_tip">Before continuing to use the application, please turn on the network location service of the mobile phone system by yourself!</string> 
+    <string name="permission_location">location</string>  
+    <string name="permission_contact_person">access contact</string> 
+    <string name="permission_sd_write">storage</string> 
+    <string name="permission_call_phone">phone</string> 
+    <string name="permission_take_photo">take photo</string> 
+    <string name="permission_device_info">device information</string> 
+    <string name="permission_sms_info">sms</string>
+</resources>

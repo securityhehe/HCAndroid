@@ -1,0 +1,77 @@
+<resources>
+
+    <style name="LoanStatusTextStyle">
+        <item name="android:textSize">11sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/loan_state_color</item>
+        <item name="android:drawablePadding">5.5dp</item>
+    </style>
+
+    <style name="LoanItemCardViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:translationZ">2dp</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="contentPadding">10dp</item>
+    </style>
+
+    <style name="LoanOrderUnderReviewTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintHorizontal_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Loan Amount</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">17.5dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="LoanOrderUnderReviewContent" parent="LoanOrderUnderReviewTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="LoanHistoryItem">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Loan Amount</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="LoanDetailsValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">aaaaaaaaaa</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center_vertical|end</item>
+    </style>
+
+    <style name="LoanDetailsTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Loan Amount：</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center_vertical|start</item>
+    </style>
+
+    <style name="LoanDetailsTitleBold" parent="LoanDetailsTitle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
