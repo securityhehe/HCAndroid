@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">App</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="loan_cancel">cancel</string>
+    <string name="loan_go">Sure</string>
+    <string name="loading">Loading...</string>
+    <string name="app_access_server_error">服务器错误</string>
+
+    <string name="request_perssion_tip">Please enable [%1$s] perssion in the settings to continue using the app!</string>
+    <string name="request_perssion_handle_tip">Please manually open the [%1$s] permission in the settings!</string>
+    <string name="request_perssion_open_location_service_tip">Please turn on the "network location service" of the mobile phone system!</string>
+    <string name="request_perssion_handle_open_location_service_tip">Before continuing to use the application, please turn on the network location service of the mobile phone system by yourself!</string>
+
+</resources>

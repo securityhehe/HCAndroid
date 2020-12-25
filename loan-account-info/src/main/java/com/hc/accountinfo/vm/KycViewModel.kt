@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -27,14 +26,11 @@ import com.hc.data.common.CommonDataModel
 import com.hc.data.formPermissionPage
 import com.hc.data.user.KycUserInfo
 import com.hc.permission.AndroidPermissions
-import com.hc.uicomponent.base.BaseActivity
 import com.hc.uicomponent.base.BaseViewData
 import com.hc.uicomponent.base.BaseViewModel
 import com.hc.uicomponent.base.PageBase
 import com.hc.uicomponent.call.reqApi
-import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.config.RELEASE_PHOTO_PATH_APP
-import com.hc.uicomponent.config.RuntimeConfig
 import com.hc.uicomponent.config.TEMP_PHOTO_PATH_FOR_APP
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.stack.ActivityStack
@@ -61,13 +57,14 @@ class KycViewModel : BaseViewModel() {
 
     init {
         CommonDataModel.TEMP_PHOTO_PATH =
-            TEMP_PHOTO_PATH_FOR_APP + RuntimeConfig.USER_TOKEN + File.separator
+            TEMP_PHOTO_PATH_FOR_APP + CommonDataModel.mTokenData + File.separator
         CommonDataModel.RELEASE_PHOTO_PATH =
-            RELEASE_PHOTO_PATH_APP + RuntimeConfig.USER_TOKEN + File.separator
+            RELEASE_PHOTO_PATH_APP + CommonDataModel.mTokenData + File.separator
     }
 
     var baseVm: BaseAuthCenterInfo? = null
     var viewData = ViewData()
+    var viewOperator = ViewOperator()
     private var isOnlyScanFaceFlag = false
     private var checkFaceResult = false
     private var mReqCode: String? = null
@@ -99,7 +96,7 @@ class KycViewModel : BaseViewModel() {
         viewModelScope.launch {
             val userInfo = reqApi(
                 UserInfoService::class.java,
-                { queryUserBasicInfo() },
+                { queryUserBasicInfo()},
                 isCancelDialog = false
             )
             userInfo.data?.runCatching {
@@ -121,36 +118,36 @@ class KycViewModel : BaseViewModel() {
 
                 val baseSavePath = CommonDataModel.RELEASE_PHOTO_PATH
                 if (this.aadhaarSign) {
-                    val saveFrontFilePath = baseSavePath + IDCardCamera.ID_CARD_FRONT_IMG
+                    val saveFrontFilePath = baseSavePath + ID_CARD_FRONT_IMG
                     loadImage(
                         fragment,
                         saveFrontFilePath,
                         isCanReadCache,
                         viewData.aadCardFrontPhotoPath,
                         frontImg,
-                        IDCardCamera.ID_CARD_FRONT_IMG
+                        ID_CARD_FRONT_IMG
                     )
 
-                    val saveBackFilePath = baseSavePath + IDCardCamera.ID_CARD_FRONT_IMG
+                    val saveBackFilePath = baseSavePath + ID_CARD_BACK_IMG
                     loadImage(
                         fragment,
                         saveBackFilePath,
                         isCanReadCache,
                         viewData.aadCardBackPhotoPath,
                         backImg,
-                        IDCardCamera.ID_CARD_FRONT_IMG
+                        ID_CARD_BACK_IMG
                     )
                 }
 
                 if (!isShowPanImageFlag) {
-                    val savePinPath = baseSavePath + IDCardCamera.PAN_CARD_FORNT_IMG
+                    val savePinPath = baseSavePath + PAN_CARD_FORNT_IMG
                     loadImage(
                         fragment,
                         savePinPath,
                         isCanReadCache,
                         viewData.pinCardFrontPhotoPath,
                         panImg,
-                        IDCardCamera.PAN_CARD_FORNT_IMG
+                        PAN_CARD_FORNT_IMG
                     )
                 }
 
@@ -255,7 +252,7 @@ class KycViewModel : BaseViewModel() {
                     val bmp = BitmapFactory.decodeStream(fis)
                     val saveSuccessPath = FileUtil.saveFile(
                         ContextProvider.app,
-                        RuntimeConfig.RELEASE_PHOTO_PATH,
+                        CommonDataModel.RELEASE_PHOTO_PATH,
                         imageName,
                         bmp
                     )
@@ -266,9 +263,7 @@ class KycViewModel : BaseViewModel() {
         }).preload()
     }
 
-    fun commitKycInfo(view: View) {
 
-    }
 
     private var currentWhoOperator: Int = -1
     fun doOperatorAuth(fragment: Fragment, whoOperator: Int) {
@@ -400,7 +395,7 @@ class KycViewModel : BaseViewModel() {
 
                         var saveSuccPath = FileUtil.saveFile(
                             ContextProvider.app,
-                            RuntimeConfig.TEMP_PHOTO_PATH,
+                            CommonDataModel.TEMP_PHOTO_PATH,
                             LIVE_FACE_IMG_NAME,
                             imgByte
                         )
@@ -421,60 +416,70 @@ class KycViewModel : BaseViewModel() {
         }
     }
 
-    fun uploadKycInfo(btn:View,fragment: Fragment, facePhoto: String)  {
-        if (!checkFaceResult) return
-        kycBean.reqCode = mReqCode
-        kycBean.file = File(facePhoto)
-        kycBean.deviceId = DeviceUtil.getDeviceId(fragment.requireContext())
-        val map = ReflectUtils.getFieldValue(kycBean)
-        viewModelScope.launch {
-            val reqResult = reqApi(
-                UserInfoService::class.java, {
-                    val head = SignUtil.getInstance().addCommonParamsAndSign(map)
-                    val params = FileUploadUtil.getRequestMap(map)
-                    checkFaceImg(head, params)
-                }, isCancelDialog = false
-            )
-            val tempFile = File(RuntimeConfig.TEMP_PHOTO_PATH)
-            val exists = tempFile.exists()
-            val b = tempFile.listFiles() != null
-            val notEmpty = tempFile.listFiles()?.isNotEmpty()?:false
-            if (exists && b && notEmpty) {
-                val savePhotoJob = viewModelScope.async(Dispatchers.IO) {
-                    println("--->KYC提交完毕后，处理图片复制工作--->")
-                    if (!isOnlyScanFaceFlag) {
-                        FileUtil.deleteDir(File(RELEASE_PHOTO_PATH_APP))//清除掉release目录中的缓存图片文件
+    fun uploadKycInfo(btn:View,fragment: Fragment)  {
+        if (!checkFaceResult){
+            ToastUtils.showShort(R.string.kyc_face_scan_failure)
+            return
+        }
+
+        kotlin.runCatching {
+            FirseBaseEventUtils.trackEvent(StatEventTypeName.KYC_INFO_COMMIT)
+            kycBean.reqCode = mReqCode
+            kycBean.file = File(viewData.faceRecPhotoPath.get()?:"")
+            kycBean.deviceId = DeviceUtil.getDeviceId(fragment.requireContext())
+            val map = ReflectUtils.getFieldValue(kycBean)
+            viewModelScope.launch {
+                val reqResult = reqApi(
+                    UserInfoService::class.java, {
+                        val head = SignUtil.getInstance().addCommonParamsAndSign(map)
+                        val params = FileUploadUtil.getRequestMap(map)
+                        checkFaceImg(head, params)
+                    }, isCancelDialog = false
+                )
+                val tempFile = File(CommonDataModel.TEMP_PHOTO_PATH)
+                val exists = tempFile.exists()
+                val b = tempFile.listFiles() != null
+                val notEmpty = tempFile.listFiles()?.isNotEmpty() ?: false
+                if (exists && b && notEmpty) {
+                    val savePhotoJob = viewModelScope.async(Dispatchers.IO) {
+                        println("--->KYC提交完毕后，处理图片复制工作--->")
+                        if (!isOnlyScanFaceFlag) {
+                            FileUtil.deleteDir(File(RELEASE_PHOTO_PATH_APP))//清除掉release目录中的缓存图片文件
+                        }
+                        FileUtil.copyDir(
+                            CommonDataModel.TEMP_PHOTO_PATH,
+                            CommonDataModel.RELEASE_PHOTO_PATH
+                        )//src,dest 复制临时照片到缓存目录
+                        FileUtil.deleteDir(File(CommonDataModel.TEMP_PHOTO_PATH))//清除掉用户的临时照片
                     }
-                    FileUtil.copyDir(RuntimeConfig.TEMP_PHOTO_PATH, RuntimeConfig.RELEASE_PHOTO_PATH)//src,dest 复制临时照片到缓存目录
-                    FileUtil.deleteDir(File(RuntimeConfig.TEMP_PHOTO_PATH))//清除掉用户的临时照片
+                    savePhotoJob.await()
                 }
-                savePhotoJob.await()
+                println("--->KYC提交完毕后，处理图片复制工作，都已完成！--->")
+                //提交完成
+                ToastUtils.showShort(reqResult.msg)
+                back(btn)
             }
-            println("--->KYC提交完毕后，处理图片复制工作，都已完成！--->")
-            //提交完成
-            ToastUtils.showShort(reqResult.msg)
-            back(btn)
         }
     }
 
 
-    inner class ViewOpt {
-        fun commitFrontImage(fragment: Fragment): Unit {
+    inner class ViewOperator {
+        fun commitFrontImage(fragment: Fragment)  {
             FirseBaseEventUtils.trackEvent(StatEventTypeName.KYC_AADHAAR_FRONT_CLICK)
-            reqOperationPermission(fragment, IDCardCamera.TYPE_IDCARD_FRONT)
+            reqOperationPermission(fragment, TYPE_IDCARD_FRONT)
         }
 
-        fun commitBackImage(view: Fragment): Unit {
+        fun commitBackImage(view: Fragment) {
             FirseBaseEventUtils.trackEvent(StatEventTypeName.KYC_AADHAAR_BACK_CLICK)
             if (!viewData.isExistFrontCard()) {
                 ToastUtils.showShort(R.string.kyc_scan_back_error_tip)
                 return
             }
-            reqOperationPermission(view, IDCardCamera.TYPE_IDCARD_BACK)
+            reqOperationPermission(view, TYPE_IDCARD_BACK)
         }
 
 
-        fun commitPinImage(view: Fragment): Unit {
+        fun commitPinImage(view: Fragment) {
             if (viewData.isShowAAbArea.get() == View.VISIBLE) {
                 if (!viewData.isExistFrontAndBackCard()) {
                     ToastUtils.showShort(R.string.kyc_scan_pan_error_tip)
@@ -485,7 +490,7 @@ class KycViewModel : BaseViewModel() {
             reqOperationPermission(view, IDCardCamera.TYPE_PAN_FRONT)
         }
 
-        fun submitFaceClick(view: Fragment): Unit {
+        fun commitFaceClick(view: Fragment)  {
             if (viewData.isShowAAbArea.get() == View.VISIBLE) {
                 if (!viewData.isExistAdAndPanCard()) {
                     ToastUtils.showShort(R.string.kyc_scan_face_error_tip)

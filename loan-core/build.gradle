@@ -21,6 +21,8 @@ dependencies {
     api project(path: ':lib-idcardcamera')
     api project(path: ':lib-slientLiveness')
     api project(path: ':lib-tool')
+    implementation project(path: ':loan-data')
+
     //api project(path: ':loan-permission')
 
 }

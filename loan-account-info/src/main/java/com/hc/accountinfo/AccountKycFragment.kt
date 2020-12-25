@@ -37,6 +37,7 @@ class AccountKycFragment : BaseFragment<FragmnetKycInfoBinding>(R.layout.fragmne
             disableChildViewClickEvent(mFragmentBinding.rootView)
             vm?.showKycInfo(this@AccountKycFragment,false)
         }
+        mFragmentBinding.fm = this@AccountKycFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

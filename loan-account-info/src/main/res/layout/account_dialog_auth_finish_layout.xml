@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="262dp"
+            android:layout_height="338dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="92dp"
+            android:background="@drawable/acocunt_info_in_profile_result_tip"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="167dp"
+                android:gravity="center"
+                android:text="@string/loan_info_profile_credit_finish_tip"
+                android:textColor="#666"
+                android:textSize="15sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="27dp"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/loan_cancel"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/loan_info_in_corner_17_stroke_accent_bg"
+                    android:gravity="center"
+                    android:text="@string/loan_cancel_dialog_cancel"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/loan_now"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/loan_info_in_corner_17_accent_bg"
+                    android:gravity="center"
+                    android:text="@string/loan_info_profile_loan_now"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -22,10 +22,9 @@ object LoanBase {
     private const val TAG = "LoanBase"
     var context: Context? = null
     private var isMainProcessInitialized = false
-    private var isAnalyzeProcessInitialized = false
 
     fun initVideoChat(context: Context) {
-        if (!isMainProcessInitialized and !isAnalyzeProcessInitialized) {
+        if (!isMainProcessInitialized ) {
             initVideoChatAllConfiguration(context)
         }
     }
@@ -45,7 +44,7 @@ object LoanBase {
         isMainProcessInitialized = true
         val app = context.applicationContext as Application
         ContextProvider.init(app)
-        CommonDataModel.initData()
+        CommonDataModel.initData(context)
         initHttpParam()
         initProvider()
         AppsFlyerUtils.initAppsFlyerSDK(app)
@@ -55,7 +54,9 @@ object LoanBase {
     private fun initProvider() {
         LoginProvider.instance = object :LoginProvider{
             override fun saveUserInfo(user: TokenData) {
-                CommonDataModel.saveUserInfo(user)
+                context?.let{
+                    CommonDataModel.saveUserInfo(it,user)
+                }
             }
         }
         CommonProvider.instance = object :CommonProvider{

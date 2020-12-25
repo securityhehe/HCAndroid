@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
+    <color name="loan_info_color_2ee100">#2EE100</color>
+    <color name="loan_info_color_666666">#666666</color>
+    <color name="loan_info_color_f46524">#F46524</color>
+    <color name="loan_info_color_d800c8">#D800C8</color>
 </resources>

@@ -20,6 +20,7 @@ class AccountAuthCenterFragment : BaseFragment<FragmentAccountProfileBinding>(R.
         mFragmentBinding.apply {
             vm = mAuthCenterVM
             vm?.initBaseInfoViewModel(this@AccountAuthCenterFragment)
+            vm?.reqCertifyState(accountAuthContainer, isShowDialog = false, isShowTip = true)
         }
     }
 

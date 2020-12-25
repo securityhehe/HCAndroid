@@ -1,11 +1,10 @@
 package com.hc.data.common
 
-import android.os.Environment
+import android.content.Context
 import com.google.gson.Gson
+import com.hc.data.CACHE_USER_INFO_KEY
+import com.hc.data.StringUtil
 import com.hc.data.utils.mmkv
-import com.hc.uicomponent.config.CACHE_USER_INFO_KEY
-import frame.utils.StringUtil
-import java.io.File
 
 object CommonDataModel {
     var mLoggedIn: Boolean = false
@@ -19,20 +18,20 @@ object CommonDataModel {
     var RUNTIME_USER_SUPPLEMENT_INFO_STATE: Boolean = false
     var RUNTIME_USER_BANK_INFO_STATE: Boolean = false
 
-    fun initData() {
+    fun initData(app:Context) {
         //路径初始化。
-        initUserInfo()
+        initUserInfo(app)
     }
 
-    fun saveUserInfo(user: TokenData) {
+    fun saveUserInfo(app: Context, user: TokenData) {
         cacheUserInfo(user)
 
-        mmkv().encode(CACHE_USER_INFO_KEY, Gson().toJson(user))
+        mmkv(app).encode(CACHE_USER_INFO_KEY, Gson().toJson(user))
     }
 
     //获取用户信息
-    private fun initUserInfo() {
-        var userStr = mmkv().decodeString(CACHE_USER_INFO_KEY, "")
+    private fun initUserInfo(app: Context) {
+        var userStr = mmkv(app).decodeString(CACHE_USER_INFO_KEY, "")
         if (!StringUtil.isBank(userStr)) {
             val user = Gson().fromJson<TokenData>(userStr, TokenData::class.java)
             cacheUserInfo(user)
@@ -48,10 +47,10 @@ object CommonDataModel {
     }
 
     //清除用户信息
-    fun clearUser() {
+    fun clearUser(app: Context) {
         mTokenData = null
         mLoggedIn = false
-        mmkv().remove(CACHE_USER_INFO_KEY)
+        mmkv(app).remove(CACHE_USER_INFO_KEY)
     }
 
     //检查是否登录

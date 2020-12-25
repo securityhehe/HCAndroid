@@ -1,6 +1,7 @@
 package com.hc.main.constants
 
 import android.text.TextUtils
+import com.hc.data.common.CommonDataModel
 import com.hc.uicomponent.config.*
 import com.hc.uicomponent.provider.ContextProvider
 import com.tools.network.callback.IHttpParamProvider
@@ -20,7 +21,7 @@ class HttpParamProvider : IHttpParamProvider {
         map[USER_AGENT] = "Android"
         map[USER_LANG] = "en"
 
-        val token: String = RuntimeConfig.USER_TOKEN
+        val token: String =  CommonDataModel.mTokenData?.token?:""
         if (!TextUtils.isEmpty(token)) {
             map[TOKEN] = token
         }
@@ -32,11 +33,11 @@ class HttpParamProvider : IHttpParamProvider {
     }
 
     override fun getToken(): String {
-        return RuntimeConfig.USER_TOKEN
+        return  CommonDataModel.mTokenData?.token?:""
     }
 
     override fun getUserId(): String {
-        return RuntimeConfig.USER_ID
+        return CommonDataModel.mTokenData?.userId?:"0"
     }
 
     override fun getUserIdKey(): String {

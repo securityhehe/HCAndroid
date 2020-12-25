@@ -1,5 +1,7 @@
 package com.hc.data.user
 
+import com.hc.data.MenuData
+
 
 class UserInfoRange {
     var salaryRange: List<UserType>? = null
@@ -15,12 +17,12 @@ class UserInfoRange {
     var levelOfPosition: List<UserType>? = null
     var address: List<UserType>? = null
     var netBank: List<UserType>? = null
-    var operType:List<UserType>? = null //mobile certify
+    var operType: List<UserType>? = null //mobile certify
     var razorNetBank: List<UserType>? = null  // razorpay netbank
-    var otherRelatives:List<UserType>? = null // 补充信息其他人联系方式
+    var otherRelatives: List<UserType>? = null // 补充信息其他人联系方式
 }
 
-data class UserInfo(
+class UserInfo(
     var age: String,
     var backImg: String,
     var blackReason: String,
@@ -81,29 +83,70 @@ data class UserInfoExt(
     var sexStr: String?,
     var updateTime: String?,
     var userId: String?,
-    var anotherPhone:String?,
-    var facebook:String?,
-    var whatsapp:String?,
-    var state:Int?,
-    var stateStr:String?,
-    var city:Int?,
-    var cityStr:String?,
-    var village:String?,
-    var currentAddress:String?,
+    var anotherPhone: String?,
+    var facebook: String?,
+    var whatsapp: String?,
+    var state: Int?,
+    var stateStr: String?,
+    var city: Int?,
+    var cityStr: String?,
+    var village: String?,
+    var currentAddress: String?,
 
-    var emailCheck:Int = 0,
+    var emailCheck: Int = 0,
     var userWorkInfoModel: UserWorkInfo?
 )
 
+class UserInfoSub {
+    var firstNamePan: String? = null
+    var middleNamePan: String? = null
+    var lastNamePan: String? = null
+    var sex: Int? = null
+    var language: Int? = null
+    var education: Int? = null
+    var marryState: Int? = null
+    var purpose: Int? = null
+
+    var facebook: String? = null
+    var whatsapp: String? = null
+    var anotherPhone: String? = null
+
+    var info: String? = null
+
+    var callRecords: String? = null
+
+    var registerCoordinate: String? = null
+
+    var companyName: String? = null
+    var companyEmail: String? = null
+
+    //    var education: Int? = null
+    var companyTel: String? = null
+    var workingSince: String? = null
+    var occupation: Int? = null
+    var salaryRange: Int? = null
+    var officePinCode: String? = null
+    var officeAdress: String? = null
+    var emailCode: String? = null
+
+    var userId: String? = null
+    var companyIndustry: Int? = null
+    var staffSize: Int? = null
+    var jobNature: Int? = null
+    var levelOfPosition: Int? = null
+
+}
+
 data class UserWorkInfo(
-    var emailCheck:Int = 0,
+    var emailCheck: Int = 0,
     var userWorkInfo: UserWorkInfo?
 )
 
-class UserWorkInfoAll{
+class UserWorkInfoAll {
     var companyEmail: String? = null
     var companyName: String? = null
     var createTime: String? = null
+
     //var education: Int
     var companyTel: String? = null
     var educationStr: String? = null
@@ -115,8 +158,8 @@ class UserWorkInfoAll{
     var updateTime: String? = null
     var userId: String? = null
     var workingSince: String? = null
-    var companyIndustry:Int? = null
-    var companyIndustryStr:String? = null
+    var companyIndustry: Int? = null
+    var companyIndustryStr: String? = null
     var staffSize: Int? = null
     var staffSizeStr: String? = null
     var jobNature: Int? = null
@@ -128,11 +171,11 @@ class UserWorkInfoAll{
 data class UserAuthRes(var userCredit: Double, var userState: Int)
 
 data class UserType(
-    var jobs: List<UserType>?=null,
+    var jobs: List<UserType>? = null,
     var state: String,
     var info: String,
-    var citys: List<UserType>? =null,
+    var citys: List<UserType>? = null,
     //netbanking part
-    var code :String = "",
-    var name :String = ""
-)
+    var code: String = "",
+    var name: String = ""
+):MenuData(info,0,false)

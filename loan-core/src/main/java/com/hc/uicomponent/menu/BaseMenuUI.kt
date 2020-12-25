@@ -1,32 +1,21 @@
 package com.hc.uicomponent.menu
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.hc.uicomponent.GridItemDecoration
+import com.hc.data.MenuData
 import com.hc.uicomponent.R
 import com.hc.uicomponent.databinding.MenuItemBinding
 import com.hc.uicomponent.databinding.MenuLayoutBinding
 import frame.utils.StringUtil
-import kotlinx.android.synthetic.main.menu_item.view.*
-import kotlinx.android.synthetic.main.menu_layout.view.*
 
 class BaseMenuUI : LinearLayout {
-
-
     var mBindLayout: MenuLayoutBinding? = null
 
     constructor(context: Context) : this(context, null)
@@ -42,14 +31,14 @@ class BaseMenuUI : LinearLayout {
     init {
         mBindLayout = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.menu_layout, this, true)
         mBindLayout?.apply {
-            adapter = MenuContentAdapter()
+            adapter = MenuContentAdapter(menuContentRv)
         }
     }
 
-    fun statData(
+    fun  statData(
         menuTitle: String?,
         menuData: ObservableArrayList<MenuData>,
-        callback: ((MenuData) -> Unit)
+        callback: ((RecyclerView,MenuData) -> Unit)
     ) {
 
         mBindLayout?.apply {
@@ -70,7 +59,7 @@ class BaseMenuUI : LinearLayout {
 
 }
 
-class MenuContentAdapter(var menuContent: ObservableArrayList<MenuData> = ObservableArrayList(), var callback: ((MenuData) -> Unit)?= null) :
+class MenuContentAdapter(var recyclerView: RecyclerView,var menuContent: ObservableArrayList<MenuData> = ObservableArrayList(), var callback: ((RecyclerView,MenuData) -> Unit)?= null) :
     RecyclerView.Adapter<MenuItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuItemHolder {
         val menuItem: MenuItemBinding = DataBindingUtil.inflate(
@@ -90,10 +79,11 @@ class MenuContentAdapter(var menuContent: ObservableArrayList<MenuData> = Observ
     override fun onBindViewHolder(holder: MenuItemHolder, position: Int) {
         holder.menuItem.data = menuContent[position]
         holder.menuItem.btn.setOnClickListener{
-            callback?.invoke(menuContent[position] )
+            callback?.invoke(recyclerView,menuContent[position])
         }
     }
 }
+
 
 class MenuItemHolder(var menuItem: MenuItemBinding) : RecyclerView.ViewHolder(menuItem.root)
 

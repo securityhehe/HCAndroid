@@ -4,8 +4,15 @@
 
     <data>
         <variable
+            name="lanFragment"
+            type="androidx.fragment.app.Fragment" />
+        <variable
+            name="menuVM"
+            type="com.hc.uicomponent.menu.BaseMenuViewModel" />
+        <variable
             name="vm"
-            type="com.hc.accountinfo.vm.BankInfoViewModel" />
+            type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,7 +35,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="11dp"
             android:gravity="center"
-            android:text="All information submitted cannot  modified!"
+            android:text="@string/loan_info_hint_tips"
             android:textColor="#ffff0000"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -48,49 +55,125 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/account_input_name_item" />
+                <include
+                    app:idIndex="@{0}"
+                    app:vm="@{vm}"
+                    app:title="@{@string/loan_info_first_name}"
+                    layout="@layout/account_input_name_item" />
 
-                <include layout="@layout/account_input_middle_item" />
+                <include
+                    app:idIndex="@{1}"
+                    app:vm="@{vm}"
+                    app:title="@{@string/loan_info_medium_name}"
+                    layout="@layout/account_input_middle_item" />
 
-                <include layout="@layout/account_input_name_item" />
+                <include
+                    app:idIndex="@{2}"
+                    app:vm="@{vm}"
+                    title="@{@string/loan_info_last_name}"
+                    layout="@layout/account_input_name_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    app:loanFunId="@{0}"
+                    app:loanFragment="@{lanFragment}"
+                    app:loanVm="@{vm}"
+                    app:loanBaseMenuMv="@{menuVM}"
+                    app:value="@{vm.MViewData.genderText}"
+                    title="@{@string/loan_info_gender}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    app:loanFunId="@{1}"
+                    app:loanFragment="@{lanFragment}"
+                    app:loanVm="@{vm}"
+                    app:loanBaseMenuMv="@{menuVM}"
+                    app:value="@{vm.MViewData.genderText}"
+                    title="@{@string/loan_info_language}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    loanFunId="@{2}"
+                    loanFragment="@{lanFragment}"
+                    loanVm="@{vm}"
+                    loanBaseMenuMv="@{menuVM}"
+                    value="@{vm.MViewData.genderText}"
+                    title="@{@string/loan_info_edu_qua}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    loanFunId="@{3}"
+                    loanFragment="@{lanFragment}"
+                    loanVm="@{vm}"
+                    loanBaseMenuMv="@{menuVM}"
+                    value="@{vm.MViewData.genderText}"
+                    title="@{@string/loan_info_marital_status}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    loanFunId="@{4}"
+                    loanFragment="@{lanFragment}"
+                    loanVm="@{vm}"
+                    loanBaseMenuMv="@{menuVM}"
+                    value="@{vm.MViewData.genderText}"
+                    title="@{@string/loan_info_purpose}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_phone_num" />
+                <include
+                    app:idIndex="@{3}"
+                    app:vm="@{vm}"
+                    title="@{@string/loan_info_another_number}"
+                    layout="@layout/account_input_phone_num" />
 
-                <include layout="@layout/account_input_middle_item" />
+                <include
+                    app:idIndex="@{4}"
+                    app:vm="@{vm}"
+                    title="@{@string/loan_info_facebook_account}"
+                    layout="@layout/account_input_middle_item" />
 
-                <include layout="@layout/account_input_middle_item" />
+                <include
+                    app:idIndex="@{5}"
+                    app:vm="@{vm}"
+                    title="@{@string/loan_info_whats_app}"
+                    layout="@layout/account_input_middle_item" />
 
-                <include layout="@layout/account_input_middle_item" />
+                <include
+                    layout="@layout/account_input_employment_item"/>
 
-                <include layout="@layout/account_input_name_item" />
+                <include
+                    title="@{@string/loan_info_company_full_name}"
+                    layout="@layout/account_input_name_item" />
 
-                <include layout="@layout/account_input_email" />
+                <include
+                    title="@{@string/loan_info_work_email}"
+                    layout="@layout/account_input_email" />
 
-                <include layout="@layout/account_input_name_item" />
+                <include
+                    title="@{@string/loan_info_company_tel}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_company_industry}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_job_nature}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_staff_size}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_level_of_position}"
+                    layout="@layout/account_input_select_item" />
 
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_level_work_since}"
+                    layout="@layout/account_input_name_item" />
 
-                <include layout="@layout/account_input_name_item" />
-
-                <include layout="@layout/account_input_select_item" />
+                <include
+                    title="@{@string/loan_info_level_salary_range}"
+                    layout="@layout/account_input_select_item" />
 
                 <Button
                     style="@style/ButtonLoginYellowText"

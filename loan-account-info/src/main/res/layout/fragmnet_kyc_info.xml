@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.KycViewModel" />
@@ -43,12 +45,13 @@
             android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
             app:defaultImage="@{@drawable/account_kyc_front}"
             app:errorImage="@{@drawable/account_kyc_front}"
+            android:onClick="@{()->vm.viewOperator.commitFrontImage(fm)}"
             app:layout_constraintEnd_toStartOf="@id/card_bank"
             app:layout_constraintStart_toEndOf="@id/card_desc"
             app:layout_constraintTop_toTopOf="@id/card_desc"
             app:sizeImgHeight="@{67}"
             app:sizeImgWidth="@{111}"
-            app:src="@{vm.viewData.faceRecPhotoPath}"
+            app:src="@{vm.viewData.aadCardFrontPhotoPath}"
             tools:src="@drawable/account_kyc_front" />
 
         <TextView
@@ -69,16 +72,16 @@
             android:layout_width="111dp"
             android:layout_height="67dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/account_kyc_back"
             android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
             android:visibility="visible"
             app:defaultImage="@{@drawable/account_kyc_back}"
             app:errorImage="@{@drawable/account_kyc_back}"
+            android:onClick="@{()->vm.viewOperator.commitBackImage(fm)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/card_front"
             app:sizeImgHeight="@{67}"
             app:sizeImgWidth="@{111}"
-            app:src="@{vm.viewData.faceRecPhotoPath}"
+            app:src="@{vm.viewData.aadCardBackPhotoPath}"
             tools:src="@drawable/account_kyc_back" />
 
         <TextView
@@ -132,8 +135,9 @@
             app:layout_constraintTop_toTopOf="@id/pan_card_title"
             app:sizeImgHeight="@{76}"
             app:sizeImgWidth="@{120}"
+            android:onClick="@{()->vm.viewOperator.commitPinImage(fm)}"
             android:contextClickable="@{vm.viewData.isClickableScanFace}"
-            app:src="@{vm.viewData.faceRecPhotoPath}"
+            app:src="@{vm.viewData.pinCardFrontPhotoPath}"
             tools:src="@drawable/account_kyc_photo"
             />
 
@@ -175,6 +179,7 @@
             android:layout_width="120dp"
             android:layout_height="76dp"
             android:layout_marginEnd="15dp"
+            android:onClick="@{()->vm.viewOperator.commitFaceClick(fm)}"
             android:clickable="@{!vm.viewData.isOnlyEnableScanFace}"
             app:defaultImage="@{@drawable/account_kyc_card_front}"
             app:errorImage="@{@drawable/account_kyc_card_front}"
@@ -208,7 +213,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pan_face_photo_text" />
         <Button
-            android:onClick="@{vm::commitKycInfo}"
+            android:id="@+id/btn"
+            android:onClick="@{()->vm.uploadKycInfo(btn,fm)}"
             android:enabled="@{vm.viewData.isEnable}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

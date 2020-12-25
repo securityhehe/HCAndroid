@@ -41,11 +41,7 @@ object AndroidPermissions {
         }
         context?.let {
             for (perm in perms) {
-                if (ContextCompat.checkSelfPermission(
-                        it,
-                        perm
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
+                if (ContextCompat.checkSelfPermission(it, perm) != PackageManager.PERMISSION_GRANTED) {
                     return false
                 }
             }

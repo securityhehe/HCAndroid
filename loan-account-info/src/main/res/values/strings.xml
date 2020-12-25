@@ -20,6 +20,7 @@
     <string name="account_kyc_card">Aadhaar Card</string>
     <string name="account_kyc_pan_card">PAN Card</string>
     <string name="account_kyc_face_recognition">Face Recognition</string>
+    <string name="kyc_front">Front</string>
     <string name="kyc_your_photo">Your Photo</string>
     <string name="kyc_submit_and_continue">Submit And Continue</string>
     <string name="kyc_scan_face_error_tip">Please complete Aadhaar card and PAN card authentication first!</string>
@@ -28,7 +29,62 @@
     <string name="kyc_scan_pan_error_tip">Please complete Aadhaar card authentication first!</string>
     <string name="kyc_face_scan_failure">live face scan failed, please try again!</string>
     <string name="kyc_scan_face_error_tip_no_aadhaar">Please complete PAN card authentication first!</string>
-    <string name="kyc_string_liveness_has_face_and_holdstill_hint">Please hold still</string>  //
-    <string name="kyc_string_liveness_no_face_hint">Please place your face inside the circle</string>//
-    <string name="kyc_liveness_face_not_valid_hint">Please move away from the screen</string>//
+    <string name="kyc_string_liveness_has_face_and_holdstill_hint">Please hold still</string>
+    <string name="kyc_string_liveness_no_face_hint">Please place your face inside the circle</string>
+    <string name="kyc_liveness_face_not_valid_hint">Please move away from the screen</string>
+
+    <string name="loan_info_select_gender_title">Gender</string>
+    <string name="loan_info_select_language_title">Language</string>
+    <string name="loan_info_select_purpose_title">Purpose</string>
+    <string name="loan_info_select_education_title">Education Qualification</string>
+    <string name="loan_info_select_occupation_title">Occupation</string>
+    <string name="loan_info_select_salary_range_title">Salary Range</string>
+    <string name="loan_info_select_bank_name_title">Name of the Bank</string>
+    <string name="loan_info_select_marital_status_title">Marital Status</string>
+
+    <string name="loan_info_select_company_industry_title">Company Industry</string>
+    <string name="loan_info_select_staff_size_title">Staff Size</string>
+    <string name="loan_info_select_job_nature_title">Job Nature</string>
+    <string name="loan_info_select_level_of_position_title">Level Of Position</string>
+    <string name="loan_info_hint_industry_toast">Please select the Company Industry first!</string>
+
+
+    <string name="loan_info_first_name">First Name As PAN：</string>
+    <string name="loan_info_medium_name">Middle Name As PAN(optional)：</string>
+    <string name="loan_info_last_name">Last Name As PAN：</string>
+    <string name="loan_info_gender">Gender：</string>
+    <string name="loan_info_language">Language：</string>
+    <string name="loan_info_edu_qua">Education Qualification：</string>
+    <string name="loan_info_marital_status">Marital Status：</string>
+    <string name="loan_info_purpose">Purpose：</string>
+    <string name="loan_info_another_number">Another phone number(optional):</string>
+    <string name="loan_info_facebook_account">Facebook account(optional):</string>
+    <string name="loan_info_whats_app">Whatsapp account(optional):</string>
+    <string name="loan_info_occupation">Occupation：</string>
+
+    <string name="loan_info_company_info">Employment Info</string>
+    <string name="loan_info_company_full_name">Company Full Name：</string>
+    <string name="loan_info_work_email">Work Email：</string>
+    <string name="loan_info_company_tel">Company Tel: </string>
+    <string name="loan_info_company_industry">Company Industry: </string>
+    <string name="loan_info_job_nature">Job Nature:</string>
+    <string name="loan_info_staff_size">Staff Size:</string>
+    <string name="loan_info_level_of_position">Level Of Position:</string>
+    <string name="loan_info_level_work_since">Working Since: </string>
+    <string name="loan_info_level_salary_range">Salary Range：</string>
+
+    <string name="loan_info_phone_hint"> True information is helpful to increase the loan amount.</string>
+    <string name="loan_info_employ_name">Salaried-Full Time/Salaried-Part Time</string>
+    <string name="loan_info_select">select</string>
+    <string name="loan_info_hint_tips">All information submitted cannot modified!</string>
+
+
+    <string name="loan_info_profile_credit_status_done">[Done]</string>
+    <string name="loan_info_profile_credit_status_unverify">[unverified]</string>
+    <string name="loan_info_profile_credit_status_loading">[Ongoing]</string>
+    <string name="loan_info_profile_credit_status_failure">[Reupload]</string>
+    <string name="loan_info_profile_credit_finish_tip">You have completed all the certification programs. Click "Loan Now" to apply for a loan quickly.</string>
+    <string name="loan_info_profile_loan_now">Loan Now</string>
+    <string name="loan_cancel_dialog_cancel">Cancel</string>
+
 </resources>

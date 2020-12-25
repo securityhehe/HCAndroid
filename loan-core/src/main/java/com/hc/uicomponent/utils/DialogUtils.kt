@@ -5,10 +5,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.view.Gravity
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.ToastUtils
 import com.hc.uicomponent.R
 import com.hc.uicomponent.provider.ContextProvider
+import com.tools.network.callback.AppResultCode
 
 object DialogUtils {
 
@@ -84,6 +89,9 @@ object DialogUtils {
         alertDialog.show()
         return alertDialog
     }
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.hc.data.MenuData
 import com.hc.uicomponent.GridItemDecoration
 import com.hc.uicomponent.R
 
@@ -59,7 +60,7 @@ object BindMenuAdapter {
 
     @BindingAdapter(value = ["menuData", "menuTitle", "callback"], requireAll = false)
     @JvmStatic
-    fun bindMenuData(view: BaseMenuUI, menuData: ObservableArrayList<MenuData>, menuTitle:String?="",callback:((MenuData)->Unit) ) {
+    fun bindMenuData(view: BaseMenuUI, menuData: ObservableArrayList<MenuData>, menuTitle:String?="",callback:((RecyclerView,MenuData)->Unit) ) {
         view.statData(menuTitle,menuData,callback)
     }
 

@@ -23,7 +23,6 @@ open class BaseViewModel : ViewModel(), ITaskJob, Observable{
     //缓存请求时发起的job，用于后续中途终止任务时使用！
     lateinit var taskJob :Job
 
-
     //用于控制主界面占位图显示的标记值
     open var statusPlaceFlag = ObservableInt(4)
 

@@ -1,0 +1,14 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="LoanDataAlphaOutInAnimFormLeftTop" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/loan_data_scale_from_left_top_anim</item>
+        <item name="android:windowExitAnimation">@anim/loan_data_scale_to_left_top_anim</item>
+    </style>
+
+    <style name="AlphaOutInAnimFromRightTop" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/loan_data_scale_from_anim</item>
+        <item name="android:windowExitAnimation">@anim/loan_data_scale_to_anim</item>
+    </style>
+
+
+</resources>

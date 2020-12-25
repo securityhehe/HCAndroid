@@ -13,13 +13,13 @@ interface UserInfoService {
      * 查询用户基本信息
      */
     @POST("act/mine/userInfo/getUserInfo.htm")
-    fun queryUserBasicInfo(): retrofit2.Call<HttpResult<UserInfo>>
+    fun queryUserBasicInfo(): Call<HttpResult<UserInfo>>
 
     /**
      * 查询用户填写的扩展信息
      */
     @POST("act/mine/userInfo/getUserBasicInfo.htm")
-    fun queryUserExtraInfo(): retrofit2.Call<HttpResult<UserInfoExt>>
+    fun queryUserExtraInfo(): Call<HttpResult<UserInfoExt>>
 
     /**
      * 查询用户地址信息
@@ -48,7 +48,10 @@ interface UserInfoService {
      * 查询认证状态
      */
     @POST("act/mine/userAuth/getUserAuth.htm")
-    fun queryCreditState(): retrofit2.Call<HttpResult<AuthInfo?>?>?
+    fun queryCreditState(): Call<HttpResult<AuthInfo>>
+
+    @POST("act/mine/userInfo/ListInfo.htm")
+    fun queryListInfo(): Call<HttpResult<UserInfoRange>>
 
     /**
      * 通话认证状态

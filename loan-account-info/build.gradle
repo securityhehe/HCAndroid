@@ -8,4 +8,5 @@ dependencies {
     implementation AndroidX.constraint_layout
     implementation AppNet.OKHTTP
     implementation AppNet.RETROFIT
+    implementation project(path: ':lib-tdialog')
 }

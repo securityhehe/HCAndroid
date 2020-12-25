@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--* colorPrimary 应用的主要色调，actionBar默认使用该颜色，Toolbar导航栏的底色 -->
+    <color name="colorPrimaryDark">#333333</color>
+    <!--* colorPrimary 应用的主要色调，actionBar默认使用该颜色，Toolbar导航栏的底色 -->
+    <color name="colorPrimary">#FDB900</color>
+    <!---* colorAccent CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色  -->
+    <color name="colorAccent">#F6F6F6</color>
+    <!-- * textColorPrimary 应用的主要文字颜色，actionBar的标题文字默认使用该颜色  -->
+    <color name="textColorPrimary">#333333</color>
+    <!-- * textColor Button，textView的文字颜色 -->
+    <color name="textColor">#333333</color>
+    <!-- * statusBarColor 状态栏颜色，默认使用colorPrimaryDark  -->
+    <color name="statusBarColor">#333333</color>
+    <!-- * windowBackground 窗口背景颜色  -->
+    <color name="windowBackground">#fff</color>
+    <!-- * navigationBarColor 底部栏颜色  -->
+    <color name="navigationBarColor">#fff</color>
+    <!-- * colorForeground 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色  -->
+    <color name="colorForeground">#fff</color>
+    <color name="colorMenuTitle">#FDB900</color>
+    <color name="colorItemSelect">#f333</color>
+    <color name="colorItemUnSelect">#f999</color>
+    <color name="colorBackground">#F5F5F5</color>
+    <color name="colorDiv">#CACACA</color>
+    <color name="colorTabNotSelect">#ff666666</color>
+    <color name="color_link">#FF007335</color>
+</resources>

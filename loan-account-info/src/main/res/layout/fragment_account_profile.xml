@@ -8,6 +8,7 @@
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.AuthCenterViewModel" />
+        <import type="com.hc.accountinfo.convert.Converter"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +58,8 @@
                         style="@style/AccountProfileItemTextStyle"/>
 
                     <TextView
+                        android:textColor="@{Converter.convertColor(vm.creditPersonStatus)"
+                        android:text="@{Converter.convertAuthState(vm.creditPersonStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
                     <View
                         style="@style/AccountProfileLine"
@@ -80,6 +83,8 @@
                         android:drawableStart="@drawable/account_ic_personals_info"/>
 
                     <TextView
+                        android:textColor="@{Converter.convertColor(vm.creditKycStatus)"
+                        android:text="@{Converter.convertAuthState(vm.creditKycStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 
                     <View
@@ -102,6 +107,8 @@
                         android:drawableStart="@drawable/account_ic_supple_info"
                         />
                     <TextView
+                        android:textColor="@{Converter.convertColor(vm.creditEmployStatus)"
+                        android:text="@{Converter.convertAuthState(vm.creditEmployStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 
                     <View
@@ -123,6 +130,8 @@
                         android:drawableStart="@drawable/account_ic_bank"
                         />
                     <TextView
+                        android:textColor="@{Converter.convertColor(vm.creditBankStatus)"
+                        android:text="@{Converter.convertAuthState(vm.creditBankStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
                     <View
                         style="@style/AccountProfileLine"
@@ -137,6 +146,7 @@
         <androidx.cardview.widget.CardView
             style="@style/AccountProfileItemCardViewStyle"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{vm.visibleModelOpt}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/account_auth_container">
 
@@ -186,6 +196,8 @@
 
                     <TextView
                         android:paddingBottom="0dp"
+                        android:textColor="@{Converter.convertColor(vm.creditMobileStatus)"
+                        android:text="@{Converter.convertAuthState(vm.creditMobileStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 
                 </FrameLayout>

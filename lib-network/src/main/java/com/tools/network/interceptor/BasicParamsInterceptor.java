@@ -25,6 +25,7 @@ import okio.Buffer;
  * Description: 公共参数拦截器
  */
 public class BasicParamsInterceptor implements Interceptor {
+
     /** header 参数Map */
     private Map<String, String> headerParamsMap = new HashMap<>();
     /** query 参数Map */
@@ -39,7 +40,7 @@ public class BasicParamsInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request        = chain.request();
+        Request request = chain.request();
         Request.Builder requestBuilder = request.newBuilder();
 
         // inject query params into url whatever it's GET or POST Request

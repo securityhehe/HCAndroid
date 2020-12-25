@@ -17,9 +17,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import com.appsflyer.AppsFlyerLib
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.hc.data.MenuData
 import com.hc.data.formKey
 import com.hc.data.formPermissionPage
 import com.hc.login.BuildConfig
@@ -33,7 +35,6 @@ import com.hc.uicomponent.call.reqApi
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.config.STATE_OPEN_CHANNEL
 import com.hc.uicomponent.config.isPrivatePackage
-import com.hc.uicomponent.menu.MenuData
 import com.hc.uicomponent.provider.isTEST
 import com.hc.uicomponent.provider.navigationStackPrintln
 import com.hc.uicomponent.stack.ActivityStack
@@ -63,7 +64,6 @@ class LoginVM : BaseViewModel() {
 
     val test = false
     val timeTask: Timer = DefaultTimer
-    var language = ObservableField<MenuData>()
     val isEnableLoginLoan = ObservableBoolean(true)
     val isLanguageMenuShowHide = ObservableInt(View.GONE)
     val enablePhoneLongNextBtn = ObservableBoolean(false)
@@ -84,34 +84,35 @@ class LoginVM : BaseViewModel() {
         return false
     }
 
+    var language = ObservableField<MenuData>()
     var isUpdateLanguageUI = MutableLiveData<Unit>()
     var listData = ObservableArrayList<MenuData>()
     var title: String? = ""
-
     init {
         listData.add(
             MenuData(
                 ContextProvider.app.getString(R.string.lan_login_language_en),
-                1,
+                0,
                 true
             )
         )
         listData.add(
             MenuData(
                 ContextProvider.app.getString(R.string.loan_login_language_hindi),
-                2,
+                1,
                 false
             )
         )
     }
 
-    val callbackSelectLanguageData: (MenuData) -> Unit = { it ->
+    val callbackSelectLanguageData: (RecyclerView, MenuData) -> Unit = { rv, it ->
         listData?.forEach {
             it.isSelect = false
         }
-        listData[(it.id - 1)].isSelect = true
+        listData[(it.index)].isSelect = true
         isUpdateLanguageUI.value = null
         language.set(it)
+        rv.adapter?.notifyDataSetChanged()
     }
 
     var phoneCode: String = "+91"
@@ -261,7 +262,7 @@ class LoginVM : BaseViewModel() {
             "",
             Locale.getDefault().language,
             "android",
-            DeviceUtil.getDeviceId(ContextProvider.app),
+            DeviceUtil.getDeviceId(ContextProvider.app)?:"",
             AppsFlyerLib.getInstance().getAppsFlyerUID(ActivityStack.currentActivity())
         )
 

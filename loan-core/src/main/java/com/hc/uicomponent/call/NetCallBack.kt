@@ -15,9 +15,8 @@ import retrofit2.Response
 import java.io.IOException
 import kotlin.coroutines.resume
 
-open class NetCallBack<T> : Callback<T> {
+open class NetCallBack<T>(var isLoadingVisible: Boolean = false) : Callback<T> {
 
-    private var isLoadingVisible: Boolean = false
 
     override fun onFailure(call: Call<T>, t: Throwable) {
         try {
@@ -40,11 +39,7 @@ open class NetCallBack<T> : Callback<T> {
                     }
                     //你的是否消费掉这个异常。
                 } else {
-                    if (IExceptionHandling.instance?.onSystemInterceptOtherError(
-                            call,
-                            t
-                        ) == false
-                    ) {
+                    if (IExceptionHandling.instance?.onSystemInterceptOtherError(call, t) == false) {
                         onUserHandlerOtherError(t)
                     }
                 }
@@ -184,7 +179,7 @@ suspend fun <S, T, R : HttpResult<T>> BaseViewModel.reqApi(
             }
         }
     }
-    val callback = object : NetCallBack<R>() {
+    val callback = object : NetCallBack<R>(isShowLoading) {
         override fun onApiDataNull() {
             apiDataNull?.invoke() ?: super.onApiDataNull()
         }
@@ -244,7 +239,7 @@ fun <S, T, R : HttpResult<T>> reqApi(
             }
         }
     }
-    val callback = object : NetCallBack<R>() {
+    val callback = object : NetCallBack<R>(isShowLoading) {
         override fun onApiDataNull() {
             emptyCallback?.invoke() ?: super.onApiDataNull()
         }

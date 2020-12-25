@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "911369511859",
+    "firebase_url": "https://kushcash-b56f3.firebaseio.com",
+    "project_id": "kushcash-b56f3",
+    "storage_bucket": "kushcash-b56f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911369511859:android:8a906b4cb0f5b866dde1c6",
+        "android_client_info": {
+          "package_name": "in.kushcash.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911369511859-11mk2cqik2edrqjk8anaq717lqiurpdh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoY7sFLk5B3lTAXcxTQ2VEZJMxsA8Kk8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911369511859-11mk2cqik2edrqjk8anaq717lqiurpdh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

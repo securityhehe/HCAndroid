@@ -1,3 +1,4 @@
+include ':lib-tdialog'
 include ':loan-data'
 include ':lib-idcardcamera'
 include ':lib-slientLiveness'

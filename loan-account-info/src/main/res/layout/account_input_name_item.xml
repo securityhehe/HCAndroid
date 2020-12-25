@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:paddingTop="9dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="idIndex"
+            type="java.lang.Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="15dp">
+
         <TextView
+            android:text="@{title}"
             android:id="@+id/account_input_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             style="@style/AccountProfileInputInfoTitle"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            app:layout_constraintTop_toTopOf="@id/account_input_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/account_input_name"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:textColor="#333333"
             android:textSize="16sp"
-            android:layout_height="wrap_content"/>
+            android:text="@={vm.MViewData.dataTextList[idIndex]}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account_input_name"
+            app:layout_constraintTop_toTopOf="@id/account_input_name" />
 
         <View
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/account_input_name"
-            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/AccountProfileLine"
             android:layout_marginStart="0dp"
-            style="@style/AccountProfileLine"/>
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_input_name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
