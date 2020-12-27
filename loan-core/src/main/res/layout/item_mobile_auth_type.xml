@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.hc.data.user.UserType" />
+
+        <variable
+            name="index"
+            type="Integer" />
+
+        <variable
+            name="maxIndex"
+            type="Integer" />
+
+    </data>
+
+
+    <com.hc.uicomponent.weight.NoDoubleClickLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:tag="@{item.state}">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:minWidth="85dp"
+                android:text="@{item.info}"
+                android:gravity="center"
+                android:layout_toStartOf="@id/in_mobile_checkbox"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                tools:text="vodafone" />
+
+            <CheckBox
+                android:id="@+id/in_mobile_checkbox"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:background="@drawable/in_radio_black_selector"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false"
+                android:layout_marginEnd="129dp"
+                android:layout_alignParentEnd="true"
+                android:enabled="false" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="#CACACA"
+            android:visibility="@{ index == maxIndex ? View.GONE:View.VISIBLE}" />
+    </com.hc.uicomponent.weight.NoDoubleClickLayout>
+</layout>

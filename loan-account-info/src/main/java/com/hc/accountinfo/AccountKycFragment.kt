@@ -13,6 +13,7 @@ import com.hc.data.formKey
 import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.annotation.BindViewModel
 import com.hc.uicomponent.base.BaseFragment
+import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.utils.DialogUtils
 import com.hc.uicomponent.utils.disableChildViewClickEvent
@@ -35,7 +36,8 @@ class AccountKycFragment : BaseFragment<FragmnetKycInfoBinding>(R.layout.fragmne
                 }
             }
             disableChildViewClickEvent(mFragmentBinding.rootView)
-            vm?.showKycInfo(this@AccountKycFragment,false)
+           val authState  =  arguments?.getBoolean(Constants.STATE)?:false
+            vm?.showKycInfo(this@AccountKycFragment,authState)
         }
         mFragmentBinding.fm = this@AccountKycFragment
     }

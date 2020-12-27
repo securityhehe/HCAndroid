@@ -13,15 +13,20 @@ import android.os.Message
 import android.provider.ContactsContract
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.hc.uicomponent.provider.ContextProvider
 
 /**
  * 字符串中空格去掉
@@ -263,5 +268,23 @@ fun arouteWithBundleParams(activity:FragmentActivity,intentData:Intent? = null,r
         activity.setResult(resultCode,intentData)
     }
     activity.finish()
+}
+
+fun <T,B: ViewDataBinding> dynamicAddChildView(parentGroup: LinearLayout, @LayoutRes layoutId:Int, datas:List<T>, block:(B, Int, T)->Unit) {
+    parentGroup.removeAllViews()
+    parentGroup.orientation = LinearLayout.VERTICAL
+    if (datas.isNotEmpty()) {
+        for (i in datas.indices) {
+            val binding = DataBindingUtil.inflate<B>(
+                LayoutInflater.from(ContextProvider.app),
+                layoutId,
+                null,//TODO 这个地方不要写 parentGroup ,报错：The specified child already has a parent. You must call removeView() on the child's parent first.
+                false
+            )
+            block(binding,i+1,datas[i])
+            //addView
+            parentGroup.addView(binding.root)
+        }
+    }
 }
 

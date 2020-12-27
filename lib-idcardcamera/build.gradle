@@ -3,6 +3,7 @@ apply from: Module.baseGradle
 dependencies {
     implementation project(path: ':lib-tool')
     implementation Misc.blankj_utilcode
+    implementation project(path: ':loan-data')
 }
 
 

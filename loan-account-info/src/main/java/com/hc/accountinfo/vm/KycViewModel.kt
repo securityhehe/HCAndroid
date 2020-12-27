@@ -21,11 +21,13 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.hc.accountinfo.R
+import com.hc.accountinfo.api.IUserInfoService
 import com.hc.accountinfo.api.UserInfoService
 import com.hc.data.common.CommonDataModel
 import com.hc.data.formPermissionPage
 import com.hc.data.user.KycUserInfo
 import com.hc.permission.AndroidPermissions
+import com.hc.uicomponent.LoanObservableField
 import com.hc.uicomponent.base.BaseViewData
 import com.hc.uicomponent.base.BaseViewModel
 import com.hc.uicomponent.base.PageBase
@@ -56,10 +58,8 @@ class KycViewModel : BaseViewModel() {
     }
 
     init {
-        CommonDataModel.TEMP_PHOTO_PATH =
-            TEMP_PHOTO_PATH_FOR_APP + CommonDataModel.mTokenData + File.separator
-        CommonDataModel.RELEASE_PHOTO_PATH =
-            RELEASE_PHOTO_PATH_APP + CommonDataModel.mTokenData + File.separator
+        CommonDataModel.TEMP_PHOTO_PATH = TEMP_PHOTO_PATH_FOR_APP + CommonDataModel.mTokenData?.userId + File.separator
+        CommonDataModel.RELEASE_PHOTO_PATH = RELEASE_PHOTO_PATH_APP + CommonDataModel.mTokenData?.userId+ File.separator
     }
 
     var baseVm: BaseAuthCenterInfo? = null
@@ -327,7 +327,7 @@ class KycViewModel : BaseViewModel() {
                     val headParams = SignUtil.getInstance().addCommonParamsAndSign(groupReqMap)
                     val reqBodyMap = FileUploadUtil.getRequestMap(groupReqMap)
 
-                    var reqResult = reqApi(UserInfoService::class.java, block = {
+                    var reqResult = reqApi(IUserInfoService::class.java, block = {
                         when (requestCode) {
                             TYPE_IDCARD_BACK -> {// ad back
                                 checkAdBackImg(headParams, reqBodyMap)
@@ -345,7 +345,7 @@ class KycViewModel : BaseViewModel() {
                         when (requestCode) {
                             TYPE_IDCARD_FRONT -> {
                                 data?.run {
-                                    mReqCode = this
+                                    mReqCode = this.toString()
                                     viewData.aadCardFrontPhotoPath.set(photoPath)
                                 }
                             }
@@ -355,7 +355,7 @@ class KycViewModel : BaseViewModel() {
                             TYPE_PAN_FRONT -> { //pan back
                                 if (viewData.isShowAAbArea.get() == View.GONE) {
                                     data?.run {
-                                        mReqCode = this
+                                        mReqCode = this.toString()
                                     }
                                 }
                                 viewData.pinCardFrontPhotoPath.set(photoPath)
@@ -524,7 +524,6 @@ class KycViewModel : BaseViewModel() {
             )
         }
     }
-
     inner class ViewData : BaseViewData() {
 
         //aab -》aab认证区域
@@ -544,29 +543,23 @@ class KycViewModel : BaseViewModel() {
             isShowAuthCommitBtn.set(View.VISIBLE)
         }
 
-        var aadCardFrontPhotoPath: ObservableField<String> = ObservableField("")
-            set(value) {
-                field = value
-                check()
-            }
 
-        var aadCardBackPhotoPath: ObservableField<String> = ObservableField("")
-            set(value) {
-                field = value
-                check()
-            }
+        var aadCardFrontPhotoPath:LoanObservableField<String> = LoanObservableField("").setCallT {
+            check()
+        }
 
-        var pinCardFrontPhotoPath: ObservableField<String> = ObservableField("")
-            set(value) {
-                field = value
-                check()
-            }
+        var aadCardBackPhotoPath: LoanObservableField<String> = LoanObservableField("").setCallT {
+            check()
+        }
 
-        var faceRecPhotoPath: ObservableField<String> = ObservableField("")
-            set(value) {
-                field = value
-                check()
-            }
+
+        var pinCardFrontPhotoPath: LoanObservableField<String> = LoanObservableField("").setCallT {
+            check()
+        }
+
+        var faceRecPhotoPath: LoanObservableField<String> = LoanObservableField("").setCallT {
+            check()
+        }
 
         private fun check() {
             isEnable.set(

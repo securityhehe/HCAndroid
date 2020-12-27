@@ -17,6 +17,9 @@
 package com.hc.accountinfo.convert
 
 import android.content.Context
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.IntegerRes
 import com.hc.accountinfo.R
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.provider.ContextProvider
@@ -66,12 +69,5 @@ fun convertAuthState(state:Int): String {
 /**
  * show credit text color
  */
-fun convertColor(state:Int): Int {
-    return when(state){
-        Constants.NUMBER_10 -> ContextProvider.getColor(R.color.loan_info_color_f46524)
-        Constants.NUMBER_20 -> ContextProvider.getColor(R.color.loan_info_color_2ee100)
-        Constants.NUMBER_30 -> ContextProvider.getColor(R.color.loan_info_color_666666)
-        else -> ContextProvider.getColor(R.color.loan_info_color_d800c8)
-    }
-}
+
 

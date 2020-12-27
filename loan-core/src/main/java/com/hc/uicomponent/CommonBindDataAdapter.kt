@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
 import androidx.navigation.NavOptions
@@ -19,6 +20,7 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.provider.CommonProvider
 import frame.utils.ConverterUtil
 import frame.utils.RegularUtil
@@ -34,8 +36,6 @@ object CommonBindDataAdapter {
             a ?: false
         }
     }
-
-
 
     @BindingAdapter(
         value = ["url", "title", "content", "linkText", "linkColor"],
@@ -125,9 +125,7 @@ object CommonBindDataAdapter {
                 }
             }
         }
-
     }
-
 
     @BindingAdapter(
         value = ["navId","url","title"],
@@ -146,6 +144,19 @@ object CommonBindDataAdapter {
         }
     }
 
+    @BindingAdapter("colorState")
+    @JvmStatic
+    fun convertColor(view: TextView, state:Int) {
+        val a = when(state){
+            Constants.NUMBER_10 -> R.color.loan_info_color_f46524
+            Constants.NUMBER_20 -> R.color.loan_info_color_2ee100
+            Constants.NUMBER_30 -> R.color.loan_info_color_666666
+            else -> R.color.loan_info_color_d800c8
+        }
+
+        view.setTextColor(ContextCompat.getColor(view.context,a))
+    }
+
 }
 
 class UrlClickSpan constructor(var urlText: String, var titleText: String) : ClickableSpan() {
@@ -156,4 +167,6 @@ class UrlClickSpan constructor(var urlText: String, var titleText: String) : Cli
         }
     }
 }
+
+
 

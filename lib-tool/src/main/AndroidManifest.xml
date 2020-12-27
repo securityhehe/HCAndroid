@@ -4,6 +4,8 @@
     package="frame.app">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+
     <application>
         <provider
             android:name="androidx.core.content.FileProvider"

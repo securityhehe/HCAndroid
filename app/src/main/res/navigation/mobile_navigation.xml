@@ -30,6 +30,8 @@
         tools:layout="@layout/fragment_account_info">
         <action
             android:id="@+id/action_navigation_account_to_navigation_settings"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
             app:destination="@id/loan_main_model_setting" />
     </fragment>
 

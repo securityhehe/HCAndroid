@@ -62,7 +62,7 @@ interface UserInfoService {
         @retrofit2.http.Field(RequestParams.OPER_TYPE) operType: Int,
         @retrofit2.http.Field(RequestParams.PHONE) phone: String?,
         @retrofit2.http.Field(RequestParams.PHONE_ID) deviceId: String?
-    ): retrofit2.Call<HttpResult<String?>?>?
+    ): Call<HttpResult<String>>
 
     /**
      * 提交补充资料
@@ -76,7 +76,7 @@ interface UserInfoService {
         @retrofit2.http.Field(RequestParams.OTHER_RELATIVES) otherRelatives: Int,
         @retrofit2.http.Field(RequestParams.COLLEAGUE_NAME) colleagueName: String?,
         @retrofit2.http.Field(RequestParams.COLLEAGUE_MOBILE) colleagueMobile: String?
-    ): retrofit2.Call<HttpResult<*>?>?
+    ): Call<HttpResult<*>>
 
 
     @POST("act/user/ocr/getFaceSdk.htm")
@@ -88,9 +88,9 @@ interface UserInfoService {
     @Multipart
     @POST("act/user/ocr/aadhaarFront.htm")
     fun checkAdFrontImg(
-        @HeaderMap head: Map<String?, String?>,
-        @PartMap params: Map<String, RequestBody?>
-    ): Call<HttpResult<String?>>
+        @HeaderMap head: Map<String, String>,
+        @PartMap params: Map<String, RequestBody>
+    ): Call<HttpResult<Any>>
 
     /**
      * 验证aadhaar反面
@@ -121,6 +121,7 @@ interface UserInfoService {
         @HeaderMap head: Map<String?, String?>,
         @PartMap params: Map<String?, RequestBody?>
     ): Call<HttpResult<String?>>
+
 
 
 }

@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
@@ -35,6 +36,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -46,6 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static android.content.Context.TELEPHONY_SERVICE;
 import static android.content.Context.WIFI_SERVICE;
 
 /**
@@ -152,35 +155,20 @@ public class DeviceUtil {
         return versionCode;
     }
 
-    /**
-     * 获取设备的唯一标识，deviceId
-     */
-    @SuppressLint({"HardwareIds", "MissingPermission"})
-    public static String getDeviceId(Context context) {
+    public static String getDeviceId(Context context){
+        String imei = "";
         try {
-            if (!PermissionUtils.isGranted(Manifest.permission.READ_PHONE_STATE)) return null;
-            if (context == null) return null;
-
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm != null) {
-                //少部分厂商的手机可能获取不到
-                String imei = null;
-                if (!TextUtils.isEmpty(tm.getDeviceId())) {
-                    //少部分厂商的手机可能获取不到
-                    imei = tm.getDeviceId();
-                }
-                if (TextUtil.isEmpty(imei)){
-                    return "";
-                }
-                return imei;
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+                imei = tm.getDeviceId();
+            }else {
+                Method method = tm.getClass().getMethod("getImei");
+                imei = (String) method.invoke(tm);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
-
         }
-        return "";
+        return imei;
     }
 
     /**

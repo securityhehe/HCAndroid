@@ -80,6 +80,16 @@ object LoanBase {
             override fun getInfoContainerId(): Int {
                 return R.id.loan_info_model_container
             }
+
+            override fun getWebViewNavId(): Int {
+                return R.id.loan_main_model_web_view
+            }
+
+            override fun getSettingNavId(): Int {
+                return R.id.action_navigation_account_to_navigation_settings
+            }
+
+
         }
         ContextProvider.mPermissionsRationaleProvider = object :ContextProvider.PermissionsRationaleProvider{
             override fun getRationaleText(context: Context, vararg permissions: String): String? {

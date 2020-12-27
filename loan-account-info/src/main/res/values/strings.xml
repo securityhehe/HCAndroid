@@ -83,8 +83,28 @@
     <string name="loan_info_profile_credit_status_unverify">[unverified]</string>
     <string name="loan_info_profile_credit_status_loading">[Ongoing]</string>
     <string name="loan_info_profile_credit_status_failure">[Reupload]</string>
+
     <string name="loan_info_profile_credit_finish_tip">You have completed all the certification programs. Click "Loan Now" to apply for a loan quickly.</string>
     <string name="loan_info_profile_loan_now">Loan Now</string>
     <string name="loan_cancel_dialog_cancel">Cancel</string>
+
+    <string name="loan_info_mall_kyc_loading">Please wait for KYC certification to complete before proceeding!</string>
+    <string name="loan_info_credit_kyc_info">Please complete KYC certification first!</string>
+    <string name="loan_info_credit_person_info">Please complete the personal information authentication first!</string>
+    <string name="loan_info_credit_supplement_info">Please complete Supplementary info certification first!</string>
+    <string name="mall_get_now">Get Now</string>
+    <string name="mall_loan_duration">Loan duration %1$s Day(s)</string>
+    <string name="mall_daily_interest">%1$s %% Daily Interest</string>
+    <string name="mall_order_submit_title">Order confirmation</string>
+    <string name="mall_order_submit">Sign and submit the order</string>
+    <string name="mall_order_submit_loan_agreement"><u>Loan Agreement</u></string>
+    <string name="mall_order_submit_sanction_letter"><u>Sanction Letter</u></string>
+    <string name="dialog_mall_order_try_again">The current number of orders is too many, please try again!</string>
+    <string name="dialog_mall_order_commit_amount_more_than_0_tip">Please select an amount greater than 0 before submitting your order!</string>
+    <string name="dialog_mall_order_commit_agreement_tip2">By using E-Signature technology, this agreement shall be protected by law&lt;&lt;&lt;Loan Agreement&gt;&gt;&gt;&amp;law&lt;&lt;&lt;Sanction Letter&gt;&gt;&gt;</string>
+    <string name="dialog_main_order_commit_uncheck_tip">Credit report access rights are not selected</string>
+    <string name="dialog_mall_order_total_interest">Total interest（%1$s%% Daily Interest):</string>
+    <string name="mall_order_submit_loan_duration">%1$s Day(s)</string>
+
 
 </resources>

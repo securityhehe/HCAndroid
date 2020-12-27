@@ -23,8 +23,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hc.data.common.CommonDataModel;
 import com.wildma.idcardcamera.R;
-import com.wildma.idcardcamera.global.RuntimeConfig;
 import com.wildma.idcardcamera.utils.CommonUtils;
 import com.wildma.idcardcamera.utils.FileUtils;
 import com.wildma.idcardcamera.utils.ImageUtils;
@@ -317,15 +317,15 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     @SuppressLint("ObsoleteSdkInt")
     private void confirm() {
         /*保存图片到sdcard并返回图片路径*/
-        if (FileUtils.createOrExistsDir(RuntimeConfig.TEMP_PHOTO_PATH)) {
+        if (FileUtils.createOrExistsDir(CommonDataModel.INSTANCE.getTEMP_PHOTO_PATH())){
             StringBuffer buffer = new StringBuffer();
             String imagePath = "";
             if (mType == IDCardCamera.TYPE_IDCARD_FRONT) {
-                imagePath = buffer.append(RuntimeConfig.TEMP_PHOTO_PATH).append(IDCardCamera.ID_CARD_FRONT_IMG).toString();
+                imagePath = buffer.append(CommonDataModel.INSTANCE.getTEMP_PHOTO_PATH()).append(IDCardCamera.ID_CARD_FRONT_IMG).toString();
             } else if (mType == IDCardCamera.TYPE_IDCARD_BACK) {
-                imagePath = buffer.append(RuntimeConfig.TEMP_PHOTO_PATH).append(IDCardCamera.ID_CARD_BACK_IMG).toString();
+                imagePath = buffer.append(CommonDataModel.INSTANCE.getTEMP_PHOTO_PATH()).append(IDCardCamera.ID_CARD_BACK_IMG).toString();
             } else if (mType == IDCardCamera.TYPE_PAN_FRONT) {
-                imagePath = buffer.append(RuntimeConfig.TEMP_PHOTO_PATH).append(IDCardCamera.PAN_CARD_FORNT_IMG).toString();
+                imagePath = buffer.append(CommonDataModel.INSTANCE.getTEMP_PHOTO_PATH()).append(IDCardCamera.PAN_CARD_FORNT_IMG).toString();
             }
 
             //TODO 此处需要处理拍照的图片保存路径

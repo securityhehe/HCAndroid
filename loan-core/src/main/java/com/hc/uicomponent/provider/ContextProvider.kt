@@ -63,6 +63,8 @@ object ContextProvider {
         fun getMainNavId(): Int
         fun getRootNavId(): Int
         fun getInfoContainerId():Int
+        fun getWebViewNavId():Int
+        fun getSettingNavId():Int
     }
 
     //解释权限说明。

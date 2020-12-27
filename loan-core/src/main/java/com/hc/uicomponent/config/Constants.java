@@ -9,7 +9,7 @@ public class Constants {
 
     public static final String STATUS_TRUE = "true";
     public static final String STATUS_FALSE = "false";
-
+    public static final String STATE = "state";
     /**
      * number
      */

@@ -2,6 +2,7 @@ package com.hc.uicomponent.config
 
 import com.hc.uicomponent.BuildConfig
 import com.hc.uicomponent.utils.getSDPath
+import java.io.File
 
 /**
  */
@@ -82,15 +83,13 @@ const val DIALOG_UPDATE_VERSION_TAG = "version update tag"
 
 
 /** 根路径  */
-val ROOT_PATH: String = getSDPath() + "/eCommerce/"
-const val PHOTO = "/photo/"
-
+val ROOT_PATH: String = getSDPath() + "${File.separator}eCommerce${File.separator}"
+const val PHOTO = "photo"
 /** 照片文件文件保存路径  */
-val RELEASE_PHOTO_PATH_APP = "$ROOT_PATH$PHOTO/release/"
-val TEMP_PHOTO_PATH_FOR_APP = "$ROOT_PATH$PHOTO/temp/"
-
+val RELEASE_PHOTO_PATH_APP = "$ROOT_PATH$PHOTO${File.separator}release${File.separator}"
+val TEMP_PHOTO_PATH_FOR_APP = "$ROOT_PATH$PHOTO${File.separator}temp${File.separator}"
 //保存签名文件
-val SAVE_PHOTO_PATH_FOR_SIGN: String = "$ROOT_PATH$PHOTO/sign/"
+val SAVE_PHOTO_PATH_FOR_SIGN: String = "$ROOT_PATH$PHOTO${File.separator}sign${File.separator}"
 const val SIGN_FILE_NAME = "sign.png"
 
 

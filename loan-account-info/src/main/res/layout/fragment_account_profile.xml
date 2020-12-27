@@ -5,10 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.AuthCenterViewModel" />
+
         <import type="com.hc.accountinfo.convert.Converter"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,8 +61,8 @@
                         style="@style/AccountProfileItemTextStyle"/>
 
                     <TextView
-                        android:textColor="@{Converter.convertColor(vm.creditPersonStatus)"
-                        android:text="@{Converter.convertAuthState(vm.creditPersonStatus)}"
+                        colorState="@{vm.creditKycStatus}"
+                        android:text="@{Converter.convertAuthState(vm.creditKycStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
                     <View
                         style="@style/AccountProfileLine"
@@ -83,8 +86,8 @@
                         android:drawableStart="@drawable/account_ic_personals_info"/>
 
                     <TextView
-                        android:textColor="@{Converter.convertColor(vm.creditKycStatus)"
-                        android:text="@{Converter.convertAuthState(vm.creditKycStatus)}"
+                        colorState="@{vm.creditPersonStatus}"
+                        android:text="@{Converter.convertAuthState(vm.creditPersonStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 
                     <View
@@ -107,7 +110,7 @@
                         android:drawableStart="@drawable/account_ic_supple_info"
                         />
                     <TextView
-                        android:textColor="@{Converter.convertColor(vm.creditEmployStatus)"
+                        colorState="@{vm.creditEmployStatus}"
                         android:text="@{Converter.convertAuthState(vm.creditEmployStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 
@@ -130,7 +133,7 @@
                         android:drawableStart="@drawable/account_ic_bank"
                         />
                     <TextView
-                        android:textColor="@{Converter.convertColor(vm.creditBankStatus)"
+                        colorState="@{vm.creditBankStatus}"
                         android:text="@{Converter.convertAuthState(vm.creditBankStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
                     <View
@@ -183,6 +186,7 @@
 
                 <FrameLayout
                     android:id="@+id/mobile"
+                    android:onClick="@{()->vm.reqMobileAuthState(mobile)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -196,7 +200,7 @@
 
                     <TextView
                         android:paddingBottom="0dp"
-                        android:textColor="@{Converter.convertColor(vm.creditMobileStatus)"
+                        colorState="@{vm.creditMobileStatus}"
                         android:text="@{Converter.convertAuthState(vm.creditMobileStatus)}"
                         style="@style/AccountProfileAuthItemStyle"/>
 

@@ -21,6 +21,10 @@
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right" />
 
+        <argument android:name="state"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+
         <action
             android:id="@+id/loan_info_model_auth_center_bank"
             app:destination="@id/loan_info_model_bank_info"

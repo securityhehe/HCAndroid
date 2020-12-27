@@ -14,6 +14,7 @@ class BaseDialog : Dialog {
 
     constructor(context: Context) : this(context, 0)
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
+
     init {
         initDialogAttrs()
         initView()
@@ -46,38 +47,39 @@ class BaseDialog : Dialog {
 
     fun setData(
         contents: CharSequence?,
-        content1Cancel: CharSequence?,
+        content1Cancel: CharSequence?="",
         contentOk: CharSequence?
     ): BaseDialog {
         content?.text = contents
-        if (content1Cancel != null) {
+        if (content1Cancel.isNullOrEmpty()) {
+            dialog_cancel?.visibility = View.GONE
+        } else {
             dialog_cancel?.text = content1Cancel
             dialog_cancel?.visibility = View.VISIBLE
-        } else {
-            dialog_cancel?.visibility = View.GONE
+
         }
-        if(contentOk != null){
+        if (contentOk.isNullOrEmpty()) {
+            dialog_accept?.visibility = View.GONE
+        } else {
             dialog_accept?.text = contentOk
             dialog_accept?.visibility = View.VISIBLE
-        }else{
-            dialog_accept?.visibility = View.GONE
         }
         return this
     }
 
     fun setCallback(callback: Callback?): BaseDialog {
         dialog_accept?.setOnClickListener {
-            callback?.confirm(this@BaseDialog)
+            callback?.confirm(this@BaseDialog) ?: dismiss()
         }
 
         dialog_cancel?.setOnClickListener {
-            callback?.cancel(this@BaseDialog)
+            callback?.cancel(this@BaseDialog) ?: dismiss()
         }
         return this
     }
 
     interface Callback {
-        fun cancel(d: Dialog?){}
-        fun confirm(d: Dialog?){}
+        fun cancel(d: Dialog?) {}
+        fun confirm(d: Dialog?) {}
     }
 }
