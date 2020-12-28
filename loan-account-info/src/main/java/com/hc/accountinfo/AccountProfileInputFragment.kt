@@ -4,14 +4,18 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.hc.accountinfo.databinding.FragmentProfileInputInfoBinding
 import com.hc.accountinfo.vm.ProfileInfoViewModel
+import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.annotation.BindViewModel
 import com.hc.uicomponent.base.BaseFragment
+import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.menu.BaseMenuViewModel
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.stack.ActivityStack
+import com.hc.uicomponent.utils.FirseBaseEventUtils
 import com.hc.uicomponent.utils.LocationUtils
+import com.hc.uicomponent.utils.StatEventTypeName
 
-class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding>(R.layout.fragment_profile_input_info){
+class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding>(R.layout.fragment_profile_input_info),AndroidPermissions.PermissionCallbacks{
 
     @BindViewModel
     var vm: ProfileInfoViewModel? = null
@@ -28,10 +32,34 @@ class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mFragmentBinding.vm = vm
         mFragmentBinding.menuVM = menuVm
         mFragmentBinding.lanFragment = this
-        //vm?.reqUserInfo()
+        mFragmentBinding.isCreditFinish = arguments?.getBoolean(Constants.STATE)?:false
     }
+
+    override fun onResume() {
+        super.onResume()
+        FirseBaseEventUtils.trackEvent(StatEventTypeName.PERSON_INFO_PAGE)
+        LocationUtils.getInstance().resetGpsLocationUpdates(requireContext())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        vm?.localPause()
+        LocationUtils.getInstance().stopLocationUpdates(requireContext())
+        LocationUtils.getInstance().stopGps()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        AndroidPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this)
+    }
+
+    override fun onAllPermissionGranted(requestCode: Int) {
+        vm?.commitUserInfoData(requestCode)
+    }
+
+
 
 }

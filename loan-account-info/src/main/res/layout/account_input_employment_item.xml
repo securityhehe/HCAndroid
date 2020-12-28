@@ -4,12 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="title"
             type="java.lang.String" />
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
+        <variable
+            name="isAuth"
+            type="java.lang.Boolean" />
+        <variable
+            name="baseMenuModel"
+            type="com.hc.uicomponent.menu.BaseMenuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,23 +42,26 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="14dp"
-            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/account_input_name">
 
             <TextView
                 android:text="@string/loan_info_select_occupation_title"
                 android:id="@+id/no_title_employ"
+                android:gravity="center_vertical"
+                android:lines="2"
+                android:layout_height="wrap_content"
                 style="@style/AccountProfileInputInfoTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="86dp"
-                android:layout_height="23dp"
-                android:layout_marginEnd="20dp"
+                android:id="@+id/select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="select"
+                android:lines="2"
+                android:gravity="center_vertical|end"
                 android:textColor="#ff999999"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,8 +70,13 @@
 
             <ImageView
                 android:id="@+id/not_indicator"
-                android:layout_width="20dp"
-                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="@{isAuth ? View.GONE:View.VISIBLE}"
+                android:onClick="@{()->vm.showMenu(5,fm,baseMenuModel,select)}"
                 android:src="@drawable/account_info_indicate"
                 app:layout_constraintBottom_toBottomOf="@id/no_title_employ"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,45 +90,6 @@
                 app:layout_constraintTop_toBottomOf="@id/no_title_employ" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="14dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/account_input_name">
-
-            <TextView
-                android:id="@+id/work_title_employ"
-                style="@style/AccountProfileInputInfoTitle"
-                android:text="@string/loan_info_select_occupation_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/work_text"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:textColorHint="#333333"
-                android:textColor="#ff999999"
-                android:textSize="16sp"
-                android:hint="@string/loan_info_employ_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@null"
-                app:layout_constraintTop_toBottomOf="@id/work_title_employ" />
-
-
-            <View
-                style="@style/AccountProfileLine"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/work_text" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

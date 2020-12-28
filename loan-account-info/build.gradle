@@ -8,5 +8,6 @@ dependencies {
     implementation AndroidX.constraint_layout
     implementation AppNet.OKHTTP
     implementation AppNet.RETROFIT
+    implementation Misc.datePicker
     implementation project(path: ':lib-tdialog')
 }

@@ -32,7 +32,7 @@ import frame.utils.DeviceUtil
 import kotlinx.coroutines.launch
 
 class AuthCenterViewModel : BaseViewModel() {
-
+    var isTEST = true
     var creditPersonStatus = ObservableInt(10)
     var creditKycStatus = ObservableInt(10)
     var creditEmployStatus = ObservableInt(10)
@@ -73,6 +73,7 @@ class AuthCenterViewModel : BaseViewModel() {
         } else {
             findNavController.navigateUp()
         }
+        ContextProvider.mNavIdProvider?.showHideMainMenu(View.VISIBLE)
     }
 
     private var isShow = false
@@ -178,12 +179,9 @@ class AuthCenterViewModel : BaseViewModel() {
             return
         }
         reqCertifyState(view, isShowDialog = true, isShowTip = false) {
-            val values = bundleOf(
-                Pair(
-                    Constants.STATE,
-                    if (Constants.NUMBER_20 == creditKycStatus.get()) true else isCreditKycStatus
-                )
-            )
+            val second =
+                if (Constants.NUMBER_20 == creditKycStatus.get()) true else isCreditKycStatus
+            val values = bundleOf(Pair(Constants.STATE, second))
             Navigation.findNavController(view).navigate(
                 R.id.loan_info_model_auth_center_kyc,
                 values
@@ -192,49 +190,59 @@ class AuthCenterViewModel : BaseViewModel() {
     }
 
     fun gotoProfileInfoPage(view: View) {
-        if (!checkNetwork2Action()) {
-            return
-        }
-        reqCertifyState(view, isShowDialog = true, isShowTip = false, call = {
-            val context = view.context
-            if (isCreditPersonStatus || isCreditKycStatus) {
-                val param = bundleOf(Pair(Constants.STATE, isCreditPersonStatus))
-                Navigation.findNavController(view)
-                    .navigate(R.id.loan_info_model_auth_center_profile_info, param)
-            } else {
-                var str = ""
-                val creditValue = creditKycStatus.get()
-                if (creditValue == Constants.NUMBER_20) {
-                    str = context.getString(R.string.loan_info_mall_kyc_loading)
-                } else if (creditValue == Constants.NUMBER_10 || creditValue == Constants.NUMBER_40) {
-                    str = context.getString(R.string.loan_info_credit_kyc_info)
-                }
-                showTip(context,str)
+        if (isTEST) {
+            val param = bundleOf(Pair(Constants.STATE, isCreditPersonStatus))
+            Navigation.findNavController(view).navigate(R.id.loan_info_model_auth_center_profile_info, param)
+        } else {
+            if (!checkNetwork2Action()) {
+                return
             }
-        })
+            reqCertifyState(view, isShowDialog = true, isShowTip = false, call = {
+                val context = view.context
+                if (isCreditPersonStatus || isCreditKycStatus) {
+                    val param = bundleOf(Pair(Constants.STATE, isCreditPersonStatus))
+                    Navigation.findNavController(view)
+                        .navigate(R.id.loan_info_model_auth_center_profile_info, param)
+                } else {
+                    var str = ""
+                    val creditValue = creditKycStatus.get()
+                    if (creditValue == Constants.NUMBER_20) {
+                        str = context.getString(R.string.loan_info_mall_kyc_loading)
+                    } else if (creditValue == Constants.NUMBER_10 || creditValue == Constants.NUMBER_40) {
+                        str = context.getString(R.string.loan_info_credit_kyc_info)
+                    }
+                    showTip(context, str)
+                }
+            })
+        }
     }
 
     fun gotoSuppleInfoPage(view: View) {
-        if (!checkNetwork2Action()) {
-            return
-        }
-        reqCertifyState(view, isShowDialog = true) {
-            if (isCreditSupplementStatus || isCreditPersonStatus && isCreditKycStatus) {
-                val param = bundleOf(Pair(Constants.STATE, isCreditSupplementStatus))
-                Navigation.findNavController(view)
-                    .navigate(R.id.loan_info_model_auth_center_supply_info, param)
-            } else {
-                var tip = ""
-                if (!isCreditKycStatus) {
-                    if (Constants.NUMBER_20 == creditKycStatus.get()) {
-                        tip = ContextProvider.getString(R.string.loan_info_mall_kyc_loading)
-                    } else if (Constants.NUMBER_10 == creditKycStatus.get() || Constants.NUMBER_40 == creditKycStatus.get()) {
-                        tip = ContextProvider.getString(R.string.loan_info_credit_kyc_info)
+        if (isTEST) {
+            val param = bundleOf(Pair(Constants.STATE, isCreditSupplementStatus))
+            Navigation.findNavController(view).navigate(R.id.loan_info_model_auth_center_supply_info, param)
+        }else {
+            if (!checkNetwork2Action()) {
+                return
+            }
+            reqCertifyState(view, isShowDialog = true) {
+                if (isCreditSupplementStatus || isCreditPersonStatus && isCreditKycStatus) {
+                    val param = bundleOf(Pair(Constants.STATE, isCreditSupplementStatus))
+                    Navigation.findNavController(view)
+                        .navigate(R.id.loan_info_model_auth_center_supply_info, param)
+                } else {
+                    var tip = ""
+                    if (!isCreditKycStatus) {
+                        if (Constants.NUMBER_20 == creditKycStatus.get()) {
+                            tip = ContextProvider.getString(R.string.loan_info_mall_kyc_loading)
+                        } else if (Constants.NUMBER_10 == creditKycStatus.get() || Constants.NUMBER_40 == creditKycStatus.get()) {
+                            tip = ContextProvider.getString(R.string.loan_info_credit_kyc_info)
+                        }
+                    } else if (!isCreditPersonStatus) {
+                        tip = ContextProvider.getString(R.string.loan_info_credit_person_info)
                     }
-                } else if (!isCreditPersonStatus) {
-                    tip = ContextProvider.getString(R.string.loan_info_credit_person_info)
+                    showTip(view.context, tip)
                 }
-                showTip(view.context, tip)
             }
         }
 
@@ -281,14 +289,14 @@ class AuthCenterViewModel : BaseViewModel() {
                     val reqMobileEnumRes = reqApi(UserInfoService::class.java, { queryListInfo() })
                     reqMobileEnumRes.data?.operType?.run end@{
                         if (this.isEmpty()) return@end
-                        DialogUtils.showMobileAuthType(act, this) { reqMobileUrl(view,it) }
+                        DialogUtils.showMobileAuthType(act, this) { reqMobileUrl(view, it) }
                     }
                 }
             }
         }
     }
 
-    private fun reqMobileUrl(view :View,type: Int): Unit {
+    private fun reqMobileUrl(view: View, type: Int): Unit {
         viewModelScope.launch {
             val mobile = reqApi(UserInfoService::class.java, {
                 mobileCreditAuth(
@@ -308,18 +316,20 @@ class AuthCenterViewModel : BaseViewModel() {
 
 
     private fun showTip(context: Context, contentTxt: CharSequence) {
-        BaseDialog(context).setData(contentTxt,"", context.getString(R.string.loan_go)).setCallback(object :BaseDialog.Callback{
-            override fun confirm(d: Dialog?) {
-                super.confirm(d)
-                d?.dismiss()
-            }
+        BaseDialog(context).setData(contentTxt, "", context.getString(R.string.loan_go))
+            .setCallback(object : BaseDialog.Callback {
+                override fun confirm(d: Dialog?) {
+                    super.confirm(d)
+                    d?.dismiss()
+                }
 
-            override fun cancel(d: Dialog?) {
-                super.cancel(d)
-                d?.dismiss()
-            }
-        }).show()
+                override fun cancel(d: Dialog?) {
+                    super.cancel(d)
+                    d?.dismiss()
+                }
+            }).show()
     }
+
 
 
 }

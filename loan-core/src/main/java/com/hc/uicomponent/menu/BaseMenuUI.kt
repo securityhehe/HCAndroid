@@ -79,6 +79,7 @@ class MenuContentAdapter(var recyclerView: RecyclerView,var menuContent: Observa
     override fun onBindViewHolder(holder: MenuItemHolder, position: Int) {
         holder.menuItem.data = menuContent[position]
         holder.menuItem.btn.setOnClickListener{
+
             callback?.invoke(recyclerView,menuContent[position])
         }
     }

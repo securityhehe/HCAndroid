@@ -10,6 +10,7 @@ import com.hc.login.provider.LoginProvider
 import com.hc.main.constants.HttpParamProvider
 import com.hc.main.constants.PermissionRationale
 import com.hc.main.exec.ExceptionHandling
+import com.hc.main.vm.MainViewModel
 import com.hc.uicomponent.call.IExceptionHandling
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.provider.CommonProvider
@@ -87,6 +88,10 @@ object LoanBase {
 
             override fun getSettingNavId(): Int {
                 return R.id.action_navigation_account_to_navigation_settings
+            }
+
+            override fun showHideMainMenu(isVisible: Int) {
+                MainViewModel.isVisibleNavigationBottom.set(isVisible)
             }
 
 

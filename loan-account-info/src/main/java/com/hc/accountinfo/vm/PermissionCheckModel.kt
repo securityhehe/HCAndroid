@@ -2,18 +2,23 @@ package com.hc.accountinfo.vm
 
 import android.Manifest
 import android.content.Context
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.NetworkUtils
 import com.hc.accountinfo.R
 import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.utils.DialogUtils
 import com.hc.uicomponent.utils.LocationUtils
+import com.hc.uicomponent.utils.TextUtil
 
 class PermissionCheckModel {
 
     companion object {
         const val PERMISSION_ALL_VIEW_CLICK_TYPE = 10
+        const val PERMISSION_DATA_COMMIT = 20
+
     }
     private val mMustPermission = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -69,4 +74,18 @@ class PermissionCheckModel {
         val isResult = isOpenLocationService && hasPermissions
         return isResult && (isResult && isOpenLocationService)
     }
+
+
+    fun requestPermission(view: Fragment)  {
+        AndroidPermissions.requestPermissions(
+            view,
+            "",
+            false,
+            PERMISSION_DATA_COMMIT,
+            *mMustPermission
+        )
+    }
+
+
+
 }

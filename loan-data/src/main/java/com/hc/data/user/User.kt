@@ -10,14 +10,16 @@ class UserInfoRange {
     var gender: List<UserType>? = null
     var purpose: List<UserType>? = null
     var language: List<UserType>? = null
-    var relatives: List<UserType>? = null
     var maritalStatus: List<UserType>? = null
     var companyIndustry: List<UserType>? = null
     var staffSize: List<UserType>? = null
     var levelOfPosition: List<UserType>? = null
+     var operType: List<UserType>? = null //mobile certify
+
+    var relatives: List<UserType>? = null
     var address: List<UserType>? = null
     var netBank: List<UserType>? = null
-    var operType: List<UserType>? = null //mobile certify
+
     var razorNetBank: List<UserType>? = null  // razorpay netbank
     var otherRelatives: List<UserType>? = null // 补充信息其他人联系方式
 }

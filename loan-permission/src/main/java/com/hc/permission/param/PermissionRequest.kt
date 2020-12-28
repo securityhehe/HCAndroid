@@ -23,7 +23,8 @@ class PermissionRequest(
     var positiveButtonText: String?,
     var negativeButtonText: String?,
     var theme: Int?,
-    var isShowRationale: Boolean = true
+    var isShowRationale: Boolean = true,
+    var mRationalePermissions: MutableList<String> = mutableListOf()
 ) {
 
 

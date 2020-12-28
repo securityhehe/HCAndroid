@@ -11,6 +11,9 @@
         <variable
             name="idIndex"
             type="java.lang.Integer" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
 
     </data>
 
@@ -47,6 +50,7 @@
             android:hint="@string/account_profile_phone"
             android:textColor="#333333"
             android:textColorHint="#999"
+            clearOnFocusAndDispatch="@{()->vm.checkMustPermission(name,fm)}"
             android:textSize="16sp"
             android:text="@{vm.MViewData.dataTextList[idIndex]}"
             app:layout_constraintEnd_toEndOf="parent"

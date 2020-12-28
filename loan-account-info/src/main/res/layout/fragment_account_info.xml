@@ -39,13 +39,11 @@
                     android:id="@+id/profile"
                     style="@style/AccountSettingMenuStyle"
                     android:drawableTop="@drawable/account_profile"
-                    navId="@{vm.kycId}"
+                    android:onClick="@{()->vm.toProfileHideMainMenu(profile)}"
                     android:text="@string/account_profile" />
 
                 <TextView
-                    navId="@{vm.webId}"
-                    title="@{@string/account_contact_us}"
-                    url="@{vm.contactUs}"
+                    android:onClick="@{()->vm.toContactUsHideMainMenu(contactUs,@string/account_contact_us)}"
                     android:id="@+id/contactUs"
                     style="@style/AccountSettingMenuStyle"
                     android:drawableTop="@drawable/account_contact"
@@ -53,9 +51,7 @@
 
                 <TextView
                     android:id="@+id/aboutUs"
-                    navId="@{vm.webId}"
-                    title="@{@string/account_about_us}"
-                    url="@{vm.aboutUs}"
+                    android:onClick="@{()->vm.toUsHideMainMenu(aboutUs,@string/account_about_us)}"
                     style="@style/AccountSettingMenuStyle"
                     android:drawableTop="@drawable/account_about_us"
                     android:text="@string/account_about_us" />

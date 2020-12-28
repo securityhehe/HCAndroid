@@ -11,19 +11,21 @@ import com.test.app.R
 
 class MainViewModel : BaseViewModel() {
 
-    val isVisibleNavigationBottom = ObservableInt(View.VISIBLE)
+    companion object {
+        val isVisibleNavigationBottom = ObservableInt(View.VISIBLE)
+    }
     fun checkLogin(act: Activity) {
         if (isTEST){
             isVisibleNavigationBottom.set(View.GONE)
             Navigation.findNavController(act, R.id.nav_host_fragment).navigate(R.id.main_to_login)
         }else{
-            if (com.hc.data.common.CommonDataModel.mLoggedIn) {
+            if (CommonDataModel.mLoggedIn) {
                 isVisibleNavigationBottom.set(View.VISIBLE)
             } else {
                 isVisibleNavigationBottom.set(View.GONE)
                 Navigation.findNavController(act, R.id.nav_host_fragment).navigate(R.id.main_to_login)
             }
         }
-
     }
+
 }

@@ -12,6 +12,9 @@
         <variable
             name="idIndex"
             type="java.lang.Integer" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +43,7 @@
             android:textColorHint="#999"
             android:textColor="#333333"
             android:textSize="16sp"
+            clearOnFocusAndDispatch="@{()->vm.checkMustPermission(name,fm)}"
             android:text="@={vm.MViewData.dataTextList[idIndex]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -56,9 +56,7 @@ object AndroidPermissions {
         requestCode: Int,
         @Size(min = 1) vararg perms: String
     ) {
-        requestPermissions(
-            PermissionRequest.Builder(host, requestCode, isShowRationale, *perms)
-                .setRationale(rationale).build()
+        requestPermissions(PermissionRequest.Builder(host, requestCode, isShowRationale, *perms).setRationale(rationale).build()
         )
     }
 
@@ -69,10 +67,7 @@ object AndroidPermissions {
         requestCode: Int,
         @Size(min = 1) vararg perms: String
     ) {
-        requestPermissions(
-            PermissionRequest.Builder(host, requestCode, isShowRationale, *perms)
-                .setRationale(rationale).build()
-        )
+        requestPermissions(PermissionRequest.Builder(host, requestCode, isShowRationale, *perms).setRationale(rationale).build())
     }
 
     fun requestPermissions(request: PermissionRequest) {
@@ -138,8 +133,7 @@ object AndroidPermissions {
         host: Activity,
         @Size(min = 1) vararg deniedPermissions: String
     ): Boolean {
-        return BasePermissionHelper.newInstance(host)
-            .morePermissionPermanentlyDenied(deniedPermissions)
+        return BasePermissionHelper.newInstance(host).morePermissionPermanentlyDenied(deniedPermissions)
     }
 
 
@@ -147,8 +141,7 @@ object AndroidPermissions {
         host: Fragment,
         @Size(min = 1) vararg deniedPermissions: String
     ): Boolean {
-        return BasePermissionHelper.newInstance(host)
-            .morePermissionPermanentlyDenied(deniedPermissions)
+        return BasePermissionHelper.newInstance(host).morePermissionPermanentlyDenied(deniedPermissions)
     }
 
 
@@ -168,9 +161,7 @@ object AndroidPermissions {
     }
 
 
-    fun somePermissionDenied(
-        host: Activity, vararg perms: String
-    ): Boolean {
+    fun somePermissionDenied(host: Activity, vararg perms: String): Boolean {
         return BasePermissionHelper.newInstance(host).morePermissionDenied(*perms)
     }
 

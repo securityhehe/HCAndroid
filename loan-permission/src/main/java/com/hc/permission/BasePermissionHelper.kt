@@ -13,9 +13,11 @@ abstract class BasePermissionHelper<T>(val host: T) {
 
     abstract fun getContext(): Context?
 
-    private fun shouldShowRationale(vararg perms: String): Boolean {
-        for (perm in perms) {
+    private fun shouldShowRationale(request: PermissionRequest): Boolean {
+        request.mRationalePermissions.clear()
+        for (perm in request.perms) {
             if (shouldShowRequestPermissionRationale(perm)) {
+                request.mRationalePermissions.add(perm)
                 return true
             }
         }
@@ -23,7 +25,7 @@ abstract class BasePermissionHelper<T>(val host: T) {
     }
 
     fun requestPermissions(request:PermissionRequest) {
-        if (request.isShowRationale && shouldShowRationale(*request.perms)) {
+        if (shouldShowRationale(request)&&request.isShowRationale) {
             showRequestPermissionRationale(request )
         } else {
             directRequestPermissions(request.requestCode, *request.perms)
@@ -41,6 +43,15 @@ abstract class BasePermissionHelper<T>(val host: T) {
 
     fun permissionPermanentlyDenied(perms: String): Boolean {
         return !shouldShowRequestPermissionRationale(perms)
+    }
+
+    private fun shouldShowRationale(vararg perms: String): Boolean {
+        for (perm in perms) {
+            if (shouldShowRequestPermissionRationale(perm)) {
+                return true
+            }
+        }
+        return false
     }
 
     fun morePermissionDenied(vararg perms: String): Boolean {

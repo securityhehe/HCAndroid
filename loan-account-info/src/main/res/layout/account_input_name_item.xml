@@ -12,33 +12,49 @@
         <variable
             name="idIndex"
             type="java.lang.Integer" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
+        <variable
+            name="visible"
+            type="java.lang.Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="15dp"
-        android:paddingTop="9dp"
+        android:visibility="@{visible, default=visible}"
         android:paddingEnd="15dp">
 
         <TextView
             android:text="@{title}"
             android:id="@+id/account_input_name"
+            android:lines="2"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             style="@style/AccountProfileInputInfoTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:lines="2"
+            android:gravity="center_vertical|end"
             android:background="@null"
             android:textColor="#333333"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            clearOnFocusAndDispatch="@{()->vm.checkMustPermission(name,fm)}"
             android:text="@={vm.MViewData.dataTextList[idIndex]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/account_input_name"
-            app:layout_constraintTop_toTopOf="@id/account_input_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             style="@style/AccountProfileLine"

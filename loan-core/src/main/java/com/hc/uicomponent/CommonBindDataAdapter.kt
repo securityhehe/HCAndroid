@@ -1,6 +1,7 @@
 package com.hc.uicomponent
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,6 +11,9 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -156,6 +160,33 @@ object CommonBindDataAdapter {
 
         view.setTextColor(ContextCompat.getColor(view.context,a))
     }
+
+    @BindingAdapter("clearOnFocusAndDispatch")
+    @JvmStatic
+    fun clearOnFocusAndDispatch(view: EditText, listener: View.OnFocusChangeListener?) {
+        view.onFocusChangeListener = View.OnFocusChangeListener { focusedView, hasFocus ->
+            if (hasFocus) {
+
+            } else {
+                listener?.onFocusChange(focusedView, hasFocus)
+            }
+        }
+    }
+
+    @BindingAdapter("hideKeyboardOnInputDone")
+    @JvmStatic fun hideKeyboardOnInputDone(view: EditText, enabled: Boolean) {
+        if (!enabled) return
+        val listener = TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                view.clearFocus()
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+            false
+        }
+        view.setOnEditorActionListener(listener)
+    }
+
 
 }
 

@@ -100,6 +100,8 @@ object Misc {
     const val mmkv = "com.tencent:mmkv-static:1.1.0"
     const val blankj_utilcode = "com.blankj:utilcode:1.20.3"
 
+    const val datePicker= "com.wdullaer:materialdatetimepicker:4.2.3"
+
     //const val lottie = "com.airbnb.android:lottie:3.4.0"
     //const val xcrash = "com.iqiyi.xcrash:xcrash-android-lib:2.4.9"
     //const val tracker = "com.kochava.base:tracker:3.6.0"

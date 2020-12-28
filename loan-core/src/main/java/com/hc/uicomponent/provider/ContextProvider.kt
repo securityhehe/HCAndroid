@@ -65,6 +65,7 @@ object ContextProvider {
         fun getInfoContainerId():Int
         fun getWebViewNavId():Int
         fun getSettingNavId():Int
+        fun showHideMainMenu(isVisible:Int):Unit
     }
 
     //解释权限说明。
