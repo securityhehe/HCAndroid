@@ -4,4 +4,6 @@
     <color name="loan_info_color_666666">#666666</color>
     <color name="loan_info_color_f46524">#F46524</color>
     <color name="loan_info_color_d800c8">#D800C8</color>
+    <color name="loan_info_color_333333">#ff333333</color>
+    <color name="loan_info_color_999999">#ff999999</color>
 </resources>

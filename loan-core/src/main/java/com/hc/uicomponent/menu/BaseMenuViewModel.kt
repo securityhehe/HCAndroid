@@ -31,9 +31,10 @@ class BaseMenuViewModel : BaseViewModel() {
             listData[data.index].isSelect = true
             rv.adapter?.notifyItemChanged(data.index)
         }
-        callbackData?.invoke(data.index)
+        callbackData?.invoke(data)
     }
-    var callbackData:(Int)->Unit? = {
+
+    var callbackData:(data:MenuData)->Unit? = {
 
     }
 }

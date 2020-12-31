@@ -52,7 +52,8 @@
             android:textColorHint="#999"
             clearOnFocusAndDispatch="@{()->vm.checkMustPermission(name,fm)}"
             android:textSize="16sp"
-            android:text="@{vm.MViewData.dataTextList[idIndex]}"
+            android:inputType="phone"
+            android:text="@={vm.MViewData.dataTextList[idIndex]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/phone_code"
             app:layout_constraintTop_toTopOf="@id/phone_code" />

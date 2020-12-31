@@ -94,11 +94,7 @@ class KycViewModel : BaseViewModel() {
     //控制是否显示aab
     fun showKycInfo(fragment: Fragment, isCreditFinish: Boolean) {
         viewModelScope.launch {
-            val userInfo = reqApi(
-                UserInfoService::class.java,
-                { queryUserBasicInfo()},
-                isCancelDialog = false
-            )
+            val userInfo = reqApi(UserInfoService::class.java, { queryUserBasicInfo()}, isCancelDialog = false)
             userInfo.data?.runCatching {
                 val isVisible = if (this.aadhaarSign) {
                     View.VISIBLE
@@ -277,10 +273,7 @@ class KycViewModel : BaseViewModel() {
                     if (this == 2) {
                         val intent = Intent()
                         val act = fragment.requireActivity()
-                        intent.setClass(
-                            fragment.requireActivity(),
-                            DFSilentLivenessActivity::class.java
-                        )
+                        intent.setClass(fragment.requireActivity(), DFSilentLivenessActivity::class.java)
                         intent.putExtra(DFSilentLivenessActivity.KEY_ANTI_HACK, true)
                         intent.putExtra(DFSilentLivenessActivity.KEY_DETECT_IMAGE_RESULT, true)
                         intent.putExtra(
@@ -310,7 +303,7 @@ class KycViewModel : BaseViewModel() {
             if (!StringUtil.isEmpty(photoPath)) {
                 viewModelScope.launch {
                     kycBean.file = File(photoPath)//pan back
-                    ActivityStack.currentActivity()?.let {
+                     ActivityStack.currentActivity()?.let {
                         kycBean.deviceId = DeviceUtil.getDeviceId(it)
                     }
                     when (requestCode) {

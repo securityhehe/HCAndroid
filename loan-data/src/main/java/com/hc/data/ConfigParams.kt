@@ -40,7 +40,7 @@ const val USER_LANG = "lang"
 private val LOAN_API_URL = if (CUR_RUNTIME_EVN) {
     if (BuildConfig.IS_TEST_ENV) BuildConfig.IS_TEST_URL else "http://test-api.trustrock.in/"
 } else "https://kushcash-api.trustrock.in/"
-private const val URI_PATH = "/api/"
+private const val URI_PATH = "api/"
 
 /** 请求地址  */
 val LOAN_URI: String = LOAN_API_URL + URI_PATH

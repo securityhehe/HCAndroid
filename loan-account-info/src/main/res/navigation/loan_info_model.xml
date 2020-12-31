@@ -63,6 +63,16 @@
             app:destination="@id/loan_info_model_auth_center"
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right" />
+
+
+        <action
+            android:id="@+id/loan_info_model_profile_info_supply_info"
+            app:destination="@id/loan_info_model_profile_supply_info"
+            app:popUpTo="@id/loan_info_model_auth_center"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
     </fragment>
 
     <fragment

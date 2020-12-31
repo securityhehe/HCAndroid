@@ -5,23 +5,26 @@ import android.Manifest
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import androidx.databinding.Bindable
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.hc.accountinfo.R
 import com.hc.accountinfo.api.UserInfoService
+import com.hc.accountinfo.vm.viewdata.ViewUserInfoData
+import com.hc.accountinfo.vm.viewdata.getIntKey
+import com.hc.accountinfo.vm.viewdata.getTextKey
 import com.hc.data.MenuData
+import com.hc.data.common.CommonDataModel
 import com.hc.data.user.UserInfoExt
 import com.hc.data.user.UserInfoRange
-import com.hc.data.user.UserInfoSub
 import com.hc.data.user.UserType
 import com.hc.permission.AndroidPermissions
-import com.hc.uicomponent.LoanObservableField
 import com.hc.uicomponent.base.BaseViewModel
 import com.hc.uicomponent.call.reqApi
+import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.menu.BaseMenuViewModel
 import com.hc.uicomponent.menu.BasePopupWindow
 import com.hc.uicomponent.provider.ContextProvider
@@ -29,11 +32,14 @@ import com.hc.uicomponent.stack.ActivityStack
 import com.hc.uicomponent.utils.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance
 import frame.utils.Base64
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
+import frame.utils.RegularUtil
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.concurrent.thread
+
+
+data class MenuEntry(var title: Int, var data: List<UserType>?)
 
 
 class ProfileInfoViewModel : BaseViewModel() {
@@ -42,297 +48,77 @@ class ProfileInfoViewModel : BaseViewModel() {
 
     companion object {
         const val NO_WORK = 4
-
-        //
         const val SELF_EMPLOYED = 3
         const val BUSINESS = 5
-
         const val SALARIED_FULL_TIME = 1
         const val SALARIED_PART_TIME = 2
     }
 
-    /**
-     * 下面是-->数据和方法区域。
-     */
-    private val mUserInfo: UserInfoSub by lazy {
-        UserInfoSub()
-    }
-    private lateinit var mUserMenuList: UserInfoRange
     private var mPermissionModel: PermissionCheckModel = PermissionCheckModel()
     private val x217 = ScreenAdapterUtils.dp2px(ContextProvider.app, 217)
     private val x23 = ScreenAdapterUtils.dp2px(ContextProvider.app, 23)
-    private val x_187 = ScreenAdapterUtils.dp2px(ContextProvider.app, -70)
-    var blackBox: String? = null
-
-    @get:Bindable
+    private val x187 = ScreenAdapterUtils.dp2px(ContextProvider.app, -70)
+    private var cacheContactInfo: String? = null
+    private var isFirstLoadContact: Boolean = true
+    private lateinit var mMenuEntryList: ArrayList<MenuEntry>
+    private var mJobNature: List<UserType>? = mutableListOf()
+    private var mMapUserTypeData = mutableMapOf<String, UserType>()
+    private var isExistUserInfo = false //是否存在。
     var mViewData = ViewUserInfoData()
 
-
-
-    //viewData.
-    inner class ViewUserInfoData {
-        //名字相关数据。
-         var firstNameA = LoanObservableField<String?>().setCallT {
-            mUserInfo.firstNamePan = it
-            checkUserInfo()
-        }
-
-         var middleName = LoanObservableField<String?>().setCallT {
-            mUserInfo.middleNamePan = it
-            checkUserInfo()
-        }
-
-         var lastName = LoanObservableField<String?>().setCallT {
-            mUserInfo.lastNamePan = it
-            checkUserInfo()
-        }
-
-        //选择相关数据。
-         var gender = LoanObservableField<Int>().setCallT {
-            mUserInfo.sex = it
-            checkUserInfo()
-        }
-         var language = LoanObservableField<Int>().setCallT {
-            mUserInfo.language = it
-            checkUserInfo()
-        }
-         var eduQualifier = LoanObservableField<Int>().setCallT {
-            mUserInfo.education = it
-            checkUserInfo()
-        }
-         var maritalStatus = LoanObservableField<Int>().setCallT {
-            mUserInfo.marryState = it
-            checkUserInfo()
-        }
-         var purpose = LoanObservableField<Int>().setCallT {
-            mUserInfo.purpose = it
-            checkUserInfo()
-        }
-
-        //号码数据
-         var anotherPhone = LoanObservableField<String>().setCallT {
-            mUserInfo.anotherPhone = it
-            checkUserInfo()
-        }
-
-         var facebook = LoanObservableField<String>().setCallT {
-            mUserInfo.facebook = it
-            checkUserInfo()
-        }
-
-         var whatsApp = LoanObservableField<String>().setCallT {
-            mUserInfo.whatsapp = it
-            checkUserInfo()
-        }
-
-        private fun checkUserInfo() {
-            btnIsEnable.set(
-                !(gender.get() == null
-                        || language.get() == null
-                        || maritalStatus.get() == null
-                        || purpose.get() == null
-                        || eduQualifier.get() == null
-                        || TextUtil.isAllEmpty(firstNameA.get(), lastName.get()))
-            )
-        }
-
-        //工作相关数据。
-        var occ = LoanObservableField<Int>().setCallT {
-
-            checkWork()
-        }
-
-        var workFullName = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var workEmail = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var workSince = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var salaryRange = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var emailCode = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var companyIndustry = LoanObservableField<Int>().setCallT {
-            checkWork()
-        }
-
-        var staffSize = LoanObservableField<Int>().setCallT {
-            checkWork()
-        }
-
-        var jobNature = LoanObservableField<Int>().setCallT {
-            checkWork()
-        }
-
-
-        var levelOfPosition = LoanObservableField<Int>().setCallT {
-            checkWork()
-        }
-
-        var companyTel = LoanObservableField<String>().setCallT {
-            checkWork()
-        }
-
-        var isCheckEmail = LoanObservableField<Boolean>().setCallT {
-            checkWork()
-        }
-
-        private fun checkWork() {
-            val b = condition1() || condition2() || condition3()
-            btnIsEnable.set(b)
-        }
-
-        private fun condition1(): Boolean {
-            return (occ.get() == NO_WORK)
-        }
-
-        private fun condition2(): Boolean {
-            val get = occ.get()
-            return ((get == SELF_EMPLOYED || get == BUSINESS) && !(TextUtil.isExistEmpty(workFullName.get(),workEmail.get(),commitWorkSince, companyTel.get())
-                    || salaryRange.get()==null
-                    || companyIndustry.get() == null
-                    || staffSize.get() == null) && if(isCheckEmail.get()==true) !TextUtil.isEmpty(emailCode.get()) else true)
-        }
-
-        private fun condition3(): Boolean {
-            val get = occ.get()
-            return ((get == SALARIED_FULL_TIME || get == SALARIED_PART_TIME) && !(TextUtil.isExistEmpty(workFullName.get(),workEmail.get(),commitWorkSince, companyTel.get())
-                    || salaryRange.get()==null
-                    || companyIndustry.get() == null
-                    || staffSize.get() == null
-                    || jobNature.get() == null
-                    || levelOfPosition.get() == null
-                    )&& if(isCheckEmail.get()==true) !TextUtil.isEmpty(emailCode.get()) else true)
-        }
-
-        var commitWorkSince: String? = ""
-        var btnIsEnable = ObservableBoolean(false)
-        var isEditable = ObservableBoolean(false)
-        var isNoWork = ObservableBoolean(false)
-        var isShowJobAndLevelOfPosition = ObservableBoolean(false)
-        var isShowSmsCodeInput = ObservableBoolean(false)
-        var isCreditFinish = ObservableBoolean(false)
-
-        val selectNetData = arrayListOf(gender, language, eduQualifier, maritalStatus, purpose)
-        val dataTextList =
-            arrayListOf(firstNameA, middleName, lastName, anotherPhone, facebook, whatsApp, occ)
-    }
-
-    var writeWork = ObservableInt(View.GONE)
-
-    //用户弹出窗口
-    private var gender: (Fragment, BaseMenuViewModel?, TextView) -> Unit =
-        { fragment, menuVm, view ->
-            val genderTitle = R.string.loan_info_select_gender_title
-            showMenu(fragment, menuVm, mUserMenuList.gender, view, genderTitle)
-        }
-
-    private var language: (Fragment, BaseMenuViewModel?, TextView) -> Unit =
-        { fragment, menuVm, view ->
-            val data = mUserMenuList.language
-            val desc = R.string.loan_info_select_language_title
-            showMenu(fragment, menuVm, data, view, desc)
-        }
-
-
-    private var edu: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { fragment, menuVm, view ->
-        val desc = R.string.loan_info_select_education_title
-        val data = mUserMenuList.education
-        showMenu(fragment, menuVm, data, view, desc)
-    }
-
-    private var ms: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { fragment, menuVm, view ->
-        val data = mUserMenuList.maritalStatus
-        val desc = R.string.loan_info_select_marital_status_title
-        showMenu(fragment, menuVm, data, view, desc)
-    }
-
-    private var purpose: (Fragment, BaseMenuViewModel?, TextView) -> Unit =
-        { fragment, menuVm, view ->
-            val data = mUserMenuList.purpose
-            val desc = R.string.loan_info_select_purpose_title
-            showMenu(fragment, menuVm, data, view, desc)
-        }
-
-    //工作信息弹出窗口。
-    private var mJobNature: List<UserType>? = mutableListOf()
-    private var occupation: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { f, menuVm, view ->
-        val desc = R.string.loan_info_select_occupation_title
-        val data = mUserMenuList.occupation
-        showMenu(f, menuVm, data, view, desc)
-    }
-
-    private var companyIndustry: (Fragment, BaseMenuViewModel?, TextView) -> Unit =
-        { f, menuVm, view ->
-            val desc = R.string.loan_info_select_company_industry_title
-            val data = mUserMenuList.companyIndustry
-            mUserMenuList.companyIndustry
-            showMenu(f, menuVm, data, view, desc)
-        }
-
-    private var jobNature: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { f, menuVm, view ->
-        val tip = view.tag
-        if (tip == null && mJobNature.isNullOrEmpty()) {
-            ToastUtils.showShort(R.string.loan_info_hint_industry_toast)
-        } else {
-            val desc = R.string.loan_info_select_job_nature_title
-            val data = mJobNature
-            showMenu(f, menuVm, data, view, desc)
+    private suspend fun checkMenuData(): Unit {
+        return withContext(viewModelScope.coroutineContext) {
+            if (!this@ProfileInfoViewModel::mMenuEntryList.isInitialized) {
+                val result = reqApi(UserInfoService::class.java, { queryListInfo() }, isShowLoading = true)
+                result.data?.let {
+                    initData(it)
+                }
+            }
         }
     }
 
-    private var staffSize: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { f, menuVm, view ->
-        val desc = R.string.loan_info_select_staff_size_title
-        val data = mUserMenuList.staffSize
-        showMenu(f, menuVm, data, view, desc)
-    }
+    private fun initData(menu: UserInfoRange) {
+        val gender = MenuEntry(R.string.loan_info_select_gender_title, menu.gender)
+        val language = MenuEntry(R.string.loan_info_select_language_title, menu.language)
+        val edu = MenuEntry(R.string.loan_info_select_education_title, menu.education)
+        val ms = MenuEntry(R.string.loan_info_select_marital_status_title, menu.maritalStatus)
+        val purpose = MenuEntry(R.string.loan_info_select_purpose_title, menu.purpose)
+        val occupation = MenuEntry(R.string.loan_info_select_occupation_title, menu.occupation)
+        val companyIndustry = MenuEntry(R.string.loan_info_select_company_industry_title, menu.companyIndustry)
+        val jobNature = MenuEntry(R.string.loan_info_select_job_nature_title, mJobNature)
+        val staffSize = MenuEntry(R.string.loan_info_select_staff_size_title, menu.staffSize)
+        val levelOfPosition = MenuEntry(R.string.loan_info_select_level_of_position_title, menu.levelOfPosition)
+        val salaryRange = MenuEntry(R.string.loan_info_select_salary_range_title, menu.salaryRange)
+        mMenuEntryList = arrayListOf(
+            gender,
+            language,
+            edu,
+            ms,
+            purpose,
+            occupation,
+            companyIndustry,
+            jobNature,
+            staffSize,
+            levelOfPosition,
+            salaryRange
+        )
 
-    private var levelOfPosition: (Fragment, BaseMenuViewModel?, TextView) -> Unit =
-        { f, menuVm, view ->
-            val desc = R.string.loan_info_select_level_of_position_title
-            val data = mUserMenuList.levelOfPosition
-            showMenu(f, menuVm, data, view, desc)
+        mMenuEntryList.forEach { key ->
+            val map = key.data?.associateBy({ "${it.state}_${it.info}" }, { it })
+            map?.let {
+                mMapUserTypeData.putAll(it)
+            }
         }
-
-    private var salaryRange: (Fragment, BaseMenuViewModel?, TextView) -> Unit = { f, menuVm, view ->
-        val desc = R.string.loan_info_select_salary_range_title
-        val data = mUserMenuList.salaryRange
-        showMenu(f, menuVm, data, view, desc)
     }
-
-    private val functionList = arrayListOf(
-        gender,
-        language,
-        edu,
-        ms,
-        purpose,
-
-        occupation,
-
-        companyIndustry,
-        jobNature,
-        staffSize,
-        levelOfPosition,
-        salaryRange
-    )
 
     fun showMenu(index: Int, fragment: Fragment, menuVm: BaseMenuViewModel?, view: TextView) {
         viewModelScope.launch {
             try {
-                checkMenuData().await()
                 mCurrentIndex = index
-                if (index in 0 until functionList.size) {
-                    functionList[index].invoke(fragment, menuVm, view)
+                checkMenuData()
+                if (index in 0 until mMenuEntryList.size) {
+                    val menuEntry = mMenuEntryList[index]
+                    showMenu(fragment, menuVm, menuEntry.data, menuEntry.title, view)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -340,61 +126,30 @@ class ProfileInfoViewModel : BaseViewModel() {
         }
     }
 
-    private fun showMenu(
-        fragment: Fragment, menuVm: BaseMenuViewModel?
-        , data: List<UserType>?
-        , view: TextView, loanInfoSelectEducationTitle: Int
-    ) {
-
+    private fun showMenu(fragment: Fragment, menuVm: BaseMenuViewModel?, data: List<UserType>?, titleRes: Int, view: TextView) {
         viewModelScope.launch {
             val act = ActivityStack.currentActivity()
             if (data != null && act != null && !act.isFinishing && !act.isDestroyed) {
                 val isOkResult = checkMustPermission(fragment)
-                val isOk = isOkResult.await()
-                var popupWindow: BasePopupWindow? = null;
-                menuVm?.callbackData = { it ->
-                    popupWindow?.dismiss()
-                    val userType = data[it]
-                    view.text = userType.info
-                    if (mCurrentIndex >= 0 && mCurrentIndex < mViewData.selectNetData.size) {
-                        mViewData.selectNetData[mCurrentIndex].set(userType.state.toInt())
-                    }
-
-
-                    if (mCurrentIndex == 5) {
-                        //occupation = it
-                        val visible =
-                            if (userType.state.toInt() == NO_WORK) View.GONE else View.VISIBLE
-                        writeWork.set(visible)
-                    }
-
-                    if (mCurrentIndex == 6) {
-                        mJobNature = userType.jobs
-                    }
-
-                    Unit
-                }
-                if (isOk && menuVm != null) {
-                    data?.let { data ->
-                        val a = data.mapIndexed { i, d -> MenuData(d.info, i, false) }
-                        menuVm.title = view.context.getString(loanInfoSelectEducationTitle)
-                        menuVm.listData.clear()
-                        menuVm.listData.addAll(a)
+                var popupWindow: BasePopupWindow?
+                menuVm?.apply {
+                    if (isOkResult) {
+                        val menuData = data.mapIndexed { i, d -> MenuData(d, i, false) }
+                        title = view.context.getString(titleRes)
+                        listData.clear()
+                        listData.addAll(menuData)
                         popupWindow = BasePopupWindow(act, menuVm, view, x217)
-                        popupWindow?.show(x_187, x23)
+                        popupWindow?.show(x187, x23)
+                        callbackData = { it ->
+                            popupWindow?.dismiss()
+                            val selectNetData = mViewData.selectNetData
+                            if (mCurrentIndex in 0 until selectNetData.size) {
+                                val loanObservableField = selectNetData[mCurrentIndex]
+                                loanObservableField.set(it.menuInfo)
+                            }
+                            Unit
+                        }
                     }
-                }
-            }
-        }
-    }
-
-    private fun checkMenuData(): Deferred<Unit> {
-        return viewModelScope?.async {
-            if (!this@ProfileInfoViewModel::mUserMenuList.isInitialized) {
-                val result =
-                    reqApi(UserInfoService::class.java, { queryListInfo() }, isShowLoading = true)
-                result.data?.let {
-                    mUserMenuList = it
                 }
             }
         }
@@ -403,14 +158,13 @@ class ProfileInfoViewModel : BaseViewModel() {
     fun checkMustPermission(et: EditText, fragment: Fragment) {
         if (et.isFocusable) {
             viewModelScope.launch {
-                val a = checkMustPermission(fragment)
-                a.await()
+                checkMustPermission(fragment)
             }
         }
     }
 
-    private fun checkMustPermission(fragment: Fragment): Deferred<Boolean> {
-        return viewModelScope.async {
+    private suspend fun checkMustPermission(fragment: Fragment): Boolean {
+        return withContext(viewModelScope.coroutineContext) {
             var isPermissionOk = false
             if (mPermissionModel.checkMustPermissions(fragment)) {
                 if (mPermissionModel.isGoogleServiceAvail) {
@@ -427,73 +181,59 @@ class ProfileInfoViewModel : BaseViewModel() {
         }
     }
 
+
     fun reqUserInfo(isCertifyFinish: Boolean) {
         viewModelScope.launch {
-            var userInfo = reqApi(
-                UserInfoService::class.java,
-                { queryUserExtraInfo() },
-                isCancelDialog = false,
-                isShowLoading = true
-            )
-            userInfo.data?.let {
-                userInfo.data!!.run {
-                    var isCanEdit = false //默认包含30状态的情况
-                    if (!isCertifyFinish) {//handler editable
-                        isCanEdit = TextUtil.isExistEmpty(purposeStr)
-                        //isExistUserInfo = !TextUtil.isEmpty(purposeStr)
-                    }
-                    //existData(this, isCanEdit)
+            checkMenuData()
+            var userInfo = reqApi(UserInfoService::class.java, { queryUserExtraInfo() }, isCancelDialog = false, isShowLoading = true)
+            if (userInfo.data == null) {
+                if (!isCertifyFinish) {
+                    //没有认证过。 默认控制可以编辑的有 firstName,middle,lastName,gender
+                    mViewData.isEditable.set(true)
+                    mViewData.isShowJobAndLevelOfPosition.set(View.GONE)
+                    //sms code
+                    mViewData.isShowSmsCodeInput.set(false)
+                    mViewData.isCheckEmail.set(false)
+                    //更新认证状态
+                    mViewData.isCreditFinish.set(false)
+                } else {
+                    //如果认证实现，则四个值不可以编辑。firstName,middle,lastName,gender
+                    mViewData.isEditable.set(false)
+                    //  writeWork.set(View.GONE)
+                    mViewData.isShowJobAndLevelOfPosition.set(View.GONE)
+                    //sms code
+                    mViewData.isShowSmsCodeInput.set(false)
+                    mViewData.isCheckEmail.set(false)
+                    //更新认证状态
+                    mViewData.isCreditFinish.set(true)
                 }
-            }
-        }
-    }
+            } else {
+                userInfo.data?.let {
+                    it.run {
+                        var isCanEdit = false //默认包含30状态的情况
+                        if (!isCertifyFinish) {//handler editable
+                            isCanEdit = TextUtil.isExistEmpty(purposeStr)
+                        }
 
+                        mViewData.isEditable.set(isCanEdit)
+                        //是否显示邮箱验证码输入框。
+                        mViewData.isShowSmsCodeInput.set(it.emailCheck == Constants.NUMBER_1)
+                        mViewData.isCheckEmail.set(mViewData.isShowSmsCodeInput.get())
 
-    private fun showUserInfoAndWorkInfo(info: UserInfoExt?) {
-        //回显个人信息
-        info?.run {
-            mViewData.firstNameA.set(firstNamePan)
-            mViewData.middleName.set(middleNamePan)
-            mViewData.lastName.set(lastNamePan)
-            //
-            //mBinding.writeUserInfoGender.text = sexStr
-            mViewData.gender.set(sex)
-            //
-            //mBinding.writeUserInfoLanguage.text = languageStr
-            //mViewData.language.set(language)
-            //
-            //mBinding.writeUserInfoMarital.text = marryStateStr
-            mViewData.maritalStatus.set(marryState)
-            //
-            //mBinding.writeUserInfoPurpose.text = purposeStr
-            mViewData.purpose.set(purpose)
-            mViewData.facebook.set(facebook)
-            mViewData.whatsApp.set(whatsapp)
-            mViewData.anotherPhone.set(anotherPhone)
-            if (!TextUtil.isEmpty(educationStr)) {
-                mViewData.eduQualifier.set(education)
-            }
-            //mBinding.writeUserInfoEdu.text = educationStr
-        }
-    }
+                        mViewData.selectNetData.forEachIndexed { i, data ->
+                            val a = getIntKey()
+                            val userType = mMapUserTypeData[a[i]]
+                            if (userType != null) {
+                                data.set(userType)
+                            }
+                        }
 
-    //手机通信录联系人。
-    private var cacheContactInfo: String? = null
-    private var isFirstLoadContact: Boolean = true
-    fun collectContactInfo() {
-        if (AndroidPermissions.hasPermissions(
-                ContextProvider.app,
-                Manifest.permission.READ_CONTACTS
-            )
-        ) {
-            if (isFirstLoadContact) {
-                isFirstLoadContact = false
-                thread(true) {
-                    ActivityStack.currentActivity()?.let {
-                        if (!it.isDestroyed || !it.isFinishing) {
-                            val contacts = PhoneUtil.getContactsList(it)
-                            cacheContactInfo =
-                                Base64.encode(GsonUtils.toJsonString(contacts).toByteArray())
+                        mViewData.dataTextList.forEachIndexed { i, data ->
+                            val a = getTextKey()
+                            val s = a[i]
+                            if (s.isNotEmpty()) {
+                                data.set(s)
+                            }
                         }
                     }
                 }
@@ -501,44 +241,107 @@ class ProfileInfoViewModel : BaseViewModel() {
         }
     }
 
-    fun localPause() {
-
+    private fun collectContactInfo() {
+        if (AndroidPermissions.hasPermissions(ContextProvider.app, Manifest.permission.READ_CONTACTS)) {
+            if (isFirstLoadContact) {
+                isFirstLoadContact = false
+                thread(true) {
+                    ActivityStack.currentActivity()?.let {
+                        if (!it.isDestroyed || !it.isFinishing) {
+                            val contacts = PhoneUtil.getContactsList(it)
+                            cacheContactInfo = Base64.encode(GsonUtils.toJsonString(contacts).toByteArray())
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun commitBeforeCheckPermission(fragment: Fragment) {
         mPermissionModel.requestPermission(fragment)
     }
 
-    fun commitUserInfoData(reqCode: Int) {
+    fun commitUserInfoData(fragment: Fragment, reqCode: Int) {
         if (reqCode == PermissionCheckModel.PERMISSION_DATA_COMMIT) {
             collectContactInfo()
             FirseBaseEventUtils.trackEvent(StatEventTypeName.PERSON_INFO_COMMIT)
+
+            if (!TextUtil.isEmpty(mViewData.anotherPhone.get()) && (mViewData.anotherPhone.get()?.length ?: 0 < 10)) {
+                ToastUtils.showShort(R.string.loan_info_write_user_info_input_ten_anther_code)
+                return
+            }
+
+            if (mViewData.occ.get() == null) {
+                ToastUtils.showShort(R.string.loan_info_write_work_not_first_choice_occupation_toast)
+                return
+            }
+
+            if (!(mViewData.condition1() || mViewData.condition2() || mViewData.condition3())) {
+                ToastUtils.showShort(R.string.loan_info_write_work_info_check_necessary_fill_in_tip)
+                return
+            }
+
+            if (mViewData.writeWork.get() == View.VISIBLE) {
+
+                if (!RegularUtil.isEmail(mViewData.workEmail.get())) {
+                    ToastUtils.showShort(R.string.loan_info_write_user_info_email_error_tip)
+                    return
+                }
+
+                if ((mViewData.companyTel.get()?.length ?: 0) < 10) {
+                    ToastUtils.showShort(R.string.loan_info_write_work_company_tel_error_tip)
+                    return
+                }
+            }
+
+            if (TextUtil.isEmpty(cacheContactInfo)) {
+                ToastUtils.showShort(R.string.loan_info_write_user_info_submit_try_again)
+                return
+            }
+            mViewData.mUserInfo.registerCoordinate = LocationUtils.getLatLng()
+            mViewData.mUserInfo.info = cacheContactInfo
+            viewModelScope.launch {
+                val reqResult = reqApi(UserInfoService::class.java, block = { saveOrUpdateUserInfo(mViewData.mUserInfo) }, isCancelDialog = false)
+                reqResult.data?.run {
+                    /** 10-黑名单 ,20-白名单  */
+                    if (!isExistUserInfo) {
+                        // 跳转到认证结果页面。
+                        NavHostFragment.findNavController(fragment).navigate(R.id.loan_info_model_profile_info_supply_info)
+                        // NavHostFragment.findNavController(fragment).navigate()//
+                        // ARouter.getInstance().build(ARouterPath.CREDIT_RESULT).withInt(ARouterKeys.STATE, this.userState).withDouble(ARouterKeys.DATA, this.userCredit).navigation()
+                        return@run
+                    }
+                    when {
+                        CommonDataModel.RUNTIME_USER_SUPPLEMENT_INFO_STATE -> {
+                            NavHostFragment.findNavController(fragment).navigate(R.id.loan_info_model_profile_info_supply_info)
+                        }
+                        CommonDataModel.RUNTIME_USER_BANK_INFO_STATE -> {
+                            // ARouterPath.BANK //跳转到银行页面。
+                        }
+                        else -> {
+                            back(fragment.requireView())
+                        }
+                    }
+
+                }
+            }
         }
     }
 
-    @get:Bindable
-    var workSince: String? = null
-        set(workSince) {
-            field = workSince
-        }
-    var commitWorkSince: String? = ""
-
-    fun choseWorkDateClick(fragment: Fragment, view: View) {
+    fun choseWorkDateClick(fragment: Fragment) {
         var now = Calendar.getInstance()
         var dpd = newInstance(
             { _, year, monthOfYear, dayOfMonth ->
-                workSince = "$dayOfMonth-${(monthOfYear + 1)}-$year"
-                commitWorkSince = "$year-${monthOfYear + 1}-$dayOfMonth"
+                mViewData.workSince.set("$dayOfMonth-${(monthOfYear + 1)}-$year")
+                mViewData.mWorkSinceText = "$year-${monthOfYear + 1}-$dayOfMonth"
             },
             now.get(Calendar.YEAR), // Initial year selection
             now.get(Calendar.MONTH), // Initial month selection
             now.get(Calendar.DAY_OF_MONTH) // Inital day selection
         )
         dpd.maxDate = now
-        dpd.show(fragment.childFragmentManager, "Datepickerdialog")
+        dpd.show(fragment.childFragmentManager, "WorkSinceDatePickerDialog")
     }
-
-
 
 
 }

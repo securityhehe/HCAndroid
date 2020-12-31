@@ -3,6 +3,7 @@ package com.hc.login.vm
 import android.Manifest
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -28,6 +29,7 @@ import com.hc.login.BuildConfig
 import com.hc.login.R
 import com.hc.login.api.LoginServer
 import com.hc.data.common.TokenData
+import com.hc.data.user.UserType
 import com.hc.login.data.UserDeviceInfo
 import com.hc.login.provider.LoginProvider
 import com.hc.uicomponent.base.BaseViewModel
@@ -88,17 +90,18 @@ class LoginVM : BaseViewModel() {
     var isUpdateLanguageUI = MutableLiveData<Unit>()
     var listData = ObservableArrayList<MenuData>()
     var title: String? = ""
+
     init {
         listData.add(
             MenuData(
-                ContextProvider.app.getString(R.string.lan_login_language_en),
+                UserType(info = ContextProvider.app.getString(R.string.lan_login_language_en), state = ""),
                 0,
                 true
             )
         )
         listData.add(
             MenuData(
-                ContextProvider.app.getString(R.string.loan_login_language_hindi),
+                UserType(info = ContextProvider.app.getString(R.string.loan_login_language_hindi), state = ""),
                 1,
                 false
             )
@@ -144,7 +147,7 @@ class LoginVM : BaseViewModel() {
      *三.没有结果返回，不做任何操作。
      */
     fun doLoginStep1IsToSendSms(view: View) {
-        if(isTEST){
+        if (isTEST) {
             gotoInputCheckCodePage(view)
             return
         }
@@ -262,7 +265,7 @@ class LoginVM : BaseViewModel() {
             "",
             Locale.getDefault().language,
             "android",
-            DeviceUtil.getDeviceId(ContextProvider.app)?:"",
+            DeviceUtil.getDeviceId(ContextProvider.app) ?: "",
             AppsFlyerLib.getInstance().getAppsFlyerUID(ActivityStack.currentActivity())
         )
 
@@ -302,13 +305,13 @@ class LoginVM : BaseViewModel() {
 
     private fun gotoPermissionPage(view: View) {
         Navigation.findNavController(view).printStack()
-        ContextProvider.mNavIdProvider?.apply{
-                val opt = NavOptions.Builder()
-                    .setEnterAnim(R.anim.anim_right_to_middle)
-                    .setLaunchSingleTop(true)
-                    .setPopExitAnim(R.anim.anim_middle_to_right)
-                    .setPopUpTo(getRootNavId(), false).build()
-                Navigation.findNavController(view).navigate(R.id.loginModelPermission,null,opt)
+        ContextProvider.mNavIdProvider?.apply {
+            val opt = NavOptions.Builder()
+                .setEnterAnim(R.anim.anim_right_to_middle)
+                .setLaunchSingleTop(true)
+                .setPopExitAnim(R.anim.anim_middle_to_right)
+                .setPopUpTo(getRootNavId(), false).build()
+            Navigation.findNavController(view).navigate(R.id.loginModelPermission, null, opt)
         }
         Navigation.findNavController(view).printStack()
     }
@@ -333,7 +336,7 @@ class LoginVM : BaseViewModel() {
 
     //调整到kyc页面。
     fun toKycPage(nextBtn: Button) {
-       val bundle = bundleOf(Pair(formKey,formPermissionPage))
+        val bundle = bundleOf(Pair(formKey, formPermissionPage))
         ContextProvider.mNavIdProvider?.let {
             val opt = NavOptions.Builder()
                 .setEnterAnim(R.anim.anim_right_to_middle)
@@ -343,7 +346,7 @@ class LoginVM : BaseViewModel() {
             val url = Uri.parse("loan://loan/infoModel/Kyc?formKey=${formPermissionPage}")
             val a = NavDeepLinkRequest.Builder.fromUri(url).build()
             val navigation = Navigation.findNavController(nextBtn)
-            navigation.navigate(a,opt)
+            navigation.navigate(a, opt)
             navigation.navigationStackPrintln("toKeyPage()")
         }
     }
@@ -362,11 +365,11 @@ class LoginVM : BaseViewModel() {
 
 
 @SuppressLint("RestrictedApi")
-fun NavController.printStack(){
+fun NavController.printStack() {
     println("====================stack==================")
     val a = backStack.iterator()
-    while(a.hasNext()){
-       val a=  a.next()
+    while (a.hasNext()) {
+        val a = a.next()
         println(a.destination.toString())
     }
     println("====================end==================")

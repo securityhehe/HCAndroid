@@ -1,6 +1,8 @@
 package com.hc.data
 
-open class MenuData(var menuInfo:CharSequence, var index:Int, var isSelect:Boolean){
+import com.hc.data.user.UserType
+
+open class MenuData(var menuInfo:UserType, var index:Int, var isSelect:Boolean){
 
 }
 

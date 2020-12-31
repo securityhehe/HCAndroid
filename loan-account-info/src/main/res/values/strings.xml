@@ -106,5 +106,18 @@
     <string name="dialog_mall_order_total_interest">Total interest（%1$s%% Daily Interest):</string>
     <string name="mall_order_submit_loan_duration">%1$s Day(s)</string>
 
+    <string name="loan_info_write_user_info_submit_try_again">The current number of the submit is too many, please try again!</string>
+    <string name="loan_info_write_user_info_input_ten_anther_code">Please enter another mobile number with at least ten digits!</string>
+
+    <string name="loan_info_write_work_sms_hint">Please fill in the verification code of work email.</string>
+    <string name="loan_info_write_work_company_tel_error_tip">Please enter the correct company phone number!</string>
+    <string name="loan_info_write_work_not_first_choice_occupation_toast">Please select the occupation first!</string>
+    <string name="loan_info_write_work_first_choice_company_industry_toast">Please select the Company Industry first!</string>
+    <string name="loan_info_write_work_info_check_necessary_fill_in_tip">Please check whether the necessary parameters are filled in!</string>
+
+    <string name="loan_info_write_user_info_email_error_tip">Please input the correct email address!</string>
+    <string name="loan_info_write_user_info_chose_contact">You cannot select the same person repeatedly, please choose another contact!</string>
+    <string name="loan_info_write_user_info_contact_emotion_tip">contact name cannot contain emoticons!</string>
+
 
 </resources>

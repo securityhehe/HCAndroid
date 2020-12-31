@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             isSelect="@{data.select}"
-            android:text="@{data.menuInfo}"
+            android:text="@{data.menuInfo.info}"
             android:textColor="@color/color_menu_item"
             android:textSize="17sp"
             tools:text="content menu content" />

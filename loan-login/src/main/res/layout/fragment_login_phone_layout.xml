@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:minWidth="89dp"
                 android:onClick="@{()->vm.clickLanguage()}"
-                android:text="@{vm.language.menuInfo, default=@string/lan_login_language_en}"
+                android:text="@{vm.language.menuInfo.info, default=@string/lan_login_language_en}"
                 android:textColor="#ffffffff"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

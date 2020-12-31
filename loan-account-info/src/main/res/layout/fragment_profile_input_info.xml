@@ -24,8 +24,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -71,6 +70,8 @@
                     layout="@layout/account_input_name_item"
                     app:fm="@{lanFragment}"
                     app:idIndex="@{0}"
+                    app:isEnable="@{vm.MViewData.isEditable}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:title="@{@string/loan_info_first_name}"
                     app:vm="@{vm}" />
 
@@ -78,6 +79,8 @@
                     layout="@layout/account_input_middle_item"
                     app:fm="@{lanFragment}"
                     app:idIndex="@{1}"
+                    app:isEnable="@{vm.MViewData.isEditable}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:title="@{@string/loan_info_medium_name}"
                     app:vm="@{vm}" />
 
@@ -85,10 +88,13 @@
                     layout="@layout/account_input_name_item"
                     title="@{@string/loan_info_last_name}"
                     app:fm="@{lanFragment}"
+                    app:isEnable="@{vm.MViewData.isEditable}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:idIndex="@{2}"
                     app:vm="@{vm}" />
 
                 <include
+                    app:isCreditFinish="@{isCreditFinish}"
                     layout="@layout/account_input_select_item"
                     title="@{@string/loan_info_gender}"
                     app:loanBaseMenuMv="@{menuVM}"
@@ -97,6 +103,7 @@
                     app:loanVm="@{vm}" />
 
                 <include
+                    app:isCreditFinish="@{isCreditFinish}"
                     layout="@layout/account_input_select_item"
                     title="@{@string/loan_info_language}"
                     app:loanBaseMenuMv="@{menuVM}"
@@ -105,6 +112,7 @@
                     app:loanVm="@{vm}" />
 
                 <include
+                    app:isCreditFinish="@{isCreditFinish}"
                     layout="@layout/account_input_select_item"
                     title="@{@string/loan_info_edu_qua}"
                     app:loanBaseMenuMv="@{menuVM}"
@@ -113,6 +121,7 @@
                     app:loanVm="@{vm}" />
 
                 <include
+                    app:isCreditFinish="@{isCreditFinish}"
                     layout="@layout/account_input_select_item"
                     title="@{@string/loan_info_marital_status}"
                     app:loanBaseMenuMv="@{menuVM}"
@@ -121,6 +130,7 @@
                     app:loanVm="@{vm}" />
 
                 <include
+                    app:isCreditFinish="@{isCreditFinish}"
                     layout="@layout/account_input_select_item"
                     title="@{@string/loan_info_purpose}"
                     app:loanBaseMenuMv="@{menuVM}"
@@ -152,78 +162,84 @@
                 <!---工作信息-->
                 <include
                     layout="@layout/account_input_employment_item"
-                    app:isAuth="@{isCreditFinish}"
                     app:baseMenuModel="@{menuVM}"
                     app:fm="@{lanFragment}"
                     app:vm="@{vm}" />
 
                 <include
                     layout="@layout/account_input_name_item"
+                    app:fm="@{lanFragment}"
+                    app:idIndex="@{6}"
+                    app:vm="@{vm}"
                     title="@{@string/loan_info_company_full_name}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.writeWork}" />
 
                 <include
                     layout="@layout/account_input_email"
+                    app:idIndex="@{7}"
+                    app:vm="@{vm}"
                     title="@{@string/loan_info_work_email}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.writeWork}" />
 
                 <include
                     layout="@layout/account_input_name_item"
-                    app:fm="@{lanFragment}"
-                    app:vm="@{vm}"
                     title="@{@string/loan_info_company_tel}"
-                    app:visible="@{vm.writeWork}" />
-
+                    app:fm="@{lanFragment}"
+                    app:idIndex="@{8}"
+                    app:visible="@{vm.MViewData.writeWork}"
+                    app:vm="@{vm}" />
 
                 <include
+                    layout="@layout/account_input_select_item"
+                    title="@{@string/loan_info_company_industry}"
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{6}"
                     app:loanVm="@{vm}"
-                    layout="@layout/account_input_select_item"
-                    title="@{@string/loan_info_company_industry}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.writeWork}" />
 
                 <include
+                    layout="@layout/account_input_select_item"
+                    title="@{@string/loan_info_job_nature}"
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{7}"
                     app:loanVm="@{vm}"
-                    layout="@layout/account_input_select_item"
-                    title="@{@string/loan_info_job_nature}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.isShowJobAndLevelOfPosition}" />
 
                 <include
+                    layout="@layout/account_input_select_item"
+                    title="@{@string/loan_info_staff_size}"
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{8}"
                     app:loanVm="@{vm}"
-                    layout="@layout/account_input_select_item"
-                    title="@{@string/loan_info_staff_size}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.writeWork}" />
 
                 <include
+                    layout="@layout/account_input_select_item"
+                    title="@{@string/loan_info_level_of_position}"
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{9}"
                     app:loanVm="@{vm}"
+                    android:visible="@{vm.MViewData.isShowJobAndLevelOfPosition}" />
+
+                <include
+                    app:idIndex="@{9}"
+                    app:vm="@{vm}"
+                    app:fm="@{lanFragment}"
+                    app:visible="@{vm.MViewData.writeWork}"
+                    layout="@layout/account_input_since_work" />
+
+                <include
                     layout="@layout/account_input_select_item"
-                    title="@{@string/loan_info_level_of_position}"
-                    app:visible="@{vm.writeWork}" />
-
-                <include
-                    layout="@layout/account_input_name_item"
-                    title="@{@string/loan_info_level_work_since}"
-                    app:visible="@{vm.writeWork}" />
-
-                <include
+                    title="@{@string/loan_info_level_salary_range}"
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{10}"
                     app:loanVm="@{vm}"
-                    layout="@layout/account_input_select_item"
-                    title="@{@string/loan_info_level_salary_range}"
-                    app:visible="@{vm.writeWork}" />
+                    app:visible="@{vm.MViewData.writeWork}" />
 
             </LinearLayout>
         </ScrollView>
@@ -234,6 +250,7 @@
             android:layout_marginBottom="31dp"
             android:enabled="@{vm.MViewData.btnIsEnable}"
             android:text="@string/account_profile_commit_info_btn"
+            android:onClick="@{()->vm.commitBeforeCheckPermission(lanFragment)}"
             android:visibility="@{isCreditFinish?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -122,6 +122,11 @@ interface UserInfoService {
         @PartMap params: Map<String?, RequestBody?>
     ): Call<HttpResult<String?>>
 
+    /**
+     * 保存或者更新用户基本信息
+     */
+    @POST("act/mine/userInfo/saveOrUpdate.htm")
+    fun saveOrUpdateUserInfo(@Body sub: UserInfoSub?): Call<HttpResult<AuthInfo>>
 
 
 }

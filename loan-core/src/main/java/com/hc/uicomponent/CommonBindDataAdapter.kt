@@ -26,6 +26,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.provider.CommonProvider
+import com.hc.uicomponent.utils.EditTextFormat
 import frame.utils.ConverterUtil
 import frame.utils.RegularUtil
 
@@ -185,6 +186,46 @@ object CommonBindDataAdapter {
             false
         }
         view.setOnEditorActionListener(listener)
+    }
+
+    /**
+     * EditText Filter
+     */
+    @BindingAdapter(value = ["filterType", "watcher"], requireAll = false)
+    @JvmStatic
+    fun editTextFilter(
+        view: EditText?,
+        type: Int,
+        watcher: EditTextFormat.EditTextFormatWatcher?
+    ) {
+        when (type) {
+            Constants.NUMBER_0 -> EditTextFormat.addFilter(
+                view,
+                EditTextFormat.getDecimalFilter(8, 2)
+            )
+            Constants.NUMBER_1 -> EditTextFormat.addFilter(view, EditTextFormat.getBlankFilter())
+            Constants.NUMBER_2 -> EditTextFormat.bankCardNumAddSpace(view, watcher)
+            Constants.NUMBER_3 -> EditTextFormat.phoneNumAddSpace(view, watcher)
+            Constants.NUMBER_4 -> EditTextFormat.IDCardNumAddSpace(view, watcher)
+            Constants.NUMBER_5 -> EditTextFormat.addFilter(view, EditTextFormat.getPercentFilter())
+            Constants.NUMBER_6 -> EditTextFormat.addFilter(view, EditTextFormat.getIDCardFilter())
+            Constants.NUMBER_7 -> EditTextFormat.addFilter(view, EditTextFormat.getNumberFilter())
+            Constants.NUMBER_8 -> EditTextFormat.addFilter(view, EditTextFormat.getPasswordFilter())
+            Constants.NUMBER_10 -> EditTextFormat.addFilter(
+                view,
+                EditTextFormat.getSpaceAndLetterFilter()
+            )
+            Constants.NUMBER_11 -> EditTextFormat.addFilter(
+                view,
+                EditTextFormat.getEmojiExcludeFilter()
+            )
+            Constants.NUMBER_12 -> {
+                EditTextFormat.addFilter(view, EditTextFormat.getEmojiExcludeFilter())
+                EditTextFormat.addFilter(view, EditTextFormat.getNoNumberFilter())
+            }
+            else -> {
+            }
+        }
     }
 
 

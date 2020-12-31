@@ -32,11 +32,12 @@ class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mFragmentBinding.vm = vm
         mFragmentBinding.menuVM = menuVm
         mFragmentBinding.lanFragment = this
-        mFragmentBinding.isCreditFinish = arguments?.getBoolean(Constants.STATE)?:false
+        val isCreditFinish = arguments?.getBoolean(Constants.STATE) ?: false
+        mFragmentBinding.isCreditFinish =isCreditFinish
+        vm?.reqUserInfo(isCreditFinish)
     }
 
     override fun onResume() {
@@ -47,7 +48,6 @@ class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding
 
     override fun onPause() {
         super.onPause()
-        vm?.localPause()
         LocationUtils.getInstance().stopLocationUpdates(requireContext())
         LocationUtils.getInstance().stopGps()
     }
@@ -57,9 +57,7 @@ class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding
     }
 
     override fun onAllPermissionGranted(requestCode: Int) {
-        vm?.commitUserInfoData(requestCode)
+        vm?.commitUserInfoData(this,requestCode)
     }
-
-
 
 }

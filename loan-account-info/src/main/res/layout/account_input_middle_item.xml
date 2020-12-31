@@ -15,6 +15,12 @@
         <variable
             name="fm"
             type="androidx.fragment.app.Fragment" />
+        <variable
+            name="isCreditFinish"
+            type="java.lang.Boolean" />
+        <variable
+            name="isEnable"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,8 +47,10 @@
             android:background="@null"
             android:hint="@string/loan_info_phone_hint"
             android:textColorHint="#999"
-            android:textColor="#333333"
             android:textSize="16sp"
+            android:enabled="@{isEnable ,default=true}"
+            android:clickable="@{isEnable ,default=true}"
+            android:textColor="@{isEnable ||isCreditFinish ? @color/colorItemSelect:@color/colorItemUnSelect}"
             clearOnFocusAndDispatch="@{()->vm.checkMustPermission(name,fm)}"
             android:text="@={vm.MViewData.dataTextList[idIndex]}"
             app:layout_constraintEnd_toEndOf="parent"

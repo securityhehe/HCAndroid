@@ -96,7 +96,7 @@ data class UserInfoExt(
     var currentAddress: String?,
 
     var emailCheck: Int = 0,
-    var userWorkInfoModel: UserWorkInfo?
+    var userWorkInfoModel: UserWorkInfoAll?
 )
 
 class UserInfoSub {
@@ -116,12 +116,9 @@ class UserInfoSub {
     var info: String? = null
 
     var callRecords: String? = null
-
     var registerCoordinate: String? = null
-
     var companyName: String? = null
     var companyEmail: String? = null
-
     //    var education: Int? = null
     var companyTel: String? = null
     var workingSince: String? = null
@@ -180,4 +177,4 @@ data class UserType(
     //netbanking part
     var code: String = "",
     var name: String = ""
-):MenuData(info,0,false)
+)

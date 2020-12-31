@@ -12,6 +12,11 @@
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+        <import
+            type="android.view.View" />
+        <variable
+            name="idIndex"
+            type="java.lang.Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,8 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:text="@string/account_profile_email"
-            android:textColor="#333333"
+            android:clickable="@{!vm.MViewData.isCannotEditEmail &amp;&amp; !vm.MViewData.isCreditFinish}"
+            android:enabled="@{!vm.MViewData.isCannotEditEmail &amp;&amp; !vm.MViewData.isCreditFinish }"
+            android:text="@={vm.MViewData.dataTextList[idIndex]}"
+            android:textColor="@{vm.MViewData.isCannotEditEmail?@color/loan_info_color_999999:@color/loan_info_color_333333}"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/account_input_name" />
@@ -46,6 +53,7 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:layout_marginEnd="0dp"
+            android:visibility="@{vm.MViewData.isCreditFinish || !vm.MViewData.isShowSmsCodeInput ? View.GONE:View.VISIBLE}"
             android:text="@string/account_profile_get_opt_sms"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/account_input_name" />
@@ -64,9 +72,11 @@
             android:layout_height="44dp"
             android:layout_weight="1"
             android:background="@null"
+            android:text="@={vm.MViewData.emailCode}"
             android:hint="@string/account_profile_input_sms"
-            android:textColor="#999999"
             android:textSize="16sp"
+            app:filterType="@{11}"
+            android:visibility="@{vm.MViewData.isCreditFinish || !vm.MViewData.isShowSmsCodeInput ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line1" />
 
@@ -74,6 +84,7 @@
             style="@style/AccountProfileLine"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:visibility="@{vm.MViewData.isCreditFinish || !vm.MViewData.isShowSmsCodeInput ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_code" />

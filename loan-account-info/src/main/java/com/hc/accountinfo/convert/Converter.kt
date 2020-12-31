@@ -67,6 +67,11 @@ fun convertAuthState(state:Int): String {
 }
 
 /**
+ *
+ */
+
+
+/**
  * show credit text color
  */
 
