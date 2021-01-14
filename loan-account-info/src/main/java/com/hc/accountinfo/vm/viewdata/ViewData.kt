@@ -192,7 +192,7 @@ class ViewUserInfoData {
     }
 
     fun condition1(): Boolean {
-        return (occ.get()?.state?.toInt() == ProfileInfoViewModel.NO_WORK)
+        return (occ.get()?.state?.toInt() == NO_WORK)
     }
 
     fun condition2(): Boolean {

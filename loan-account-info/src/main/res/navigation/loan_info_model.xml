@@ -90,6 +90,15 @@
         android:id="@+id/loan_info_model_profile_supply_info"
         android:name="com.hc.accountinfo.AccountSupplyInfoFragment"
         tools:layout="@layout/fragment_supplementary_info">
+
+        <action
+            android:id="@+id/loan_info_sppply_to_bank"
+            app:destination="@id/loan_info_model_bank_info"
+            app:popUpTo="@id/loan_info_model_auth_center"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+
         <action
             android:id="@+id/loan_info_model_supply_info_auth_center"
             app:destination="@id/loan_info_model_auth_center"

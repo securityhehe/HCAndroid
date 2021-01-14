@@ -2,63 +2,60 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="vm"
-            type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+            type="com.hc.accountinfo.vm.BankInfoViewModel" />
+
+        <variable
+            name="index"
+            type="java.lang.Integer" />
 
         <variable
             name="fm"
             type="androidx.fragment.app.Fragment" />
-
         <variable
-            name="idIndex"
-            type="java.lang.Integer" />
+            name="isCreditFinish"
+            type="java.lang.Boolean" />
 
-        <variable
-            name="visible"
-            type="java.lang.Integer" />
-
-        <import type="frame.utils.DateUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="@{vm.MViewData.isEditable}"
-        android:enabled="@{vm.MViewData.isEditable }"
-        android:onClick="@{()->vm.choseWorkDateClick(fm)}"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:visibility="@{visible, default=visible}">
+        android:paddingEnd="15dp">
 
         <TextView
+            android:text="@string/ifsc_code"
             android:id="@+id/account_input_name"
-            style="@style/AccountProfileInputInfoTitle"
+            android:lines="2"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:lines="2"
-            android:text="@string/loan_info_level_work_since"
-            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/AccountProfileInputInfoTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-        <TextView
+        <EditText
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:gravity="center_vertical|end"
             android:lines="2"
-            android:text="@={vm.MViewData.dataTextList[idIndex]}"
-            android:textColor="@{vm.MViewData.isEditable || vm.MViewData.isCreditFinish ?@color/loan_info_color_333333:@color/loan_info_color_999999}"
+            android:gravity="center_vertical|start"
+            android:background="@null"
+            android:textColorHint="#999"
             android:textSize="16sp"
+            android:textColor="@{isCreditFinish ? @color/colorItemSelect:@color/colorItemUnSelect}"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{vm.viewData[index]}"
+            tools:text="aaaaaaaaaaaaaaaaaaaaaa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/account_input_name"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="aaa" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             style="@style/AccountProfileLine"
@@ -70,4 +67,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
-

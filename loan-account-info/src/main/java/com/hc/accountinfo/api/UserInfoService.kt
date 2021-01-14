@@ -38,11 +38,11 @@ interface UserInfoService {
      * 查询bank信息
      */
     @POST("act/mine/bankCard/myBankCardList.htm")
-    fun queryUserBankInfo(): retrofit2.Call<HttpResult<UserBankRec?>?>?
+    fun queryUserBankInfo(): retrofit2.Call<HttpResult<UserBankRec>>
 
     /** 获取字典  */
     @GET("act/dict/list.htm")
-    fun getBankListDictionary(@retrofit2.http.Query(RequestParams.TYPE) type: String?): retrofit2.Call<HttpResult<BankDictList?>?>?
+    fun getBankListDictionary(@retrofit2.http.Query(RequestParams.TYPE) type: String?): Call<HttpResult<BankDictList>>
 
     /**
      * 查询认证状态
@@ -76,7 +76,7 @@ interface UserInfoService {
         @retrofit2.http.Field(RequestParams.OTHER_RELATIVES) otherRelatives: Int,
         @retrofit2.http.Field(RequestParams.COLLEAGUE_NAME) colleagueName: String?,
         @retrofit2.http.Field(RequestParams.COLLEAGUE_MOBILE) colleagueMobile: String?
-    ): Call<HttpResult<*>>
+    ): Call<HttpResult<Any>>
 
 
     @POST("act/user/ocr/getFaceSdk.htm")
@@ -128,5 +128,16 @@ interface UserInfoService {
     @POST("act/mine/userInfo/saveOrUpdate.htm")
     fun saveOrUpdateUserInfo(@Body sub: UserInfoSub?): Call<HttpResult<AuthInfo>>
 
+
+    @FormUrlEncoded
+    @POST("act/mine/bankCard/bind.htm")
+    fun saveBankInfo(
+        @Field(RequestParams.BANK_NAME) bankName: String?,
+        @Field(RequestParams.BANK_NO) bankNo: String?,
+        @Field(RequestParams.IF_SCCODE) ifscCode: String?,
+        @Field(RequestParams.BANK_TYPE) bankType: Int,
+        @Field(RequestParams.PHONE_MARK) phoneMark: String?,
+        @Field("confirmSign") confirmIfsc: Boolean
+    ): Call<HttpResult<Any>>
 
 }

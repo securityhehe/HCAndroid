@@ -1,201 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>
 
+    <data>
+        <variable
+            name="visibleSuccess"
+            type="java.lang.Integer" />
+        <variable
+            name="visibleFail"
+            type="java.lang.Integer" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:visibility="@{visibleSuccess}">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"
-            android:src="@mipmap/common_title_back" />
 
-        <ImageView
+        <LinearLayout
+            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="43dp"
-            android:src="@mipmap/common_success_img" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="6dp"
-            android:text="@string/permission_title"
-            android:textColor="#ff333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-
-            android:layout_width="321dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text="@string/permission_success_msg"
-            android:textColor="#ff333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:src="@mipmap/common_success" />
+                android:paddingStart="15dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:src="@mipmap/common_title_back" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="43dp"
+                android:src="@mipmap/common_success_img" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:text="@string/permission_steps_title"
-                android:textColor="@color/colorPrimary" />
+                android:layout_marginTop="6dp"
+                android:text="@string/permission_title"
+                android:textColor="#ff333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+
+                android:layout_width="321dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:text="@string/permission_success_msg"
+                android:textColor="#ff333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
-                android:paddingBottom="17dp">
-
-
-                <TextView
-                    android:id="@+id/permission_app_receive"
-                    style="@style/PermissionStepContent"
-                    android:text="Application Received"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/permission_dot_one"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/permission_app_approved"
-                    style="@style/PermissionStepContent"
-                    android:text="Application Received"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/permission_dot_two"
-                    app:layout_constraintTop_toBottomOf="@id/permission_app_receive" />
-
-
-                <TextView
-                    android:id="@+id/permission_app_e_signed"
-                    style="@style/PermissionStepContent"
-                    android:text="Application Received"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/permission_dot_three"
-                    app:layout_constraintTop_toBottomOf="@id/permission_app_approved" />
-
-                <TextView
-                    android:id="@+id/permission_app_success"
-                    style="@style/PermissionStepContent"
-                    android:text="Application Received"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/permission_dot_four"
-                    app:layout_constraintTop_toBottomOf="@id/permission_app_e_signed" />
-
-                <View
-                    android:id="@+id/permission_dot_one"
-                    style="@style/PermissionStepDot"
-                    app:layout_constraintBottom_toBottomOf="@id/permission_app_receive"
-                    app:layout_constraintEnd_toStartOf="@id/permission_app_receive"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/permission_app_receive" />
-
-                <View
-                    android:id="@+id/permission_dot_two"
-                    style="@style/PermissionStepDot"
-                    app:layout_constraintBottom_toBottomOf="@id/permission_app_approved"
-                    app:layout_constraintEnd_toStartOf="@id/permission_app_approved"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/permission_app_approved" />
-
-                <View
-                    android:id="@+id/permission_dot_three"
-                    style="@style/PermissionStepDot"
-                    app:layout_constraintBottom_toBottomOf="@id/permission_app_e_signed"
-                    app:layout_constraintEnd_toStartOf="@id/permission_app_e_signed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/permission_app_e_signed" />
-
-                <View
-                    android:id="@+id/permission_dot_four"
-                    style="@style/PermissionStepDot"
-                    app:layout_constraintBottom_toBottomOf="@id/permission_app_success"
-                    app:layout_constraintEnd_toStartOf="@id/permission_app_success"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/permission_app_success" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/permission_steps_line"
-                    app:layout_constraintBottom_toTopOf="@id/permission_dot_two"
-                    app:layout_constraintEnd_toEndOf="@id/permission_dot_one"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="@id/permission_dot_one"
-                    app:layout_constraintTop_toBottomOf="@id/permission_dot_one" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:src="@mipmap/common_success" />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/permission_steps_line"
-                    app:layout_constraintBottom_toTopOf="@id/permission_dot_three"
-                    app:layout_constraintEnd_toEndOf="@id/permission_dot_two"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="@id/permission_dot_two"
-                    app:layout_constraintTop_toBottomOf="@id/permission_dot_two" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="10dp"
+                    android:text="@string/permission_steps_title"
+                    android:textColor="@color/colorPrimary" />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/permission_steps_line"
-                    app:layout_constraintBottom_toTopOf="@id/permission_dot_four"
-                    app:layout_constraintEnd_toEndOf="@id/permission_dot_three"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="@id/permission_dot_three"
-                    app:layout_constraintTop_toBottomOf="@id/permission_dot_three" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:paddingBottom="17dp">
 
-        </androidx.cardview.widget.CardView>
 
-        <Button
-            style="@style/ButtonLoginYellowText"
-            android:layout_marginTop="19dp"
-            android:text="@string/permission_button_apply" />
+                    <TextView
+                        android:id="@+id/permission_app_receive"
+                        style="@style/PermissionStepContent"
+                        android:text="Application Received"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/permission_dot_one"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="332dp"
-            android:layout_height="60dp"
+                    <TextView
+                        android:id="@+id/permission_app_approved"
+                        style="@style/PermissionStepContent"
+                        android:text="Application Received"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/permission_dot_two"
+                        app:layout_constraintTop_toBottomOf="@id/permission_app_receive" />
+
+
+                    <TextView
+                        android:id="@+id/permission_app_e_signed"
+                        style="@style/PermissionStepContent"
+                        android:text="Application Received"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/permission_dot_three"
+                        app:layout_constraintTop_toBottomOf="@id/permission_app_approved" />
+
+                    <TextView
+                        android:id="@+id/permission_app_success"
+                        style="@style/PermissionStepContent"
+                        android:text="Application Received"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/permission_dot_four"
+                        app:layout_constraintTop_toBottomOf="@id/permission_app_e_signed" />
+
+                    <View
+                        android:id="@+id/permission_dot_one"
+                        style="@style/PermissionStepDot"
+                        app:layout_constraintBottom_toBottomOf="@id/permission_app_receive"
+                        app:layout_constraintEnd_toStartOf="@id/permission_app_receive"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/permission_app_receive" />
+
+                    <View
+                        android:id="@+id/permission_dot_two"
+                        style="@style/PermissionStepDot"
+                        app:layout_constraintBottom_toBottomOf="@id/permission_app_approved"
+                        app:layout_constraintEnd_toStartOf="@id/permission_app_approved"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/permission_app_approved" />
+
+                    <View
+                        android:id="@+id/permission_dot_three"
+                        style="@style/PermissionStepDot"
+                        app:layout_constraintBottom_toBottomOf="@id/permission_app_e_signed"
+                        app:layout_constraintEnd_toStartOf="@id/permission_app_e_signed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/permission_app_e_signed" />
+
+                    <View
+                        android:id="@+id/permission_dot_four"
+                        style="@style/PermissionStepDot"
+                        app:layout_constraintBottom_toBottomOf="@id/permission_app_success"
+                        app:layout_constraintEnd_toStartOf="@id/permission_app_success"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/permission_app_success" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/permission_steps_line"
+                        app:layout_constraintBottom_toTopOf="@id/permission_dot_two"
+                        app:layout_constraintEnd_toEndOf="@id/permission_dot_one"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="@id/permission_dot_one"
+                        app:layout_constraintTop_toBottomOf="@id/permission_dot_one" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/permission_steps_line"
+                        app:layout_constraintBottom_toTopOf="@id/permission_dot_three"
+                        app:layout_constraintEnd_toEndOf="@id/permission_dot_two"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="@id/permission_dot_two"
+                        app:layout_constraintTop_toBottomOf="@id/permission_dot_two" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/permission_steps_line"
+                        app:layout_constraintBottom_toTopOf="@id/permission_dot_four"
+                        app:layout_constraintEnd_toEndOf="@id/permission_dot_three"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="@id/permission_dot_three"
+                        app:layout_constraintTop_toBottomOf="@id/permission_dot_three" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                style="@style/ButtonLoginYellowText"
+                android:layout_marginTop="19dp"
+                android:text="@string/permission_button_apply" />
+
+            <TextView
+                android:layout_width="332dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:gravity="start"
+                android:text="@string/permission_tips"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="@{visibleFail}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="18dp"
-            android:gravity="start"
-            android:text="@string/permission_tips"
-            android:textColor="#ff333333"
-            android:textSize="14sp" />
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:src="@mipmap/common_title_back" />
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="63dp"
+                android:src="@mipmap/common_bg_faillure" />
+
+            <TextView
+                android:layout_width="321dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:text="@string/comon_error_msg"
+                android:textColor="#ff333333"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 </layout>

@@ -2,7 +2,23 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data></data>
+    <data>
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="isCreditFinish"
+            type="java.lang.Boolean" />
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.SupplyInfoViewModel" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
+        <variable
+            name="baseVm"
+            type="com.hc.uicomponent.menu.BaseMenuViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,19 +52,64 @@
                 android:drawablePadding="8dp"
                 android:text="@string/account_ic_supply_personal" />
 
-            <include layout="@layout/account_input_select_item" />
+            <include
+                app:isCreditFinish="@{isCreditFinish}"
+                app:title="@{@string/relatives}"
+                app:index="@{0}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:baseVm="@{baseVm}"
+                layout="@layout/account_input_suppy_select_item" />
 
-            <include layout="@layout/account_input_name_item" />
+            <include
+                app:reqType="@{vm.PERMISSION_REQ_CONTACT_CODE}"
+                app:idIndex="@{2}"
+                app:title="@{@string/name}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:isCreditFinish="@{isCreditFinish}"
+                layout="@layout/account_input_supple_name_item" />
 
-            <include layout="@layout/account_input_name_item" />
+            <include
+                app:reqType="@{vm.PERMISSION_REQ_CONTACT_CODE}"
+                app:idIndex="@{3}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:isCreditFinish="@{isCreditFinish}"
+                app:title="@{@string/mobile}"
+                layout="@layout/account_input_supple_name_item" />
 
-            <include layout="@layout/account_input_select_item" />
+            <include
+                app:isCreditFinish="@{isCreditFinish}"
+                app:title="@{@string/other}"
+                app:index="@{1}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:baseVm="@{baseVm}"
+                layout="@layout/account_input_suppy_select_item" />
 
-            <include layout="@layout/account_input_name_item" />
+            <include
+                app:reqType="@{vm.PERMISSION_REQ_OTHER_CONTACT_CODE}"
+                app:idIndex="@{4}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:isCreditFinish="@{isCreditFinish}"
+                app:title="@{@string/name}"
+                layout="@layout/account_input_supple_name_item" />
 
-            <include layout="@layout/account_input_name_item" />
+            <include
+                app:reqType="@{vm.PERMISSION_REQ_OTHER_CONTACT_CODE}"
+                app:idIndex="@{5}"
+                app:vm="@{vm}"
+                app:fm="@{fm}"
+                app:isCreditFinish="@{isCreditFinish}"
+                app:title="@{@string/mobile}"
+                layout="@layout/account_input_supple_name_item" />
 
             <Button
+                android:id="@+id/btn"
+                android:onClick="@{()->vm.commitSupplyInfo(btn,true)}"
+                android:enabled="@{vm.isEnable}"
                 style="@style/ButtonLoginYellowText"
                 android:layout_marginTop="38dp"
                 android:text="@string/account_personal_submit" />

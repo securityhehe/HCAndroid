@@ -18,6 +18,7 @@ import com.hc.accountinfo.vm.viewdata.getIntKey
 import com.hc.accountinfo.vm.viewdata.getTextKey
 import com.hc.data.MenuData
 import com.hc.data.common.CommonDataModel
+import com.hc.data.user.BankDictList
 import com.hc.data.user.UserInfoExt
 import com.hc.data.user.UserInfoRange
 import com.hc.data.user.UserType
@@ -40,7 +41,6 @@ import kotlin.concurrent.thread
 
 
 data class MenuEntry(var title: Int, var data: List<UserType>?)
-
 
 class ProfileInfoViewModel : BaseViewModel() {
 
@@ -231,7 +231,7 @@ class ProfileInfoViewModel : BaseViewModel() {
                         mViewData.dataTextList.forEachIndexed { i, data ->
                             val a = getTextKey()
                             val s = a[i]
-                            if (s.isNotEmpty()) {
+                            if (!s.isNullOrEmpty()) {
                                 data.set(s)
                             }
                         }

@@ -148,7 +148,7 @@ public class AndroidUtil {
     /**
      * 获取通讯录的内容
      */
-    public static String[] getPhoneContacts(Uri uri,Application application) {
+    public static String[] getPhoneContacts(Uri uri,Context application) {
         String[] contact = new String[2];
         try {
             // 得到ContentResolver对象

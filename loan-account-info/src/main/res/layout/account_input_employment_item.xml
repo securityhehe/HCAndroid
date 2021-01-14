@@ -4,19 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="title"
             type="java.lang.String" />
+
         <variable
             name="vm"
             type="com.hc.accountinfo.vm.ProfileInfoViewModel" />
+
         <variable
             name="fm"
             type="androidx.fragment.app.Fragment" />
+
         <variable
-            name="isAuth"
+            name="isCreditFinish"
             type="java.lang.Boolean" />
+
         <variable
             name="baseMenuModel"
             type="com.hc.uicomponent.menu.BaseMenuViewModel" />
@@ -45,26 +51,26 @@
             app:layout_constraintTop_toBottomOf="@id/account_input_name">
 
             <TextView
-                android:text="@string/loan_info_select_occupation_title"
                 android:id="@+id/no_title_employ"
+                style="@style/AccountProfileInputInfoTitle"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:lines="2"
-                android:layout_height="wrap_content"
-                style="@style/AccountProfileInputInfoTitle"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/loan_info_select_occupation_title"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
                 android:hint="@string/loan_info_select"
                 android:lines="2"
                 android:text="@{vm.MViewData.selectNetData[5].info}"
-                android:gravity="center_vertical|end"
-                android:textColorHint="#999"
                 android:textColor="#333"
+                android:textColorHint="#999"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/not_indicator"
@@ -74,11 +80,12 @@
                 android:id="@+id/not_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->vm.showMenu(5,fm,baseMenuModel,select)}"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{()->vm.showMenu(5,fm,baseMenuModel,select)}"
                 android:src="@drawable/account_info_indicate"
+                android:visibility="@{isCreditFinish? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@id/no_title_employ"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/no_title_employ" />

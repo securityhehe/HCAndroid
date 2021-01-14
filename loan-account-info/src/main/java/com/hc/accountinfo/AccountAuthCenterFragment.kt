@@ -36,5 +36,4 @@ class AccountAuthCenterFragment : BaseFragment<FragmentAccountProfileBinding>(R.
         }
     }
 
-
 }

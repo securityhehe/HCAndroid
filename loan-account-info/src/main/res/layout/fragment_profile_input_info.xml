@@ -164,6 +164,7 @@
                     layout="@layout/account_input_employment_item"
                     app:baseMenuModel="@{menuVM}"
                     app:fm="@{lanFragment}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:vm="@{vm}" />
 
                 <include
@@ -196,6 +197,7 @@
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{6}"
                     app:loanVm="@{vm}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:visible="@{vm.MViewData.writeWork}" />
 
                 <include
@@ -205,6 +207,7 @@
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{7}"
                     app:loanVm="@{vm}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:visible="@{vm.MViewData.isShowJobAndLevelOfPosition}" />
 
                 <include
@@ -213,6 +216,7 @@
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{8}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:loanVm="@{vm}"
                     app:visible="@{vm.MViewData.writeWork}" />
 
@@ -223,6 +227,7 @@
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{9}"
                     app:loanVm="@{vm}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     android:visible="@{vm.MViewData.isShowJobAndLevelOfPosition}" />
 
                 <include
@@ -238,6 +243,7 @@
                     app:loanBaseMenuMv="@{menuVM}"
                     app:loanFragment="@{lanFragment}"
                     app:loanFunId="@{10}"
+                    app:isCreditFinish="@{isCreditFinish}"
                     app:loanVm="@{vm}"
                     app:visible="@{vm.MViewData.writeWork}" />
 

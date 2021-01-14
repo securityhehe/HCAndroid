@@ -39,13 +39,27 @@
                 android:drawablePadding="8dp"
                 android:text="@string/account_ic_supply_personal" />
 
-            <include layout="@layout/account_input_select_item" />
+            <include
+                app:title="@{@string/bank_name}"
+                layout="@layout/account_input_bank_select_item" />
 
-            <include layout="@layout/account_input_middle_item" />
+            <include
+                app:vm="@{vm}"
+                app:title="@{@string/bank_number}"
+                app:idIndex="@{0}"
+                layout="@layout/account_bank_input_middle_item" />
 
-            <include layout="@layout/account_input_middle_item" />
+            <include
+                app:vm="@{vm}"
+                app:idIndex="@{1}"
+                app:title="@{@string/re_enter_bank_number}"
+                layout="@layout/account_bank_input_middle_item" />
 
-            <include layout="@layout/account_input_name_item" />
+            <include
+                app:vm="@{vm}"
+                app:idIndex="@{2}"
+                app:title="@{@string/ifsc_code}"
+                layout="@layout/account_input_bank_item" />
 
             <TextView
                 android:layout_width="331dp"
@@ -57,6 +71,7 @@
                 android:textSize="14sp" />
 
             <Button
+                android:enabled="@{vm.isEnable}"
                 style="@style/ButtonLoginYellowText"
                 android:layout_marginTop="11dp"
                 android:text="@string/account_personal_submit" />

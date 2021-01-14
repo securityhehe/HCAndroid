@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isCreditFinish"
+            type="java.lang.Boolean" />
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="index"
+            type="java.lang.Integer" />
+        <variable
+            name="vm"
+            type="com.hc.accountinfo.vm.SupplyInfoViewModel" />
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
+        <variable
+            name="baseVm"
+            type="com.hc.uicomponent.menu.BaseMenuViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:id="@+id/account_input_name"
+            style="@style/AccountProfileInputInfoTitle"
+            android:text="@{title}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:gravity="center_vertical|end"
+            app:layout_constraintStart_toEndOf="@id/account_input_name"
+            android:id="@+id/select"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:hint="@string/loan_info_select"
+            android:text="@{vm.MViewData.get(index)}"
+            android:textColor="@{isCreditFinish ? @color/colorItemSelect:@color/colorItemUnSelect}"
+            android:textColorHint="#ff999999"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:onClick="@{()->vm.showMenu(index,fm,baseVm,indicator)}"
+            android:visibility="@{isCreditFinish ? View.GONE:View.VISIBLE}"
+            android:src="@drawable/account_info_indicate"
+            app:layout_constraintBottom_toBottomOf="@id/account_input_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/account_input_name" />
+
+        <View
+            style="@style/AccountProfileLine"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

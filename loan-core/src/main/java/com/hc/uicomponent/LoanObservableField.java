@@ -18,11 +18,12 @@ public class LoanObservableField<T> extends ObservableField<T> {
 
     public void set(T value) {
         super.set(value);
-        t.callT(value);
+        if(t!=null){
+            t.callT(value);
+        }
     }
-    private CallT<T> t;
+    private CallT<T>  t;
     public LoanObservableField<T> setCallT(CallT<T> call){
-
        this.t = call;
        return this;
     }
