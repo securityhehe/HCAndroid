@@ -66,6 +66,8 @@ object ContextProvider {
         fun getWebViewNavId():Int
         fun getSettingNavId():Int
         fun showHideMainMenu(isVisible:Int):Unit
+        fun getToLogInActionId():Int
+        fun mainNav(): Int
     }
 
     //解释权限说明。

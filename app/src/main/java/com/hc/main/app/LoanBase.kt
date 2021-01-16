@@ -94,6 +94,15 @@ object LoanBase {
                 MainViewModel.isVisibleNavigationBottom.set(isVisible)
             }
 
+            override fun getToLogInActionId(): Int {
+                return R.id.main_to_login
+            }
+
+            override fun mainNav(): Int {
+                return R.id.nav_host_fragment
+            }
+
+
 
         }
         ContextProvider.mPermissionsRationaleProvider = object :ContextProvider.PermissionsRationaleProvider{

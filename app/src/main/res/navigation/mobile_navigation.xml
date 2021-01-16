@@ -35,12 +35,14 @@
             app:destination="@id/loan_main_model_setting" />
     </fragment>
 
-    <activity
+    <fragment
         android:id="@+id/loan_main_model_setting"
         android:name="com.hc.setting.SettingActivity"
         tools:layout="@layout/loan_setting_layout">
+
         <deepLink app:uri="navigation://setting" />
-    </activity>
+
+    </fragment>
 
 
     <activity

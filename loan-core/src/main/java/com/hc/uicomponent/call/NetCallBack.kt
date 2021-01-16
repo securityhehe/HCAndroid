@@ -127,6 +127,7 @@ open class NetCallBack<T>(var isLoadingVisible: Boolean = false) : Callback<T> {
         }
     }
 
+
 }
 
 interface IExceptionHandling {

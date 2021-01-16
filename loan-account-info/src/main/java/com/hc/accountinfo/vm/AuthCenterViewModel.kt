@@ -249,30 +249,36 @@ class AuthCenterViewModel : BaseViewModel() {
     }
 
     fun gotoBankPage(view: View) {
-        if (!checkNetwork2Action()) {
-            return
-        }
-        reqCertifyState(view, isShowDialog = true) {
-            if (isCreditBankStatus || isCreditKycStatus && isCreditPersonStatus && isCreditSupplementStatus) {
-                val param = bundleOf(Pair(Constants.STATE, isCreditBankStatus))
-                Navigation.findNavController(view)
-                    .navigate(R.id.loan_info_model_auth_center_bank, param)
-            } else {
-                var tip = ""
-                if (!isCreditKycStatus) {
-                    if (Constants.NUMBER_20 == creditKycStatus.get()) {
-                        tip = ContextProvider.getString(R.string.loan_info_mall_kyc_loading)
-                    } else if (Constants.NUMBER_10 == creditKycStatus.get() || Constants.NUMBER_40 == creditKycStatus.get()) {
-                        tip = ContextProvider.getString(R.string.loan_info_credit_kyc_info)
+        if (isTEST) {
+            val param = bundleOf(Pair(Constants.STATE, isCreditSupplementStatus))
+            Navigation.findNavController(view).navigate(R.id.loan_info_model_auth_center_bank, param)
+        }else{
+            if (!checkNetwork2Action()) {
+                return
+            }
+            reqCertifyState(view, isShowDialog = true) {
+                if (isCreditBankStatus || isCreditKycStatus && isCreditPersonStatus && isCreditSupplementStatus) {
+                    val param = bundleOf(Pair(Constants.STATE, isCreditBankStatus))
+                    Navigation.findNavController(view)
+                        .navigate(R.id.loan_info_model_auth_center_bank, param)
+                } else {
+                    var tip = ""
+                    if (!isCreditKycStatus) {
+                        if (Constants.NUMBER_20 == creditKycStatus.get()) {
+                            tip = ContextProvider.getString(R.string.loan_info_mall_kyc_loading)
+                        } else if (Constants.NUMBER_10 == creditKycStatus.get() || Constants.NUMBER_40 == creditKycStatus.get()) {
+                            tip = ContextProvider.getString(R.string.loan_info_credit_kyc_info)
+                        }
+                    } else if (!isCreditPersonStatus) {
+                        tip = ContextProvider.getString(R.string.loan_info_credit_person_info)
+                    } else if (!isCreditSupplementStatus) {
+                        tip = ContextProvider.getString(R.string.loan_info_credit_supplement_info)
                     }
-                } else if (!isCreditPersonStatus) {
-                    tip = ContextProvider.getString(R.string.loan_info_credit_person_info)
-                } else if (!isCreditSupplementStatus) {
-                    tip = ContextProvider.getString(R.string.loan_info_credit_supplement_info)
+                    showTip(view.context, tip)
                 }
-                showTip(view.context, tip)
             }
         }
+
     }
 
     fun reqMobileAuthState(view: View) {
@@ -329,7 +335,5 @@ class AuthCenterViewModel : BaseViewModel() {
                 }
             }).show()
     }
-
-
 
 }

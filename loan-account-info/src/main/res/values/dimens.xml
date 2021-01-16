@@ -1,3 +1,9 @@
 <resources>
-
+    <dimen name="x10">20dp</dimen>
+    <dimen name="x16">16sp</dimen>
+    <dimen name="x5">10dp</dimen>
+    <dimen name="x20">20dp</dimen>
+    <dimen name="x50">50dp</dimen>
+    <dimen name="x18">18sp</dimen>
+    <dimen name="padding_30">30dp</dimen>
 </resources>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="fm"
+            type="androidx.fragment.app.Fragment" />
         <variable
             name="vm"
             type="com.hc.setting.vm.SettingViewModel" />
@@ -15,22 +19,44 @@
 
         <include
             android:id="@+id/title"
-            bind:baseVm="@{vm}"
-            layout="@layout/common_title_bar" />
-
+            layout="@layout/common_title_bar"
+            bind:baseVm="@{vm}" />
 
         <include
             android:id="@+id/language_setting"
-            layout="@layout/lan_setting_item_layout" />
+            layout="@layout/lan_setting_item_layout"
+            android:visibility="gone"
+            app:fm="@{fm}"
+            app:vm="@{vm}" />
 
         <include
             android:id="@+id/check_version"
-            layout="@layout/lan_setting_item_layout" />
+            layout="@layout/lan_setting_item_layout"
+            app:idIndex="@{0}"
+            app:fm="@{fm}"
+            app:vm="@{vm}" />
 
         <include
             android:id="@+id/feedback"
-            layout="@layout/lan_setting_item_layout" />
+            layout="@layout/lan_setting_item_layout"
+            app:idIndex="@{1}"
+            app:fm="@{fm}"
+            app:vm="@{vm}" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:gravity="center"
+            android:text="@string/logout"
+            android:onClick="@{()->vm.doAction(fm,2)}"
+            android:id="@+id/user"
+            android:textSize="16sp"
+            android:textColor="#cbcbcb"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
     </LinearLayout>
 
 

@@ -5,4 +5,8 @@ dependencies {
     implementation AndroidX.card_view
     implementation AndroidX.constraint_layout
     implementation project(path: ':loan-data')
+
+    implementation AppNet.OKHTTP
+    implementation AppNet.GSON
+    implementation AppNet.RETROFIT
 }

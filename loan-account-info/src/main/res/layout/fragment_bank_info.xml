@@ -4,8 +4,14 @@
     xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable
+            name="isCreditFinish"
+            type="java.lang.Boolean" />
+        <variable
             name="vm"
             type="com.hc.accountinfo.vm.BankInfoViewModel" />
+        <variable
+            name="baseMenuVm"
+            type="com.hc.uicomponent.menu.BaseMenuViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,6 +46,9 @@
                 android:text="@string/account_ic_supply_personal" />
 
             <include
+                app:isCreditFinish="@{isCreditFinish}"
+                app:vm="@{vm}"
+                app:baseMenuVm="@{baseMenuVm}"
                 app:title="@{@string/bank_name}"
                 layout="@layout/account_input_bank_select_item" />
 
@@ -47,16 +56,19 @@
                 app:vm="@{vm}"
                 app:title="@{@string/bank_number}"
                 app:idIndex="@{0}"
+                app:isCreditFinish="@{isCreditFinish}"
                 layout="@layout/account_bank_input_middle_item" />
 
             <include
                 app:vm="@{vm}"
                 app:idIndex="@{1}"
+                app:isCreditFinish="@{isCreditFinish}"
                 app:title="@{@string/re_enter_bank_number}"
                 layout="@layout/account_bank_input_middle_item" />
 
             <include
                 app:vm="@{vm}"
+                app:isCreditFinish="@{isCreditFinish}"
                 app:idIndex="@{2}"
                 app:title="@{@string/ifsc_code}"
                 layout="@layout/account_input_bank_item" />
@@ -71,6 +83,8 @@
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/btn"
+                android:onClick="@{()->vm.showConfirmBankInfo(false,btn)}"
                 android:enabled="@{vm.isEnable}"
                 style="@style/ButtonLoginYellowText"
                 android:layout_marginTop="11dp"

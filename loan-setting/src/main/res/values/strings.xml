@@ -21,4 +21,17 @@
     <string name="loan_setting_language_text">Language Settings</string>
     <string name="loan_setting_version_text">Version Checking</string>
     <string name="loan_setting_feedback_text">Feedback or Suggestions</string>
+    <string name="version_channel_no_match">Temporarily no matching channel information, unable to determine the update status!</string>
+    <!-- version check -->
+    <string name="version_last_version">This is the latest version!</string>
+    <string name="version_upgrade">Upgrade</string>
+    <string name="version_no">Version No.:</string>
+    <string name="version_no_update_desc">No update instructions!</string>
+    <string name="latest_version">Latest version detected. Do you want to upgrade?</string>
+    <string name="submit">Submit</string>
+    <string name="less_than_200_words">Less than 200 words</string>
+    <string name="feedback_content">please input feedback content!</string>
+
+    <string name="logout">Exit</string>
+    <string name="logout_tip">Are You Sure You Want to Log Out?</string>
 </resources>

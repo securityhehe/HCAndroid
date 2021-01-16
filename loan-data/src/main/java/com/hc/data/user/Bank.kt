@@ -54,3 +54,8 @@ class BankInfo {
     var value: String? = null
 }
 
+
+data class ConfirmIfsc(
+    var needConfirmSign: Boolean
+)
+

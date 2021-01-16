@@ -145,6 +145,8 @@
     <string name="write_bank_notice">Please fill in the blanks and check carefully, and confirm that it is your bank card. You will get the loan in this account after the approval</string>
     <string name="write_bank_check_bank_info">Please check your account information carefully</string>
     <string name="dialog_bank_check_ifsc_content"> The current IFSC is not included in the system, please make sure it is correct</string>
-
+    <string name="dialog_confirm_downtime">Confirm(%1$ss)</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_confirm">Confirm</string>
 
 </resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isShowCancelBtn"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="lastVersion"
+            type="java.lang.String" />
+
+        <variable
+            name="content"
+            type="java.lang.String" />
+
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/tips_bg">
+
+        <TextView
+            android:id="@+id/update_version_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:text="@string/latest_version"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/update_version_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@{@string/version_no + lastVersion}"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/update_version_title" />
+
+        <TextView
+            android:id="@+id/update_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@{content}"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/update_version_code" />
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="17dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/update_content" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textSize="18sp"
+            android:visibility="@{isShowCancelBtn ? View.VISIBLE: View.GONE}"
+            app:layout_constraintEnd_toStartOf="@id/upgrade"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+
+        <TextView
+            android:id="@+id/upgrade"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Upgrade"
+            android:textColor="#047538"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/cancel"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

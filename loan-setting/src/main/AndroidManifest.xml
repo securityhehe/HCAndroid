@@ -2,7 +2,13 @@
     package="com.test.setting">
     <application>
        <activity
+           android:screenOrientation="portrait"
            android:theme="@style/MainTheme"
            android:name="com.hc.setting.SettingActivity"/>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme"
+            android:name="com.hc.setting.FeedbackActivity"/>
     </application>
 </manifest>

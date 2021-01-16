@@ -14,27 +14,14 @@
             name="idIndex"
             type="java.lang.Integer" />
         <variable
-            name="fm"
-            type="androidx.fragment.app.Fragment" />
-        <variable
-            name="visible"
-            type="java.lang.Integer"
-            />
-        <variable
             name="isCreditFinish"
             type="java.lang.Boolean" />
-        <variable
-            name="isEnable"
-            type="java.lang.Boolean" />
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="15dp"
-        android:visibility="@{visible, default=visible}"
         android:paddingEnd="15dp">
 
         <TextView
@@ -55,16 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:lines="2"
-            android:gravity="center_vertical|end"
+            android:gravity="center_vertical|start"
             android:background="@null"
+            android:textCursorDrawable="@null"
             android:textColorHint="#999"
             android:textSize="16sp"
-            android:enabled="@{isEnable ,default=true}"
-            android:clickable="@{isEnable ,default=true}"
-            android:textColor="@{isEnable ||isCreditFinish ? @color/colorItemSelect:@color/colorItemUnSelect}"
+            android:enabled="@{isCreditFinish ?false : true ,default=true}"
+            android:textColor="@{isCreditFinish ? @color/colorItemSelect:@color/colorItemUnSelect}"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="aaaaaaaaaaaaaaaaaaaaaa"
             android:text="@={vm.viewData[idIndex]}"
+            android:inputType="number"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/account_input_name"
             app:layout_constraintTop_toTopOf="parent" />

@@ -6,4 +6,8 @@
     <color name="loan_info_color_d800c8">#D800C8</color>
     <color name="loan_info_color_333333">#ff333333</color>
     <color name="loan_info_color_999999">#ff999999</color>
+    <color name="c_333333">#ff333333</color>
+    <color name="c_ff0000">#FF000000</color>
+    <color name="c_666666">#ff666666</color>
+    <color name="C_APP_THEME">#0d5240</color>
 </resources>

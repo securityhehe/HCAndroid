@@ -1,74 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/base_dialog_bg"
-    android:layout_marginStart="45dp"
-    android:layout_marginEnd="45dp">
+<layout>
 
-    <TextView
-        android:id="@+id/content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="view"
+            type="android.view.View" />
+        <variable
+            name="desc"
+            type="java.lang.String" />
+
+        <variable
+            name="isShowCancel"
+            type="java.lang.Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24sp"
-        android:textColor="#FF333333"
-        android:textSize="14sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Frequent visits, please try again tomorrow!."
-        app:layout_constraintBottom_toTopOf="@id/line" />
-    <View
-        android:id="@+id/line"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/content"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#FFDDDDDD"
-        />
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/line"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/dialog_cancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:minWidth="112dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textAllCaps="false"
-            android:textColor="#FF919191"
-            android:textSize="18sp"
-            android:text="@string/loan_cancel"
-            android:visibility="gone"
-            tools:text="Cancel" />
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:background="@drawable/base_dialog_bg">
 
-        <Button
-            android:id="@+id/dialog_accept"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:minWidth="112dp"
-            android:paddingStart="10dp"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:paddingEnd="10dp"
-            android:textColor="#047538"
-            android:background="@null"
-            android:text="@string/loan_go"
-            tools:text="Accept" />
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:gravity="center"
+            android:textColor="#FF333333"
+            android:textSize="14sp"
+            android:text="@{desc}"
+            app:layout_constraintBottom_toTopOf="@id/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Frequent visits, please try again tomorrow!." />
 
-    </LinearLayout>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#FFDDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <Button
+                android:id="@+id/dialog_cancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:minWidth="112dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/loan_cancel"
+                android:textAllCaps="false"
+                android:textColor="#FF919191"
+                android:textSize="18sp"
+                android:visibility="@{isShowCancel?view.VISIBLE:view.GONE}"
+                tools:text="Cancel" />
+
+            <Button
+                android:id="@+id/dialog_accept"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:minWidth="112dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/loan_go"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                tools:text="Accept" />
+
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

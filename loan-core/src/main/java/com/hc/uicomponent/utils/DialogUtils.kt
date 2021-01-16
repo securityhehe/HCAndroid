@@ -1,37 +1,35 @@
 package com.hc.uicomponent.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Handler
 import android.provider.Settings
 import android.view.Gravity
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.hc.data.user.UserType
 import com.hc.uicomponent.R
+import com.hc.uicomponent.databinding.CommonDialogBinding
 import com.hc.uicomponent.databinding.DialogMobileAuthPageBinding
 import com.hc.uicomponent.databinding.ItemMobileAuthTypeBinding
 import com.hc.uicomponent.provider.ContextProvider
 import com.timmy.tdialog.TDialog
-import com.tools.network.callback.AppResultCode
 
 object DialogUtils {
 
     interface IRequestCancelCall {
         fun cancel()
     }
-
 
     fun showPermissionDialog(
         activity: Activity,
@@ -101,55 +99,113 @@ object DialogUtils {
         return alertDialog
     }
 
+    //显示手机认证弹出窗口。
+    fun showMobileAuthType(context: Context, mobileList: List<UserType>, callback: (Int) -> Unit) {
+        val bindView = createAuthMobileBind(context, callback, mobileList)
+        bindView?.let {
+            val d = getBaseBuild(context).setDialogView(it.root).create().show()
+            it.root.tag = d
+        }
+    }
 
-    private var mobileAuthDialog : TDialog?= null
-    fun showMobileAuthType(activity: Activity, mobileList:List<UserType>, calback: (Int)->Unit) {
-        val binding = DataBindingUtil.inflate<DialogMobileAuthPageBinding>(LayoutInflater.from(activity), R.layout.dialog_mobile_auth_page, null, false)
+    //显示提示
+    fun showTips(context: Context, view: ViewDataBinding) {
+        val d = getBaseBuild(context).setDialogView(view.root).create().show()
+        view.root.tag = d
+    }
+
+    private fun createAuthMobileBind(context: Context, callback: (Int) -> Unit, mobileList: List<UserType>): DialogMobileAuthPageBinding? {
+        val binding = DataBindingUtil.inflate<DialogMobileAuthPageBinding>(LayoutInflater.from(context), R.layout.dialog_mobile_auth_page, null, false)
         val onClickListener = View.OnClickListener { v ->
             val mobileType = (v.tag as String).toInt()
             v.findViewById<CheckBox>(R.id.in_mobile_checkbox).isChecked = true
-            calback.invoke(mobileType)
-            if (mobileAuthDialog != null) {
-                Handler(activity.mainLooper).postDelayed({
-                    mobileAuthDialog!!.dismissAllowingStateLoss()
-                    mobileAuthDialog = null
-                },100)
+            callback.invoke(mobileType)
+            binding.root.tag?.apply {
+                if (this is TDialog) {
+                    Handler(context.mainLooper).postDelayed({
+                        this.dismissAllowingStateLoss()
+                    }, 100)
+                }
             }
         }
-
-        dynamicAddChildView<UserType, ItemMobileAuthTypeBinding>(binding.mobileAuthRoot,R.layout.item_mobile_auth_type,mobileList){
-                _binding,index,data ->
+        dynamicAddChildView<UserType, ItemMobileAuthTypeBinding>(binding.mobileAuthRoot, R.layout.item_mobile_auth_type, mobileList) { _binding, index, data ->
             _binding.item = data
             _binding.index = index
             _binding.maxIndex = mobileList.size
             _binding.root.setOnClickListener(onClickListener)
         }
+        return binding
+    }
 
-        val builder = TDialog.Builder((activity as FragmentActivity).supportFragmentManager).setDialogView(binding.root)
-        builder.setWidth(ScreenUtils.getScreenWidth())
-        builder.setGravity(Gravity.BOTTOM)
-        builder.setCancelableOutside(true)
-        builder.setDimAmount(0.6f)
-        builder.setDialogAnimationRes(R.style.BottomDialog_AnimationStyle)
-
-        builder.setOnKeyListener { dialog, keyCode, event ->
-            false
+    private fun getBaseBuild(activity: Context): TDialog.Builder {
+        return TDialog.Builder((activity as FragmentActivity).supportFragmentManager)?.apply {
+            setWidth(ScreenUtils.getScreenWidth())
+            setGravity(Gravity.BOTTOM)
+            setCancelableOutside(true)
+            setDimAmount(0.6f)
+            setDialogAnimationRes(R.style.BottomDialog_AnimationStyle)
+            setOnKeyListener { _, _, _ ->
+                false
+            }
+            setOnViewClickListener { _, _, tDialog ->
+                tDialog.dismissAllowingStateLoss()
+            }
         }
-        builder.setOnViewClickListener { viewHolder, view, tDialog ->
-            tDialog.dismissAllowingStateLoss()
-        }
-        mobileAuthDialog = builder.create()
-        mobileAuthDialog!!.show()
     }
 
 
+    fun createBaseDialogBind(context: Context, contentStr: String, isShowCancelData: Boolean, callback: (() -> Unit)?): CommonDialogBinding? {
+        val binding = DataBindingUtil.inflate<CommonDialogBinding>(LayoutInflater.from(context), R.layout.common_dialog, null, false)
+        binding?.apply {
+            desc = contentStr
+            isShowCancel = isShowCancelData
+            dialogCancel.setOnClickListener {
+                binding.root.tag?.apply {
+                    if (this is TDialog) {
+                        Handler(context.mainLooper).postDelayed({
+                            this.dismissAllowingStateLoss()
+                        }, 100)
+                    }
+                }
+            }
+
+            dialogAccept.setOnClickListener {
+                binding.root.tag?.apply {
+                    if (this is TDialog) {
+                        Handler(context.mainLooper).postDelayed({
+                            this.dismissAllowingStateLoss()
+                        }, 100)
+                    }
+                }
+                callback?.invoke()
+            }
+
+        }
+        return binding
+    }
+
+    fun showCenterTips(context: Context, view: ViewDataBinding) {
+        val d = getBaseCenter(context).setDialogView(view.root).create().show()
+        view.root.tag = d
+    }
 
 
-
-
-
-
-
+     private fun getBaseCenter(activity: Context): TDialog.Builder {
+        return TDialog.Builder((activity as FragmentActivity).supportFragmentManager)?.apply {
+            val padding = 2 * activity.resources.getDimensionPixelOffset(R.dimen.base_common_dialog_padding)
+            setWidth(ScreenUtils.getScreenWidth() - padding)
+            setGravity(Gravity.CENTER)
+            setCancelableOutside(true)
+            setDimAmount(0.6f)
+            setDialogAnimationRes(R.style.BottomDialog_AnimationStyle)
+            setOnKeyListener { _, _, _ ->
+                false
+            }
+            setOnViewClickListener { _, _, tDialog ->
+                tDialog.dismissAllowingStateLoss()
+            }
+        }
+    }
 
 
 }
