@@ -102,8 +102,8 @@ object LoanBase {
                 return R.id.nav_host_fragment
             }
 
-            override fun getOrderNavId(): Int {
-                return R.id.action_loan_main_model_main_to_loan_main_model_bill_detail
+            override fun getOrderDetail(): Int {
+                return R.id.action_loan_main_model_to_bill_detail
             }
 
             override fun getCommitOrderNavId(): Int {

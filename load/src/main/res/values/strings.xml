@@ -82,5 +82,7 @@
     <string name="mall_order_commit_wait_hint_last"> seconds.</string>
     <string name="loan_wait_hint">Please do not exit, otherwise your order will fail to submit.</string>
     <string name="order_credit_ask_question_title">Questionnaire surve</string>
+
     <string name="mall_order_submit">Sign and submit the order</string>
+    <string name="pay_order_loan_amount">Loan Amount:</string>
 </resources>

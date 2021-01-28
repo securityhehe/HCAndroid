@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="9dp"
-    android:paddingBottom="9dp"
-    android:layout_marginStart="14dp"
-    android:layout_marginEnd="14dp">
+<layout>
+    <data>
+       <variable
+           name="name"
+           type="java.lang.String" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
 
-    <TextView style="@style/LoanDetailsTitle" />
+        <TextView
+            android:text="@{name}"
+            style="@style/LoanDetailsTitle" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/value"
+            style="@style/LoanDetailsValue" />
 
-    <TextView style="@style/LoanDetailsValue" />
+    </LinearLayout>
 
-</LinearLayout>
+</layout>

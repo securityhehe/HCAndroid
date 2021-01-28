@@ -39,9 +39,9 @@ import java.util.*
 class LogicData {
 
     companion object {
-        var TEST = false
-        var TEST_INVALID: Boolean = false
-        var TEST_SUBMIT_NO_COMMIT_ORDER: Boolean = true
+        var TEST = true
+        var TEST_INVALID: Boolean = true
+        var TEST_SUBMIT_NO_COMMIT_ORDER: Boolean = false
         var TEST_CLOSE = false
         var TEST_FIRST_REVIEW_ING = false
         var TEST_AUTO_REVIEW_ING = false
@@ -98,16 +98,6 @@ class LogicData {
             if (TEST) {
                 orderInfo = createTestData(orderInfo)
             }
-            //是否在首页显示订单table
-            visibleMainMenuOrderTable.set(showMainOrderMenu())
-
-            //是否显示订单流程图。
-            val visibleMap = isHideLoanFlowMap()
-            visibleFlowMap.set(if (visibleMap) View.GONE else View.VISIBLE)
-
-            //显示历史订单。
-            val orderHistory = mainDataRec?.historOrder == Constants.NUMBER_1
-            visibleHistoryOrder.set(if (orderHistory) View.VISIBLE else View.INVISIBLE)
 
             //判断订单是否存在。
             val isExistOrder = orderInfo != null
@@ -120,6 +110,17 @@ class LogicData {
 
             //更多按钮显示。
             setMoreProductViewData(mainDataRec?.diversionList)
+
+            //是否显示订单流程图。
+            val visibleMap = isHideLoanFlowMap()
+            visibleFlowMap.set(if (visibleMap) View.GONE else View.VISIBLE)
+
+            //是否在首页显示订单table
+            visibleMainMenuOrderTable.set(showMainOrderMenu())
+
+            //显示历史订单。
+            val orderHistory = mainDataRec?.historOrder == Constants.NUMBER_1
+            visibleHistoryOrder.set(if (orderHistory) View.VISIBLE else View.INVISIBLE)
         }
     }
 
@@ -129,19 +130,23 @@ class LogicData {
                 when {
                     //1-正常下单状态
                     Constants.NUMBER_1 == it.orderType -> {
+                        orderStatus  =  OrderStateEnum.SUBMIT_NO_COMMIT_ORDER.state
                         mOrderFlowMapStateData.value = OrderStateEnum.SUBMIT_NO_COMMIT_ORDER.state
                     }
                     //2-失效订单状态
                     Constants.NUMBER_2 == it.orderType -> {
+                        orderStatus  =  OrderStateEnum.INVALID.state
                         mOrderFlowMapStateData.value = OrderStateEnum.INVALID.state
                     }
                     //3-关闭订单状态
                     Constants.NUMBER_3 == it.orderType -> {
+                        orderStatus  =  OrderStateEnum.CLOSE.state
                         mOrderFlowMapStateData.value = OrderStateEnum.CLOSE.state
                     }
                 }
             }
         } else {
+            orderStatus = mainDataRec?.orderInfo?.state
             mOrderFlowMapStateData.value = orderStatus
         }
     }
@@ -197,7 +202,6 @@ class LogicData {
         return if (this.mainDataRec?.otherOrderDisPlay == Constants.NUMBER_1) View.VISIBLE else View.GONE
     }
 
-
     //是否显示流程控制图。
     private fun isHideLoanFlowMap(): Boolean {
         mainDataRec?.let {
@@ -238,9 +242,7 @@ class LoanViewModel() : BaseViewModel() {
 
     fun reqHomeData(view: View, isRefresh: Boolean = false) {
         val taskJob = viewModelScope.launch {
-
             if (CommonDataModel.mLoggedIn) {
-
                 val certifyStateDeferred = async(Dispatchers.IO) {
                     reqApi(LoanInfoService::class.java, { queryCreditState() })
                 }
@@ -445,7 +447,6 @@ class LoanViewModel() : BaseViewModel() {
         }
     }
 
-
     // 提交订单
     private fun submitOrder(view: View, goodsSx: GoodsSx, isLastOrderIsEnd: Boolean = false, isCertifyBank: Boolean = false, indexImgPath: String?) {
         FirseBaseEventUtils.trackEvent(StatEventTypeName.LOAN_ORDER_CONFIRMATION_PAGE)
@@ -497,6 +498,7 @@ fun LogicData.createTestData(orderInfo: OrderInfo?): OrderInfo? {
     }
 
     if (LogicData.TEST_INVALID) {
+        orderInfo1 =  null
         mainDataRec?.orderType = 2
         this.orderStatus = OrderStateEnum.INVALID.state
     }

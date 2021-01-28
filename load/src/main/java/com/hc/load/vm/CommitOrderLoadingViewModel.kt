@@ -23,21 +23,21 @@ class CommitOrderLoadingViewModel :BaseViewModel(){
     var countNum = 15
 
     private var isTimerFinish = false
-    private var mCowndown = MutableLiveData<String>()
-    private var mClosePage = MutableLiveData<Unit>()
+     var mDowndown = MutableLiveData<String>()
+     var mClosePage = MutableLiveData<Unit>()
 
     fun startCountDownLogic(view: View, orderId:String) {
-        mCowndown.value = "$countNum"
+        mDowndown.value = "$countNum"
         task = object : TimerTask() {
             override fun run() {
                 if (countNum == 1) {
                     cancelTimerLogic()
                     //到最后还是没有结果，默认跳转到首页
-                    mClosePage.value = null
+                    mClosePage.postValue(null)
                     return
                 }
                 --countNum
-                mCowndown.value = "$countNum"
+                mDowndown.postValue("$countNum")
 
                 if (countNum % 2 != 0 && countNum != 1){
                     reqOrderState(view,orderId)
@@ -71,6 +71,7 @@ class CommitOrderLoadingViewModel :BaseViewModel(){
                                 , Pair("title", ContextProvider.getString(R.string.order_credit_ask_question_title)))
                             Navigation.findNavController(view).navigate(it, bundle)
                         }
+
                         mClosePage.value = null
                     }
                     //自动审核不通过

@@ -5,51 +5,70 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.hc.data.order.OrderBillRec
 import com.hc.load.databinding.FragmentLoanBillDetailBinding
+import com.hc.load.databinding.ItemOrderBillMultiplePeriodBinding
+import com.hc.load.vm.BillViewModel
+import com.hc.uicomponent.annotation.BindViewModel
 import com.hc.uicomponent.base.BaseFragment
 import com.hc.uicomponent.config.Constants
+import com.hc.uicomponent.provider.ContextProvider
+import com.hc.uicomponent.utils.dynamicAddChildView
+import com.hc.uicomponent.utils.txt
+import frame.utils.StringFormat
+import kotlinx.android.synthetic.main.fragment_loan_bill_detail.*
+import kotlinx.android.synthetic.main.fragment_loan_input_money_layout.*
 
-class BillDetailFragment : BaseFragment<FragmentLoanBillDetailBinding>(R.layout.fragment_loan_bill_detail){
+class BillDetailFragment : BaseFragment<FragmentLoanBillDetailBinding>(R.layout.fragment_loan_bill_detail) {
 
-    //public static final String ORDER_COMMIT_GOODS_SX = "order_commit_goods_sx";
-    //public static final String ORDER_COMMIT_AUTO_ENTRY_PAGE = "order_commit_auto_entry_page";
-    //public static final String ORDER_NBFC_IMG_URL = "order_nbfc_img_url";
-    //public static final String ORDER_COMMIT_GET_CERTIFY_BANK_STATE = "order_commit_get_certify_bank_state";
+    @BindViewModel
+    var billViewModel: BillViewModel? = null
+    var isMultiOrder: Boolean = false
+    var orderId: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-
-            it.getSerializable(Constants.ORDER_COMMIT_AUTO_ENTRY_PAGE);
+            orderId = it.getString(Constants.ORDER_NUM, "")
+            isMultiOrder = it.getBoolean(Constants.STATE)
         }
-        mFragmentBinding.apply {
-            if(rv.adapter == null  ){
-               rv.adapter = OrderAdapter()
+        billViewModel?.apply {
+            mOrderBillRec.observe(viewLifecycleOwner, Observer {
+                reqBillAndUpdateUI(it)
+            })
+            showBillList(orderId)
+        }
+    }
+
+    private fun reqBillAndUpdateUI(orderList: List<OrderBillRec>?) {
+        orderList?.let { list ->
+            if (list.isNotEmpty()) {
+                mFragmentBinding.run {
+                    val orderBillRec = list[0]
+                    on.value.text = orderBillRec.orderNo
+                    val requireContext = requireContext()
+                    la.value.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.loanAmount)
+                    ld.value.text = String.format(getString(R.string.pay_order_loan_dur_day), orderBillRec.loanDuration)
+                    tsf.value.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.technicalServiceFee)
+                    gst.value.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.gst)
+                    cp.value.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.commissionPayment)
+                    ayg.value.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.amountYouGet)
+                    tvInterest.text = StringFormat.showMoneyWithSymbol(requireContext, orderBillRec.interest)
+                    var totalAmount: Double = 0.00
+                    list.forEach {
+                        totalAmount += it.repaymentAmount
+                    }
+                    repaymentMoney.text = StringFormat.showMoneyWithSymbol(requireContext, "$repaymentMoney")
+                }
+                val layoutId = R.layout.item_order_bill_multiple_period
+                dynamicAddChildView<OrderBillRec, ItemOrderBillMultiplePeriodBinding>(mFragmentBinding.ll, layoutId, list) { binding, index, item ->
+                    binding.index = index
+                    binding.item = item
+                }
             }
         }
     }
 
-
-    class OrderAdapter: RecyclerView.Adapter<OrderHolder>() {
-        var orderInfo = mutableListOf<Pair<String,String>>()
-        fun setData() {
-            
-        }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderHolder {
-            return OrderHolder(LayoutInflater.from(parent.context).inflate(R.layout.loan_item_details,parent, false))
-        }
-
-        override fun getItemCount(): Int {
-            return 10;
-        }
-
-        override fun onBindViewHolder(holder: OrderHolder, position: Int) {
-            TODO("Not yet implemented")
-        }
-
-    }
-
-    class OrderHolder (view :View): RecyclerView.ViewHolder(view){
-
-    }
 }

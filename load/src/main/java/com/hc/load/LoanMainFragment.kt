@@ -1,21 +1,19 @@
 package com.hc.load
 
-import android.Manifest
-import android.app.Dialog
-import android.content.Context
-import android.content.pm.PermissionInfo
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.hc.data.MenuData
-import com.hc.data.OrderStateEnum
 import com.hc.data.OrderStateEnum.*
 import com.hc.data.mall.DiversionProduct
 import com.hc.data.mall.GoodsSx
@@ -26,20 +24,17 @@ import com.hc.load.view.LoanProductView
 import com.hc.load.vm.LoanViewModel
 import com.hc.load.vm.LogicData
 import com.hc.permission.AndroidPermissions
-import com.hc.uicomponent.BaseDialog
-import com.hc.uicomponent.BaseDialog.Callback
 import com.hc.uicomponent.annotation.BindViewModel
-import com.hc.uicomponent.base.BaseFragment
 import com.hc.uicomponent.config.Constants
-import com.hc.uicomponent.config.mustNeedPermission
 import com.hc.uicomponent.menu.BaseMenuViewModel
 import com.hc.uicomponent.menu.BasePopupWindow
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.stack.ActivityStack
-import com.hc.uicomponent.utils.*
+import com.hc.uicomponent.utils.ScreenAdapterUtils
 import com.timmy.tdialog.TDialog
 import frame.utils.StringFormat
 import kotlinx.android.synthetic.main.fragment_loan_input_money_layout.*
+import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.find
 
 class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBinding>(R.layout.fragment_loan_input_money_layout) {
@@ -141,7 +136,6 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                     0
                 )
                 loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-
             }
         }
     }
@@ -406,7 +400,6 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                         }
                     }
                 }
-
             }
         }
     }
@@ -424,7 +417,6 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                     } else {
                         moneyTitle.text = getString(R.string.loan_amount)
                     }
-
                     val visibleRepay = if (isShowRepayBtn) View.VISIBLE else View.GONE
                     loanRepay.visibility = visibleRepay
 
@@ -462,9 +454,16 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                         repaymentPlan.visibility = View.GONE
                         billDetails.visibility = View.VISIBLE
                     } else if (isShowRepayBtn) {
-                        billDetails.visibility = View.VISIBLE
+                        container.visibility = View.VISIBLE
                         repaymentPlan.visibility = View.VISIBLE
                         billDetails.visibility = View.GONE
+                    }
+                    billDetails.setOnClickListener {
+                        ContextProvider.mNavIdProvider?.getOrderDetail()?.let {
+                            val mut = (this.orderInfo?.stages?:0 > Constants.NUMBER_1)
+                            val argument = bundleOf(Pair(Constants.ORDER_NUM,this.orderInfo?.id?:""), Pair(Constants.STATE,mut))
+                            Navigation.findNavController(billDetails).navigate(it,argument)
+                        }
                     }
 
                     val isGoneKeepTips = (SUBMIT_ORDER_SUCCESS.state == it)
@@ -472,23 +471,20 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                             || CREDIT_VERIFIY_LOADING.state == it
                             || AUTO_REVIEW_ING.state == it
                             || MANUAL_REVIEW_ING.state == it
-                            || (CASH_FAIL.state == it && mLoanMainViewModel?.logicData?.isBindBankFlag ?: false)
+                            || (CASH_FAIL.state == it && mLoanMainViewModel?.logicData?.isBindBankFlag == true)
                             || AUTO_REVIEW_PASS.state == it
                             || MANUAL_REVIEW_PASS.state == it
                             || WAIT_CASH.state == it
                             || CASH_ING.state == it
                     if (isGoneKeepTips) {
-                        tip.visibility = View.GONE
-                    } else {
                         tip.visibility = View.VISIBLE
+                    } else {
+                        tip.visibility = View.GONE
                     }
-
                 }
             }
         }
     }
-
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         AndroidPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)

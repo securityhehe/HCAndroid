@@ -1,6 +1,7 @@
 package com.hc.load.net
 
 import com.hc.data.mall.*
+import com.hc.data.order.OrderBillRec
 import com.hc.data.param.RequestParams
 import com.hc.data.user.AuthInfo
 import com.tools.network.entity.HttpResult
@@ -88,5 +89,8 @@ interface LoanInfoService {
     @POST("act/mall/myOrder/getOrderInfo.htm")
     fun getOrderStateInfo(@Field(RequestParams.ORDER_ID) orderId: String?): Call<HttpResult<OrderInfo>>
 
+    @FormUrlEncoded
+    @POST("act/mall/myOrder/getBillList.htm")
+    fun getBillList(@Field(RequestParams.ORDER_ID) orderId: String?): Call<HttpResult<List<OrderBillRec>>>
 
 }

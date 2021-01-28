@@ -24,7 +24,7 @@
         <action
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right"
-            android:id="@+id/action_loan_main_model_main_to_loan_main_model_bill_detail"
+            android:id="@+id/action_loan_main_model_to_bill_detail"
             app:destination="@id/loan_main_model_bill_detail" />
         <action
             app:enterAnim="@anim/anim_right_to_middle"

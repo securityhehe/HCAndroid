@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.hc.uicomponent.provider.ContextProvider" />
+
+        <import type="frame.utils.StringFormat" />
+
+        <variable
+            name="item"
+            type="com.hc.data.order.OrderBillRec" />
+
+        <variable
+            name="index"
+            type="Integer" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/LoanDetailsTitleBold"
+            android:layout_marginTop="10dp"
+            android:text="@{ContextProvider.getString(@string/pay_mutliple_emi,index)}"
+            android:textSize="17sp" />
+
+        <TextView
+            style="@style/LoanDetailsTitle"
+            android:layout_marginTop="10dp"
+            android:text="@{ContextProvider.getString(@string/loan_bill_repay_day,StringFormat.integerFormat(item.repaymentDays))}"
+            android:textSize="17sp" />
+
+        <TextView
+            style="@style/LoanDetailsTitle"
+            android:text="@{ContextProvider.getString(@string/loan_bill_repay_money,StringFormat.showMoneyWithSymbol(String.valueOf(item.repaymentAmount)))}"
+            android:textSize="17sp" />
+
+
+    </LinearLayout>
+</layout>
