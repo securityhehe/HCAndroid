@@ -97,14 +97,10 @@
     <string name="mall_daily_interest">%1$s %% Daily Interest</string>
     <string name="mall_order_submit_title">Order confirmation</string>
     <string name="mall_order_submit">Sign and submit the order</string>
-    <string name="mall_order_submit_loan_agreement"><u>Loan Agreement</u></string>
-    <string name="mall_order_submit_sanction_letter"><u>Sanction Letter</u></string>
+
     <string name="dialog_mall_order_try_again">The current number of orders is too many, please try again!</string>
     <string name="dialog_mall_order_commit_amount_more_than_0_tip">Please select an amount greater than 0 before submitting your order!</string>
-    <string name="dialog_mall_order_commit_agreement_tip2">By using E-Signature technology, this agreement shall be protected by law&lt;&lt;&lt;Loan Agreement&gt;&gt;&gt;&amp;law&lt;&lt;&lt;Sanction Letter&gt;&gt;&gt;</string>
-    <string name="dialog_main_order_commit_uncheck_tip">Credit report access rights are not selected</string>
-    <string name="dialog_mall_order_total_interest">Total interest（%1$s%% Daily Interest):</string>
-    <string name="mall_order_submit_loan_duration">%1$s Day(s)</string>
+
 
     <string name="loan_info_write_user_info_submit_try_again">The current number of the submit is too many, please try again!</string>
     <string name="loan_info_write_user_info_input_ten_anther_code">Please enter another mobile number with at least ten digits!</string>

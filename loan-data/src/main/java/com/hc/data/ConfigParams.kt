@@ -102,3 +102,6 @@ const val EPOCH_FAILED_TIMES_MAX = 5 //缓存 Epoch 失败的最大次数
 object ConfigParams {
     val _PRIVACY_URL = PRIVACY_URL
 }
+
+const val CREDIT = "credit"
+const val KYC_CERTIFY_FINISH = "KycCertifyFinish"

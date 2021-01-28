@@ -11,14 +11,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.Gson
 import com.hc.data.common.CommonDataModel
 import com.hc.data.update.Update
 import com.hc.setting.CommonService
-import com.hc.setting.DeviceInfoUtil
+import com.hc.data.utils.DeviceInfoUtil
 import com.hc.setting.FeedbackActivity
 import com.hc.uicomponent.BuildConfig
 import com.hc.uicomponent.base.BaseViewModel
@@ -33,12 +32,10 @@ import com.hc.uicomponent.utils.StatEventTypeName
 import com.hc.uicomponent.utils.TextUtil
 import com.test.setting.R
 import com.test.setting.databinding.DialogUpdateLayoutBinding
-import com.tools.network.callback.AppResultCode
 import frame.utils.ChannelUtil
 import frame.utils.ConverterUtil
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import kotlin.reflect.KParameter
 
 class SettingViewModel : BaseViewModel() {
 

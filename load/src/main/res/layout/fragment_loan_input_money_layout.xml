@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="vm"
+            type="com.hc.load.vm.LoanViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/LoanItemCardViewStyle"
         android:layout_height="match_parent"
@@ -17,16 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
+            android:drawableStart="@drawable/loan_notice"
+            android:drawableEnd="@drawable/loan_notice_go"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingStart="10dp"
             android:paddingTop="?android:attr/actionBarSize"
+            android:paddingEnd="10dp"
             android:text="Order message or System message"
             android:textColor="#FFF"
             android:textSize="15sp"
-            android:gravity="center"
-            android:fontFamily="sans-serif-medium"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:drawableEnd="@drawable/loan_notice_go"
-            android:drawableStart="@drawable/loan_notice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,17 +38,20 @@
             android:background="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@id/message" />
 
-        <TextView
+        <com.hc.uicomponent.weight.NoDoubleClickTextView
             android:id="@+id/record"
-            android:layout_width="112dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:paddingTop="4dp"
             android:fontFamily="sans-serif-medium"
+            android:paddingStart="40dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp"
             android:text="Loan Record>>"
             android:textColor="#80ffffff"
             android:textSize="15sp"
-            android:paddingBottom="4dp"
+            android:visibility="@{vm.logicData.visibleHistoryOrder}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/message" />
 
@@ -67,19 +71,19 @@
                 android:id="@+id/loan_status_fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:background="@drawable/loan_status_received_bg"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                >
+                android:paddingEnd="20dp">
 
                 <TextView
                     android:id="@+id/loan_status_desc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="18dp"
                     android:fontFamily="sans-serif-medium"
-                    android:paddingStart="10dp"
                     android:text="@string/loan_status_received_text"
                     android:textColor="@color/colorItemSelect"
                     android:textSize="18sp" />
@@ -88,7 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="57dp"
-                    android:paddingBottom="24dp">
+                    android:paddingBottom="24dp"
+                    android:visibility="@{vm.logicData.visibleFlowMap}">
 
                     <TextView
                         android:id="@+id/loan_app_receive"
@@ -125,15 +130,88 @@
                         android:text="@string/loan_disbursed_number" />
                 </LinearLayout>
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/loan_audit_reject_bg"
+                android:paddingStart="20dp"
+
+                android:paddingEnd="20dp">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="45dp"
+                    android:gravity="center"
+                    android:text="Order submission failed. Please complete the questionnaire immediately."
+                    android:textColor="#fffdb900"
+                    android:textSize="15sp" />
+
+                <com.hc.uicomponent.weight.NoDoubleClickButton
+                    android:id="@+id/btn"
+                    style="@style/ButtonLoginYellowText"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="100dp"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/loan_recycler"
+
+        <FrameLayout
+            app:layout_constraintTop_toBottomOf="@id/loan_status_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintVertical_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <com.hc.load.view.LoanProductView
+                android:id="@+id/productView"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                android:id="@+id/order"
+                layout="@layout/loan_order_under_review"/>
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loan_status_container"
-            app:layout_constraintVertical_weight="1" />
+            android:gravity="center"
+            android:id="@+id/moreProductContainer"
+            app:cardElevation="6dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you need more loans?"
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:gravity="center" />
+            <com.hc.uicomponent.weight.NoDoubleClickButton
+                android:layout_marginTop="40dp"
+                android:id="@+id/moreProduct"
+                style="@style/ButtonLoginYellowText"
+                android:gravity="center"
+                android:text="@string/more"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp"
+                android:layout_width="100dp"
+                android:layout_height="34dp"/>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

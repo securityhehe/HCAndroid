@@ -23,6 +23,7 @@ import com.appsflyer.AppsFlyerLib
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.hc.data.MenuData
+import com.hc.data.common.CommonDataModel
 import com.hc.data.formKey
 import com.hc.data.formPermissionPage
 import com.hc.login.BuildConfig
@@ -45,6 +46,7 @@ import com.hc.uicomponent.timer.Timer
 import com.hc.uicomponent.utils.*
 import com.tools.network.entity.HttpResult
 import frame.utils.DeviceUtil
+import frame.utils.StringFormat
 import frame.utils.StringUtil
 import kotlinx.coroutines.launch
 import java.util.*
@@ -69,8 +71,19 @@ class LoginVM : BaseViewModel() {
     val isEnableLoginLoan = ObservableBoolean(true)
     val isLanguageMenuShowHide = ObservableInt(View.GONE)
     val enablePhoneLongNextBtn = ObservableBoolean(false)
+    var isKycCertifyFinish = false
     fun start(view: View) {
-        Navigation.findNavController(view).navigate(R.id.action_noLogin_to_phoneLogin)
+        if (!CommonDataModel.mLoggedIn) {
+            Navigation.findNavController(view).navigate(R.id.action_noLogin_to_phoneLogin)
+        } else {
+            //此处说明一定没有认证个人信息，但不一定认证了kyc => kyc-1 & user-0 , kyc-0 & user-0
+            if (isKycCertifyFinish){
+                //调整倒个人信息页面。
+                toKycPage(view)
+            }else{
+                toCreditUserInfo(view)
+            }
+        }
     }
 
     fun clickLanguage() {
@@ -335,8 +348,7 @@ class LoginVM : BaseViewModel() {
     }
 
     //调整到kyc页面。
-    fun toKycPage(nextBtn: Button) {
-        val bundle = bundleOf(Pair(formKey, formPermissionPage))
+    fun toKycPage(nextBtn: View) {
         ContextProvider.mNavIdProvider?.let {
             val opt = NavOptions.Builder()
                 .setEnterAnim(R.anim.anim_right_to_middle)
@@ -351,6 +363,22 @@ class LoginVM : BaseViewModel() {
         }
     }
 
+
+    private fun toCreditUserInfo(view :View){
+        ContextProvider.mNavIdProvider?.let {
+            val opt = NavOptions.Builder()
+                .setEnterAnim(R.anim.anim_right_to_middle)
+                .setLaunchSingleTop(true)
+                .setPopExitAnim(R.anim.anim_middle_to_right)
+                .setPopUpTo(it.getRootNavId(), false).build()
+            val url = Uri.parse("loan://loan/infoModel/credit?formKey=${formPermissionPage}")
+            val a = NavDeepLinkRequest.Builder.fromUri(url).build()
+            val navigation = Navigation.findNavController(view)
+            navigation.navigate(a, opt)
+            navigation.navigationStackPrintln("toKeyPage()")
+        }
+    }
+
     var permissionArray: Array<String> = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -360,6 +388,10 @@ class LoginVM : BaseViewModel() {
         Manifest.permission.CALL_PHONE,
         Manifest.permission.READ_SMS
     )
+
+    fun getText(view :View,  str:String):String{
+       return  StringFormat.showMoneyWithSymbol(view.context,str)
+    }
 
 }
 

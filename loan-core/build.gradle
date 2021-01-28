@@ -23,8 +23,7 @@ dependencies {
     api project(path: ':lib-tool')
     implementation project(path: ':loan-data')
     implementation project(path: ':lib-tdialog')
-
-    //api project(path: ':loan-permission')
+    implementation project(path: ':loan-permission')
 
 }
 

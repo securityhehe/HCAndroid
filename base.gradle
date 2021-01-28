@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation Kotlin.kotlin
     implementation Kotlin.ANDROID_CORE_KTX
     implementation Kotlin.KOTLIN_COROUTINES_FOR_ANDROID

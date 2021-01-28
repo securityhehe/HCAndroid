@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.hc.accountinfo.databinding.FragmentProfileInputInfoBinding
 import com.hc.accountinfo.vm.ProfileInfoViewModel
+import com.hc.data.formKey
 import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.annotation.BindViewModel
 import com.hc.uicomponent.base.BaseFragment
@@ -35,6 +36,13 @@ class AccountProfileInputFragment : BaseFragment<FragmentProfileInputInfoBinding
         mFragmentBinding.vm = vm
         mFragmentBinding.menuVM = menuVm
         mFragmentBinding.lanFragment = this
+        vm?.initBaseInfoViewModel(this@AccountProfileInputFragment)
+        vm?.baseVm?.let {
+            if(it.enableChangeFrom){
+                it.formKey = (arguments?.getString(formKey)?.toInt()) ?: 0
+                it.enableChangeFrom = false
+            }
+        }
         val isCreditFinish = arguments?.getBoolean(Constants.STATE) ?: false
         mFragmentBinding.isCreditFinish =isCreditFinish
         vm?.reqUserInfo(isCreditFinish)

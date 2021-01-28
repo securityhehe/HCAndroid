@@ -68,6 +68,9 @@ object ContextProvider {
         fun showHideMainMenu(isVisible:Int):Unit
         fun getToLogInActionId():Int
         fun mainNav(): Int
+        fun getOrderNavId(): Int
+        fun getCommitOrderNavId():Int
+        fun getCommitOrderLoadingNavId():Int
     }
 
     //解释权限说明。

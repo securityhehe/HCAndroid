@@ -1,3 +1,4 @@
 <resources>
 
+    <dimen name="laon_top_text_30">30dp</dimen>
 </resources>

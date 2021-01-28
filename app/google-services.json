@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:911369511859:android:8a906b4cb0f5b866dde1c6",
         "android_client_info": {
-          "package_name": "in.kushcash.app"
+          "package_name": "com.test.app"
         }
       },
       "oauth_client": [

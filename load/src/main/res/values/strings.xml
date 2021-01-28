@@ -1,18 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [<!ENTITY application_name "Loan">]>
 <resources>
+
     <string name="loan_receive">Application Received</string>
     <string name="loan_order_number">Order under review</string>
     <string name="loan_disbursed_number">Loan Disbursed Successfully</string>
     <string name="loan_status_received_text">Loan Status:</string>
     <string name="loan_go">Get Now</string>
     <string name="loan_money_text">₹ 1500</string>
-    <string name="loan_audit_reject_text">"We are So  Sorry, the loan audit did not pass, Please apply later "</string>
+    <string name="loan_audit_reject_text">We are So  Sorry, the loan audit did not pass, Please apply later %s</string>
     <string name="loan_audit_invalid_text">The order is invalid because the loans have failed for many times. It is suggested that you apply again after changing your bank card.</string>
-    <string name="loan_order_close_text">"The order is closed because the payment cannot be made to your bank card. It is suggested that you "</string>
+    <string name="loan_order_close_text">The order is closed because the payment cannot be made to your bank card. It is suggested that you apply again after changing your bank card. </string>
     <string name="loan_date">23-10-2019</string>
     <string name="loan_replay">Repay</string>
     <string name="loan_order_to_overdue_text">You are %s overdue！ The overdue fee is %s</string>
     <string name="loan_order_to_renewal_text">Your repayment date has been updated.</string>
-    <string name="loan_status_to_repayment_text">Objective don\'t worry, we are waiting for the payment processing result</string>
+    <string name="loan_status_to_repayment_text">Objective don\'t worry, we are waiting for the payment processing result,temporarily unable to operate repayment.</string>
     <string name="loan_total_interest">Total Interest：</string>
     <string name="loan_emi_1">EMI#1</string>
     <string name="loan_emi_2">EMI#2</string>
@@ -28,4 +31,56 @@
     <string name="loan_discount_amount">Discount Amount：</string>
     <string name="loan_overdue_fines">Overdue Fines：</string>
     <string name="loan_repayment_amount">Repayment Amount：</string>
+    <string name="loan_prev_credit"> Please wait patiently while the order is submitted. Please pay attention to the SMS notice, you may need to submit again.</string>
+    <string name="loan_change_bank">The loan failed, please change your bank card immediately, we will make the loan for you again.</string>
+    <string name="loan_change_bank_btn">Change bank card</string>
+    <string name="loan_credit_ing">Order submission failed. Please complete the questionnaire immediately.</string>
+    <string name="loan_submit">Continue to submit</string>
+    <string name="loan_delay">Delay</string>
+    <string name="bill_details"><![CDATA[Bill Details>>]]></string>
+    <string name="repayment_plan"><![CDATA[Repayment Plan>>]]></string>
+
+    <string name="loan_review_tip">Please keep the phone available and more likely to be approved.</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="loan_repay_amount">Repayment Amount</string>
+    <string name="pay_repayment_date">Repayment Date</string>
+    <string name="loan_duration">Loan Duration</string>
+    <string name="loan_bank_account">Bank account :</string>
+    <string name="pay_order_loan_dur_day">%1$s Day(s)</string>
+    <string name="loan_duration_day">%1$s Day(s)</string>
+    <string name="loan_duration_month">%1$s Month</string>
+    <string name="more">More</string>
+
+
+    <string name="loan_detail_on">Order No.：</string>
+    <string name="loan_detail_la">Loan Amount：</string>
+    <string name="loan_detail_ld">Loan Duration：</string>
+    <string name="loan_detail_tsf">Technical Service Fee：</string>
+    <string name="loan_detail_gst">GST：</string>
+    <string name="loan_detail_cp">Commission Payment：</string>
+    <string name="loan_detail_ayg">Amount You Get：</string>
+    <string name="loan_detail_t">Loan and Fee details</string>
+    <string name="loan_detail_rp">Repayment Amount：</string>
+    <string name="loan_detail_bi">Total interest（%1$s%% Daily Interest):</string>
+    <string name="dialog_mall_order_commit_credit_report_tip">I agree that &application_name; can inquire my credit report and upload my repayment status in &application_name; to the credit report.</string>
+    <string name="login_permission_sms_desc">Collect and monitor only financial transaction SMS which includes name of transacting party, a description of the tansaction and transaction amount for the purpose of performing a credit risk assessment. This credit risk assessment enables faster and quicker loan disbursal. No personal SMS are accessed, read or collected.</string>
+    <string name="dialog_mall_order_commit_agreement_tip2">By using E-Signature technology, this agreement shall be protected by law&lt;&lt;&lt;Loan Agreement&gt;&gt;&gt;&amp;law&lt;&lt;&lt;Sanction Letter&gt;&gt;&gt;</string>
+    <string name="mall_order_submit_loan_agreement"><u>Loan Agreement</u></string>
+    <string name="mall_order_submit_sanction_letter"><u>Sanction Letter</u></string>
+    <string name="mall_order_submit_loan_duration">%1$s Day(s)</string>
+    <string name="dialog_mall_order_total_interest">Total interest（%1$s%% Daily Interest):</string>
+
+    <string name="mall_buy_stage_day_tip">Repayment in %1$s Day(s)</string>
+    <string name="mall_buy_stage_price_tip">Repayment amount ₹%1$s</string>
+    <string name="pay_mutliple_emi">EMI#%1$s</string>
+
+    <string name="dialog_main_order_commit_uncheck_tip">Credit report access rights are not selected</string>
+    <string name="dialog_mall_order_commit_amount_more_than_0_tip">Please select an amount greater than 0 before submitting your order!</string>
+    <string name="dialog_mall_order_try_again">The current number of orders is too many, please try again!</string>
+    <string name="mall_order_commit_wait_title">Order waiting for submission</string>
+    <string name="mall_order_commit_wait_hint_pre">Automatic jump after</string>
+    <string name="mall_order_commit_wait_hint_last"> seconds.</string>
+    <string name="loan_wait_hint">Please do not exit, otherwise your order will fail to submit.</string>
+    <string name="order_credit_ask_question_title">Questionnaire surve</string>
+    <string name="mall_order_submit">Sign and submit the order</string>
 </resources>

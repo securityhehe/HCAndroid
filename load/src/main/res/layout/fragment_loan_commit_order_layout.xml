@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/title"
+            layout="@layout/common_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginTop="16dp"
+            android:id="@+id/commitOrderScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadeScrollbars="false"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintVertical_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="4dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="11dp"
+                    android:src="@drawable/loan_bill_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/loan_amount_title"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/loan_detail_on"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintTop_toBottomOf="@id/image" />
+
+                <TextView
+                    android:id="@+id/loan_duration_title"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_ld"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/loan_amount_title"
+                    app:layout_constraintTop_toBottomOf="@id/loan_amount_title" />
+
+
+                <TextView
+                    android:id="@+id/tv_loan_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/loan_amount_title"
+                    app:layout_constraintTop_toTopOf="@id/loan_amount_title"
+                    tools:text="$1450" />
+
+                <ImageView
+                    android:id="@+id/changeMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp"
+                    android:src="@mipmap/sys_triangle"
+                    app:layout_constraintBottom_toBottomOf="@id/loan_amount_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_loan_money"
+                    app:layout_constraintTop_toTopOf="@id/loan_amount_title" />
+
+                <TextView
+                    android:id="@+id/tv_loan_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/loan_duration_title"
+                    app:layout_constraintTop_toTopOf="@id/loan_duration_title"
+                    tools:text="60 Days" />
+
+                <ImageView
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f0f0f0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/loan_duration_title" />
+
+
+                <ImageView
+                    android:id="@+id/detail"
+                    android:layout_width="4dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/loan_bill_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line1" />
+
+                <TextView
+                    android:id="@+id/detail_t1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:text="@string/loan_detail_t"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/detail"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/detail"
+                    app:layout_constraintTop_toTopOf="@id/detail" />
+
+                <ImageView
+                    android:id="@+id/iv_fees_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="11dp"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/detail"
+                    app:srcCompat="@drawable/fold_down" />
+
+
+                <TextView
+                    android:id="@+id/tv_tech_fee_label"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_tsf"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/detail_t1"
+                    app:layout_constraintTop_toBottomOf="@id/detail_t1" />
+
+                <TextView
+                    android:id="@+id/tv_gst_fee_label"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_gst"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_tech_fee_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_tech_fee_label" />
+
+                <TextView
+                    android:id="@+id/tv_commission_fee_label"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_cp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_gst_fee_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_gst_fee_label" />
+
+                <TextView
+                    android:id="@+id/tv_amount_label"
+                    android:layout_width="180dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_ayg"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_commission_fee_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_commission_fee_label" />
+
+                <TextView
+                    android:id="@+id/tv_tech_fee_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_tech_fee_label"
+                    app:layout_constraintTop_toTopOf="@id/tv_tech_fee_label"
+                    tools:text="$50" />
+
+                <TextView
+                    android:id="@+id/tv_gst_fee_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_gst_fee_label"
+                    app:layout_constraintTop_toTopOf="@id/tv_gst_fee_label"
+                    tools:text="$50" />
+
+                <TextView
+                    android:id="@+id/tv_commission_fee_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_commission_fee_label"
+                    app:layout_constraintTop_toTopOf="@id/tv_commission_fee_label"
+                    tools:text="$50" />
+
+
+                <TextView
+                    android:id="@+id/tv_amount_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_amount_label"
+                    app:layout_constraintTop_toTopOf="@id/tv_amount_label"
+                    tools:text="$50" />
+
+                <ImageView
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f0f0f0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_amount_label" />
+
+                <ImageView
+                    android:id="@+id/iv_interest"
+                    android:layout_width="4dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/loan_bill_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line2" />
+
+                <TextView
+                    android:id="@+id/stage_total_include_interest_label"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/iv_interest"
+                    app:layout_constraintTop_toBottomOf="@id/iv_interest"
+                    tools:text="@string/loan_detail_bi" />
+
+                <TextView
+                    android:id="@+id/loan_repayment_label"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/loan_detail_rp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/stage_total_include_interest_label"
+                    app:layout_constraintTop_toBottomOf="@id/stage_total_include_interest_label" />
+
+                <LinearLayout
+                    app:layout_constraintStart_toStartOf="@id/loan_repayment_label"
+                    app:layout_constraintTop_toBottomOf="@id/loan_repayment_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/stag_item_root"
+                    android:layout_width="0dp"
+                    app:layout_constraintHorizontal_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical" />
+
+
+                <TextView
+                    android:id="@+id/bank_account_label"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/stag_item_root"
+                    app:layout_constraintTop_toBottomOf="@id/stag_item_root"
+                    tools:text="@string/loan_bank_account" />
+
+                <TextView
+                    android:id="@+id/tv_stage_interest_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/stage_total_include_interest_label"
+                    app:layout_constraintTop_toTopOf="@id/stage_total_include_interest_label"
+                    tools:text="$50" />
+
+                <TextView
+                    android:id="@+id/tv_stage_repayment_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/loan_repayment_label"
+                    app:layout_constraintTop_toTopOf="@id/loan_repayment_label"
+                    tools:text="$50" />
+
+
+                <TextView
+                    android:id="@+id/tv_bank_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:minWidth="210dp"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/bank_account_label"
+                    app:layout_constraintTop_toBottomOf="@id/bank_account_label"
+                    tools:text="111111111111111111" />
+
+                <ImageView
+                    android:id="@+id/bank_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/loan_edit"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_bank_no"
+                    app:layout_constraintStart_toEndOf="@id/tv_bank_no"
+                    app:layout_constraintTop_toTopOf="@id/tv_bank_no" />
+
+                <ImageView
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f0f0f0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bank_no" />
+
+                <CheckBox
+                    android:id="@+id/order_commit_check"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/in_check_red_selector_bg"
+                    android:button="@null"
+                    android:checked="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line3" />
+
+                <TextView
+                    android:id="@+id/arg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="11dp"
+                    android:gravity="top"
+                    android:text="@string/dialog_mall_order_commit_credit_report_tip"
+                    android:textColor="#ff333333"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/order_commit_check"
+                    app:layout_constraintTop_toTopOf="@id/order_commit_check" />
+
+                <com.hc.uicomponent.weight.NoDoubleClickButton
+                    android:id="@+id/commit"
+                    android:gravity="center"
+                    android:text="@string/mall_order_submit"
+                    style="@style/ButtonLoginYellowText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/arg" />
+
+                <!-- 协议部分 -->
+                <TextView
+                    android:id="@+id/tv_loan_agreement2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginBottom="25dp"
+                    android:text="@string/dialog_mall_order_commit_agreement_tip2"
+                    android:textColor="#ff333333"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/commit" />
+
+                <!-- NBFC 图片 -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_nbfc_img"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:scaleType="fitXY"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_loan_agreement2" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_fees"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="tv_tech_fee_label,
+                    tv_gst_fee_label,
+                    tv_commission_fee_label,
+                    tv_amount_label,
+                    tv_tech_fee_money,
+                    tv_gst_fee_money,
+                    tv_commission_fee_money,
+                    tv_amount_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

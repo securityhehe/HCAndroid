@@ -32,7 +32,7 @@ import frame.utils.DeviceUtil
 import kotlinx.coroutines.launch
 
 class AuthCenterViewModel : BaseViewModel() {
-    var isTEST = true
+    var isTEST = false
     var creditPersonStatus = ObservableInt(10)
     var creditKycStatus = ObservableInt(10)
     var creditEmployStatus = ObservableInt(10)

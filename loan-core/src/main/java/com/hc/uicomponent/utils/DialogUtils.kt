@@ -190,7 +190,7 @@ object DialogUtils {
     }
 
 
-     private fun getBaseCenter(activity: Context): TDialog.Builder {
+    private fun getBaseCenter(activity: Context): TDialog.Builder {
         return TDialog.Builder((activity as FragmentActivity).supportFragmentManager)?.apply {
             val padding = 2 * activity.resources.getDimensionPixelOffset(R.dimen.base_common_dialog_padding)
             setWidth(ScreenUtils.getScreenWidth() - padding)
@@ -205,6 +205,54 @@ object DialogUtils {
                 tDialog.dismissAllowingStateLoss()
             }
         }
+    }
+    //显示dialog
+
+
+    fun showPerssionDialog(
+        activity: Activity, positiveTx: String = ContextProvider.app.getString(R.string.in_dialog_know)
+        , negativeTx: String = ContextProvider.app.getString(R.string.dialog_cancel)
+        , deniedPassionTip: String
+        , isCancelDialog: Boolean = true
+        , isOpenLocationService: Boolean = false
+    ): AlertDialog? {
+        if (TextUtil.isEmpty(deniedPassionTip)) return null
+        var builder = AlertDialog.Builder(activity)
+            .setMessage(if (isOpenLocationService) deniedPassionTip else ContextProvider.app.getString(R.string.request_perssion_tip, deniedPassionTip))
+            .setCancelable(false)
+            .setPositiveButton(positiveTx) { dialog, i ->
+                try {
+                    if (isOpenLocationService) {
+                        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                        if (ContextProvider.app.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+                            activity.startActivity(intent)
+                        } else {
+                            ToastUtils.showShort(ContextProvider.getString(R.string.request_perssion_handle_open_location_service_tip, deniedPassionTip))
+                        }
+                    } else {
+                        // 去设置中设置权限
+                        val info = activity.packageManager.getPackageInfo(activity.packageName, 0)
+
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = Uri.parse("package:" + info.packageName)
+                        if (ContextProvider.app.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+                            activity.startActivity(intent)
+                        } else {
+                            ToastUtils.showShort(ContextProvider.app.getString(R.string.request_perssion_handle_tip, deniedPassionTip))
+                        }
+                    }
+                    dialog?.dismiss()
+                } catch (e: Exception) {
+                    dialog?.dismiss()
+                    e.printStackTrace()
+                }
+            }
+        if (isCancelDialog) {
+            builder.setNegativeButton(negativeTx) { dialog, _ -> dialog.dismiss() }
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+        return alertDialog
     }
 
 

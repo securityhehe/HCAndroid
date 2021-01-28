@@ -1,4 +1,4 @@
-package com.hc.setting;
+package com.hc.data.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+
+import kotlin.jvm.JvmStatic;
 
 /**
  * Author: TinhoXu
@@ -197,6 +199,7 @@ public class DeviceInfoUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     public static ArrayList<AppInfo> getInstallAppInfo(Context context,AppListListener appListListener){
         String userId = null;
         ArrayList<AppInfo> appList = null; //用来存储获取的应用信息数据

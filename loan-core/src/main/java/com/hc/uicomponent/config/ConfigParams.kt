@@ -1,5 +1,6 @@
 package com.hc.uicomponent.config
 
+import android.Manifest
 import com.hc.uicomponent.BuildConfig
 import com.hc.uicomponent.utils.getSDPath
 import java.io.File
@@ -100,3 +101,12 @@ const val EPOCH_FAILED_TIMES_MAX = 5 //缓存 Epoch 失败的最大次数
 object ConfigParams {
     val _PRIVACY_URL = PRIVACY_URL
 }
+
+
+val mustNeedPermission = arrayOf(
+    Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.READ_PHONE_STATE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.READ_SMS,
+    Manifest.permission.READ_CONTACTS
+)

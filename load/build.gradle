@@ -3,7 +3,17 @@ apply from: Module.baseGradle
 dependencies {
     implementation project(path: ':loan-core')
     implementation project(path: ':loan-data')
+    implementation project(path: ':lib-tdialog')
+    implementation project(path: ':loan-permission')
     implementation AndroidX.card_view
     implementation AndroidX.constraint_layout
     implementation AndroidX.recyclerview
+    implementation AppNet.OKHTTP
+    implementation AppNet.RETROFIT
+    implementation Misc.installreferrer
+    implementation Google.gms_base
+    implementation Google.gms_identity
+    implementation Google.playServicesAnalytic
+    implementation Google.playServicesLocation
+
 }

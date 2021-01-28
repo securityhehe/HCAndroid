@@ -102,9 +102,19 @@ object LoanBase {
                 return R.id.nav_host_fragment
             }
 
+            override fun getOrderNavId(): Int {
+                return R.id.action_loan_main_model_main_to_loan_main_model_bill_detail
+            }
 
+            override fun getCommitOrderNavId(): Int {
+                return R.id.action_loan_main_model_main_to_loan_main_model_commit_order
+            }
 
+            override fun getCommitOrderLoadingNavId(): Int {
+                return R.id.action_loan_main_to_order_waiting
+            }
         }
+
         ContextProvider.mPermissionsRationaleProvider = object :ContextProvider.PermissionsRationaleProvider{
             override fun getRationaleText(context: Context, vararg permissions: String): String? {
                return PermissionRationale.groupPermissionTip(context,permissions)

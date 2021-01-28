@@ -22,23 +22,10 @@ interface UserInfoService {
     fun queryUserExtraInfo(): Call<HttpResult<UserInfoExt>>
 
     /**
-     * 查询用户地址信息
-     */
-    @FormUrlEncoded
-    @POST("act/mine/userInfo/getAadress.htm")
-    fun getAadress(@retrofit2.http.Field(RequestParams.PARENT_ID) parentId: Int?): retrofit2.Call<HttpResult<UserInfoRange?>?>?
-
-    /**
-     * 查询用户工作信息
-     */
-    @POST("act/mine/userInfo/getWorkInfo.htm")
-    fun queryUserWorkInfo(): retrofit2.Call<HttpResult<UserWorkInfo?>?>?
-
-    /**
      * 查询bank信息
      */
     @POST("act/mine/bankCard/myBankCardList.htm")
-    fun queryUserBankInfo(): retrofit2.Call<HttpResult<UserBankRec>>
+    fun queryUserBankInfo(): Call<HttpResult<UserBankRec>>
 
     /** 获取字典  */
     @GET("act/dict/list.htm")
@@ -100,7 +87,7 @@ interface UserInfoService {
     fun checkAdBackImg(
         @HeaderMap head: Map<String?, String?>,
         @PartMap params: Map<String?, RequestBody?>
-    ): Call<HttpResult<String?>>
+    ): Call<HttpResult<Any>>
 
     /**
      * 验证pan正面
@@ -110,7 +97,7 @@ interface UserInfoService {
     fun checkPanFrontImg(
         @HeaderMap head: Map<String?, String?>,
         @PartMap params: Map<String?, RequestBody?>
-    ): Call<HttpResult<String?>>
+    ): Call<HttpResult<Any>>
 
     /**
      * 验证face
@@ -120,7 +107,7 @@ interface UserInfoService {
     fun checkFaceImg(
         @HeaderMap head: Map<String?, String?>,
         @PartMap params: Map<String?, RequestBody?>
-    ): Call<HttpResult<String?>>
+    ): Call<HttpResult<Any>>
 
     /**
      * 保存或者更新用户基本信息

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.hc.data.order.OrderBillRec" />
+
+        <import type="com.hc.uicomponent.provider.ContextProvider" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ContextProvider.getString(@string/pay_mutliple_emi,item.num)}"
+            android:textColor="#333"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{ContextProvider.getString(@string/mall_buy_stage_day_tip,item.repaymentDays)}"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{ContextProvider.getString(@string/mall_buy_stage_price_tip,item.repaymentAmount)}"
+            android:textColor="#333"
+            android:textSize="16sp" />
+    </LinearLayout>
+</layout>

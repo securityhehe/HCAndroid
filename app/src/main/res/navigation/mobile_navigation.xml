@@ -21,6 +21,16 @@
             android:autoVerify="true"
             app:action="${applicationId}.DoLoginPage"
             app:uri="navigation://loan/history/order" />
+        <action
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            android:id="@+id/action_loan_main_model_main_to_loan_main_model_bill_detail"
+            app:destination="@id/loan_main_model_bill_detail" />
+        <action
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            android:id="@+id/action_loan_main_model_main_to_loan_main_model_commit_order"
+            app:destination="@id/loan_main_model_commit_order" />
     </fragment>
 
     <fragment
@@ -44,7 +54,6 @@
 
     </fragment>
 
-
     <activity
         android:id="@+id/loan_main_model_web_view"
         android:name="com.hc.uicomponent.WebViewActivity"
@@ -58,10 +67,30 @@
     </fragment>
 
     <fragment
-        android:id="@+id/loan_main_model_message"
-        android:name="com.hc.load.LoanMessageFragment"
-        tools:layout="@layout/fragment_loan_message_layout">
-        <deepLink app:uri="navigation://loan/message" />
+        android:id="@+id/loan_main_model_commit_order"
+        android:name="com.hc.load.LoanCommitOrderFragment"
+        tools:layout="@layout/fragment_loan_commit_order_layout">
+        <action
+            android:id="@+id/action_loan_main_to_order_waiting"
+            app:popUpTo="@id/loan_main_model_main"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:destination="@id/loan_main_model_commit_order_wait"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_main_model_bill_detail"
+        android:name="com.hc.load.BillDetailFragment"
+        tools:layout="@layout/fragment_loan_bill_detail">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_main_model_commit_order_wait"
+        tools:layout="@layout/fragment_loan_loading"
+        android:name="com.hc.load.CommitOrderWaitingFragment">
+
     </fragment>
 
     <include app:graph="@navigation/loan_info_model"/>

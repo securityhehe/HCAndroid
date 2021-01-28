@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -18,6 +19,7 @@ import com.hc.accountinfo.vm.viewdata.getIntKey
 import com.hc.accountinfo.vm.viewdata.getTextKey
 import com.hc.data.MenuData
 import com.hc.data.common.CommonDataModel
+import com.hc.data.formPermissionPage
 import com.hc.data.user.BankDictList
 import com.hc.data.user.UserInfoExt
 import com.hc.data.user.UserInfoRange
@@ -65,6 +67,14 @@ class ProfileInfoViewModel : BaseViewModel() {
     private var mMapUserTypeData = mutableMapOf<String, UserType>()
     private var isExistUserInfo = false //是否存在。
     var mViewData = ViewUserInfoData()
+    var baseVm: BaseAuthCenterInfo? = null
+
+
+    fun initBaseInfoViewModel(fragment: Fragment) {
+        val viewModelStoreOwner = NavHostFragment.findNavController(fragment).getViewModelStoreOwner(R.id.loan_info_model_container)
+        baseVm = ViewModelProvider(viewModelStoreOwner).get((BaseAuthCenterInfo::class.java))
+        println("center===> $baseVm")
+    }
 
     private suspend fun checkMenuData(): Unit {
         return withContext(viewModelScope.coroutineContext) {
@@ -75,6 +85,18 @@ class ProfileInfoViewModel : BaseViewModel() {
                 }
             }
         }
+    }
+
+    override fun back(view: View) {
+        if (baseVm?.formKey == formPermissionPage) {
+            gotoAuthCenterPage(view)
+        } else {
+            super.back(view)
+        }
+    }
+
+    fun gotoAuthCenterPage(view: View) {
+        Navigation.findNavController(view).navigate(R.id.loan_info_model_kyc_auth_center)
     }
 
     private fun initData(menu: UserInfoRange) {

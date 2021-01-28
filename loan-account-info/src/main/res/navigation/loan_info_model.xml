@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/loan_info_model_auth_center"
-    android:id="@+id/loan_info_model_container">
+    android:id="@+id/loan_info_model_container"
+    app:startDestination="@id/loan_info_model_auth_center">
 
     <fragment
         android:id="@+id/loan_info_model_auth_center"
@@ -21,9 +21,10 @@
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right" />
 
-        <argument android:name="state"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+        <argument
+            android:name="state"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <action
             android:id="@+id/loan_info_model_auth_center_bank"
@@ -44,34 +45,34 @@
         android:name="com.hc.accountinfo.AccountKycFragment"
         tools:layout="@layout/fragmnet_kyc_info">
         <deepLink app:uri="loan://loan/infoModel/Kyc?formKey={formKey}" />
+
         <action
             android:id="@+id/loan_info_model_kyc_auth_center"
             app:destination="@id/loan_info_model_auth_center"
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right"
-            app:popUpToInclusive="false"
             app:popUpTo="@id/loan_info_model_container"
-            />
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
         android:id="@+id/loan_info_model_profile_info"
         android:name="com.hc.accountinfo.AccountProfileInputFragment"
         tools:layout="@layout/fragment_profile_input_info">
+        <deepLink app:uri="loan://action/auth/userInfo" />
         <action
             android:id="@+id/loan_info_model_profile_info_auth_center"
             app:destination="@id/loan_info_model_auth_center"
             app:enterAnim="@anim/anim_right_to_middle"
             app:popExitAnim="@anim/anim_middle_to_right" />
-
-
+        <deepLink app:uri="loan://loan/infoModel/credit?formKey={formKey}" />
         <action
             android:id="@+id/loan_info_model_profile_info_supply_info"
             app:destination="@id/loan_info_model_profile_supply_info"
-            app:popUpTo="@id/loan_info_model_auth_center"
-            app:popUpToInclusive="false"
             app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right" />
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpTo="@id/loan_info_model_auth_center"
+            app:popUpToInclusive="false" />
 
     </fragment>
 
@@ -79,6 +80,7 @@
         android:id="@+id/loan_info_model_bank_info"
         android:name="com.hc.accountinfo.AccountBankInfoFragment"
         tools:layout="@layout/fragment_bank_info">
+        <deepLink app:uri="loan://action/auth/bank" />
         <action
             android:id="@+id/loan_info_model_bank_info_auth_center"
             app:destination="@id/loan_info_model_auth_center"
@@ -90,14 +92,14 @@
         android:id="@+id/loan_info_model_profile_supply_info"
         android:name="com.hc.accountinfo.AccountSupplyInfoFragment"
         tools:layout="@layout/fragment_supplementary_info">
-
+        <deepLink app:uri="loan://action/auth/supplement?state={b}" />
         <action
             android:id="@+id/loan_info_sppply_to_bank"
             app:destination="@id/loan_info_model_bank_info"
-            app:popUpTo="@id/loan_info_model_auth_center"
-            app:popUpToInclusive="false"
             app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right" />
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpTo="@id/loan_info_model_auth_center"
+            app:popUpToInclusive="false" />
 
         <action
             android:id="@+id/loan_info_model_supply_info_auth_center"
@@ -106,4 +108,26 @@
             app:popExitAnim="@anim/anim_middle_to_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/loan_info_auth_result"
+        android:name="com.hc.accountinfo.AccountAuthResultFragment"
+        tools:layout="@layout/fragment_permission_result">
+
+        <action
+            android:id="@+id/loan_info_auth_result_to_profile_info"
+            app:destination="@id/loan_info_model_profile_info"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpTo="@id/loan_info_model_container"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/loan_info_auth_result_to_auth_center"
+            app:destination="@id/loan_info_model_auth_center"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpTo="@id/loan_info_model_container"
+            app:popUpToInclusive="false" />
+        <deepLink app:uri="loan://action/auth/result?state={state}" />
+    </fragment>
 </navigation>

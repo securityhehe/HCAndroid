@@ -9,10 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.blankj.utilcode.util.ToastUtils
 import com.hc.accountinfo.R
 import com.hc.accountinfo.api.UserInfoService
@@ -31,6 +28,7 @@ import com.hc.uicomponent.stack.ActivityStack
 import com.hc.uicomponent.utils.*
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnViewClickListener
+import com.tools.network.entity.Params.RES_SUCCEED
 import frame.utils.DeviceUtil
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,7 +37,7 @@ import kotlinx.coroutines.withContext
 data class BankMenuData(var title: Int, var data: List<BankInfo>)
 
 class BankInfoViewModel : BaseViewModel(), LifecycleObserver {
-
+    var data  = MutableLiveData<String>()
     private var countDownTimer: CountDownTimer? = null
     private val x217 = ScreenAdapterUtils.dp2px(ContextProvider.app, 217)
     private val x23 = ScreenAdapterUtils.dp2px(ContextProvider.app, 23)
@@ -53,7 +51,9 @@ class BankInfoViewModel : BaseViewModel(), LifecycleObserver {
         inputCheck()
     }
 
-    var mCardName = ObservableField<String>()
+    var mCardName = LoanObservableField<String>().setCallT{
+        inputCheck()
+    }
 
     var cardNum = LoanObservableField<String>().setCallT {
         inputCheck()
@@ -122,7 +122,7 @@ class BankInfoViewModel : BaseViewModel(), LifecycleObserver {
     }
 
     private fun inputCheck() {
-        isEnable.set(!TextUtil.isExistEmpty(mSelectCardData.get()?.info, cardNum.get(), code.get()))
+        isEnable.set(!TextUtil.isExistEmpty(mCardName.get(), cardNum.get(), code.get()))
     }
 
     fun showBankDetailInfo() {
@@ -191,6 +191,7 @@ class BankInfoViewModel : BaseViewModel(), LifecycleObserver {
                 return
             }
         }
+
         viewModelScope.launch {
             val bankName = mCardName.get()
             val bankNo = cardNum.get()
@@ -226,6 +227,9 @@ class BankInfoViewModel : BaseViewModel(), LifecycleObserver {
                     }
                     false
                 })
+            if(commitRes.code == RES_SUCCEED){
+                data.value = cardNum.get()
+            }
 
         }
     }

@@ -12,5 +12,6 @@
     <string name="request_perssion_handle_tip">Please manually open the [%1$s] permission in the settings!</string>
     <string name="request_perssion_open_location_service_tip">Please turn on the "network location service" of the mobile phone system!</string>
     <string name="request_perssion_handle_open_location_service_tip">Before continuing to use the application, please turn on the network location service of the mobile phone system by yourself!</string>
-
+    <string name="mall_loan_duration">Loan duration %1$s Day(s)</string>
+    <string name="mall_daily_interest">%1$s %% Daily Interest</string>
 </resources>

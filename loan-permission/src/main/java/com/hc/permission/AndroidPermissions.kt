@@ -49,24 +49,11 @@ object AndroidPermissions {
         return true
     }
 
-    fun requestPermissions(
-        host: Activity,
-        rationale: String,
-        isShowRationale: Boolean,
-        requestCode: Int,
-        @Size(min = 1) vararg perms: String
-    ) {
-        requestPermissions(PermissionRequest.Builder(host, requestCode, isShowRationale, *perms).setRationale(rationale).build()
-        )
+    fun requestPermissions(host: Activity, rationale: String, isShowRationale: Boolean, requestCode: Int, @Size(min = 1) vararg perms: String) {
+        requestPermissions(PermissionRequest.Builder(host, requestCode, isShowRationale, *perms).setRationale(rationale).build())
     }
 
-    fun requestPermissions(
-        host: Fragment,
-        rationale: String,
-        isShowRationale: Boolean,
-        requestCode: Int,
-        @Size(min = 1) vararg perms: String
-    ) {
+    fun requestPermissions(host: Fragment, rationale: String, isShowRationale: Boolean, requestCode: Int, @Size(min = 1) vararg perms: String) {
         requestPermissions(PermissionRequest.Builder(host, requestCode, isShowRationale, *perms).setRationale(rationale).build())
     }
 
@@ -202,6 +189,7 @@ object AndroidPermissions {
         fun onAllPermissionGranted(requestCode: Int) {
 
         }
+
     }
 
     interface RationaleCallbacks {

@@ -6,6 +6,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
     app:contentPadding="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,21 +15,49 @@
         android:background="@drawable/loan_input_money_item">
 
         <TextView
-            android:id="@+id/money"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="27dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="9dp"
+            android:id="@+id/platformName"
+            android:layout_width="75dp"
+            android:lines="1"
+            android:layout_marginStart="27dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ff333333"
+            android:textSize="24sp"
+            android:visibility="visible"
+            android:text="aaaaaaaa" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginTop="9dp"
+            app:layout_constraintStart_toEndOf="@id/platformName"
+            app:layout_goneMarginStart="27dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/loan_money_text"
             android:textColor="#ff333333"
             android:textSize="24sp"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
+            android:id="@+id/changeMoney"
+            android:paddingStart="5dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            app:layout_constraintStart_toEndOf="@id/money"
+            app:layout_constraintBottom_toBottomOf="@id/money"
+            app:layout_constraintTop_toTopOf="@id/money"
+            android:src="@mipmap/sys_triangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.hc.uicomponent.weight.NoDoubleClickButton
             android:id="@+id/getMoney"
+            android:gravity="center"
             style="@style/ButtonLoginYellowText"
             android:layout_width="wrap_content"
             android:layout_marginTop="10dp"
@@ -42,18 +71,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/moneyDesc"
+            android:id="@+id/loanDuration"
             android:layout_width="152dp"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="start|center_vertical"
-            android:minLines="2"
+            android:minLines="1"
             android:paddingBottom="6dp"
-            android:text="Loan duration xx Day(s)\n 0.01%  Daily Interest"
+            tools:text="Loan duration xx Day(s)\n 0.01%  Daily Interest"
             android:textColor="#ff333333"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/money" />
+        <TextView
+            android:id="@+id/dayInterest"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="start|center_vertical"
+            android:minLines="1"
+            android:paddingBottom="6dp"
+            tools:text="Loan duration xx Day(s)\n 0.01%  Daily Interest"
+            android:textColor="#ff333333"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanDuration" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

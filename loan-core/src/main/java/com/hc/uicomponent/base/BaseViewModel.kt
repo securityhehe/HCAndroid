@@ -1,23 +1,19 @@
 package com.hc.uicomponent.base
 
+import android.net.Uri
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.databinding.*
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import kotlinx.coroutines.CoroutineExceptionHandler
+import com.hc.uicomponent.R
+import com.hc.uicomponent.provider.ContextProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
-/**
- * @Author : ZhouWei
- * @TIME   : 2020/3/18 9:48
- * @DESC   : 此ViewModel会存储到 ViewModelStore 中,
- *           对于某一个activity|fragment的关系为：
- *           >>1-activity包含一个ViewModelStore包含多个ViewModel对象，会在destroy的时候清除ViewModelStore中所有的ViewModel对象，
- *             屏幕旋转时，会缓存ViewModelStore，故所持有的ViewModel对象同样被保留了下来，故:称之为数据包含方案，可替代onSaveInstance(Bundle)
- */
+
 open class BaseViewModel : ViewModel(), ITaskJob, Observable{
 
     //缓存请求时发起的job，用于后续中途终止任务时使用！
@@ -55,7 +51,6 @@ open class BaseViewModel : ViewModel(), ITaskJob, Observable{
         callbacks.notifyCallbacks(this, 0, null)
     }
 
-
     fun notifyPropertyChanged(fieldId: Int) {
         callbacks.notifyCallbacks(this, fieldId, null)
     }
@@ -68,6 +63,25 @@ open class BaseViewModel : ViewModel(), ITaskJob, Observable{
     open fun back(view:View){
         Navigation.findNavController(view).navigateUp()
     }
+
+}
+
+
+fun BaseViewModel.jumpDeepLikPage(view :View,popupToId:Int?,url:String){
+    ContextProvider.mNavIdProvider?.let {
+        val opt = NavOptions.Builder()
+            .setEnterAnim(R.anim.anim_right_to_middle)
+            .setLaunchSingleTop(true)
+            .setPopExitAnim(R.anim.anim_middle_to_right)
+        popupToId?.let {
+            opt.setPopUpTo(it, false)
+        }
+        val url = Uri.parse(url)
+        val a = NavDeepLinkRequest.Builder.fromUri(url).build()
+        val navigation = Navigation.findNavController(view)
+        navigation.navigate(a, opt.build())
+    }
+
 }
 
 interface ITaskJob{

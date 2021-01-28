@@ -1,5 +1,7 @@
 package com.hc.uicomponent.config;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * 常量
  */
@@ -10,6 +12,14 @@ public class Constants {
     public static final String STATUS_TRUE = "true";
     public static final String STATUS_FALSE = "false";
     public static final String STATE = "state";
+    public static final String IS_CHANGE_BANK = "is_change_bank";
+
+    //state
+    public static final String ORDER_COMMIT_GOODS_SX = "order_commit_goods_sx";
+    public static final String ORDER_COMMIT_AUTO_ENTRY_PAGE = "order_commit_auto_entry_page";
+    public static final String ORDER_NBFC_IMG_URL = "order_nbfc_img_url";
+    public static final String ORDER_COMMIT_GET_CERTIFY_BANK_STATE = "order_commit_get_certify_bank_state";
+
     /**
      * number
      */
@@ -74,6 +84,8 @@ public class Constants {
     public static final String STATUS_90 = "90";
 
 
+    public static final String CREDIT_OK = "30";
+
     /**
      * network params
      */
@@ -123,4 +135,10 @@ public class Constants {
     ////////////////////////////  APP导流统计  ////////////////////////////
     public static String DIVERSION_COUNT_LIST = "DIVERSION_COUNT_LIST";// 导流APP点击统计列表
 
+
+    @Nullable
+    public static final String ORDER_NUM = "order_number";
 }
+
+
+

@@ -1,252 +1,564 @@
 package com.hc.load
 
+import android.Manifest
 import android.app.Dialog
+import android.content.Context
+import android.content.pm.PermissionInfo
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
+import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.hc.data.MenuData
+import com.hc.data.OrderStateEnum
+import com.hc.data.OrderStateEnum.*
+import com.hc.data.mall.DiversionProduct
+import com.hc.data.mall.GoodsSx
+import com.hc.data.mall.IListData
+import com.hc.data.user.UserType
 import com.hc.load.databinding.FragmentLoanInputMoneyLayoutBinding
+import com.hc.load.view.LoanProductView
+import com.hc.load.vm.LoanViewModel
+import com.hc.load.vm.LogicData
+import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.BaseDialog
 import com.hc.uicomponent.BaseDialog.Callback
+import com.hc.uicomponent.annotation.BindViewModel
 import com.hc.uicomponent.base.BaseFragment
+import com.hc.uicomponent.config.Constants
+import com.hc.uicomponent.config.mustNeedPermission
+import com.hc.uicomponent.menu.BaseMenuViewModel
+import com.hc.uicomponent.menu.BasePopupWindow
+import com.hc.uicomponent.provider.ContextProvider
+import com.hc.uicomponent.stack.ActivityStack
+import com.hc.uicomponent.utils.*
+import com.timmy.tdialog.TDialog
+import frame.utils.StringFormat
 import kotlinx.android.synthetic.main.fragment_loan_input_money_layout.*
-import java.io.Serializable
+import org.jetbrains.anko.find
 
-class LoanMainFragment : BaseFragment<FragmentLoanInputMoneyLayoutBinding>(R.layout.fragment_loan_input_money_layout) {
+class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBinding>(R.layout.fragment_loan_input_money_layout) {
 
     companion object {
         const val RECEIVE = 0x01
         const val REJECT = 0x02
         const val STATUS_RECEIVE = 0x01
-        const val STATUS_ODER_UNDER_REVIEW= 0x02
-        const val STATUS_DISBURSED= 0x03
-
+        const val STATUS_ODER_UNDER_REVIEW = 0x02
+        const val STATUS_DISBURSED = 0x03
+        const val DIVERSION_TYPE_TOP = "1"
+        const val DIVERSION_TYPE_MORE = "2"
+        const val READ_SMS_PERMISSION = 1
+        const val BASE_PERMISSION = 2
     }
 
-    private var mLoanMainViewModel: LoanViewModel? = null
+    private val x100 = ScreenAdapterUtils.dp2px(ContextProvider.app, 100)
+    private val x23 = ScreenAdapterUtils.dp2px(ContextProvider.app, 23)
+    private val x187 = ScreenAdapterUtils.dp2px(ContextProvider.app, -70)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_loan_input_money_layout, container, false)
-    }
+    @BindViewModel
+    var mLoanMainViewModel: LoanViewModel? = null
+
+    @BindViewModel
+    var baseMenuModel: BaseMenuViewModel? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loan_recycler?.apply {
-            layoutManager = LinearLayoutManager(context)
-            val a = mutableListOf<LoadData>()
-            a.add(LoadData())
-            a.add(LoadData())
-            a.add(LoadData())
-            adapter = LoanAdapter(a)
-            adapter?.notifyDataSetChanged()
+
+        mLoanMainViewModel?.apply {
+            mFragmentBinding.vm = this
+            reqHomeData(view, false)
+            setData()
+            initEvent()
         }
 
-        record?.setOnClickListener{
-            NavHostFragment.findNavController(this).navigate(Uri.parse("navigation://loan/history/order"))
-        }
-
-        message?.setOnClickListener{
-            
-            NavHostFragment.findNavController(this).navigate(Uri.parse("navigation://loan/message"))
-        }
-    }
-
-    inner class LoanAdapter(private var loanListData: MutableList<LoadData> = mutableListOf()) :
-        RecyclerView.Adapter<LoadHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_loan_input_money_item, parent, false)
-            return LoadHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: LoadHolder, position: Int) {
-            holder.bindData(loanListData[position])
-        }
-
-        override fun getItemCount(): Int {
-            return loanListData.size
-        }
-    }
-
-    inner class LoadHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val mMoney = view.findViewById<TextView>(R.id.money)
-        private val mButton: Button = view.findViewById(R.id.getMoney)
-        private val mMoneyDesc: TextView = view.findViewById(R.id.moneyDesc)
-        fun bindData(loadData: LoadData) {
-            mButton.isSelected = (loadData.status != REJECT)
-            mButton.setOnClickListener {
-                showDialog()
+        mFragmentBinding.run {
+            record.setOnClickListener {
+                NavHostFragment.findNavController(this@LoanMainFragment).navigate(Uri.parse("navigation://loan/history/order"))
+            }
+            message.setOnClickListener {
+                NavHostFragment.findNavController(this@LoanMainFragment).navigate(Uri.parse("navigation://loan/message"))
             }
         }
     }
 
-    class LoadData : Serializable {
-        var status: Int = RECEIVE
-    }
-
-    fun showDialog() {
-        context?.let {
-            BaseDialog(it)
-                .setData("Not qualified ! Please apply on 8 October , 2019.", null, "Got it")
-                .setCallback(object : Callback {
-                    override fun confirm(d: Dialog?) {
-                        d?.dismiss()
-                    }
-                }).show()
+    private fun initEvent() {
+        mFragmentBinding.run {
+            moreProduct.setOnClickListener {
+                mLoanMainViewModel?.logicData?.moreData?.value?.let {
+                    showDiversionDialog(it)
+                }
+            }
         }
     }
 
-    /**
-     * 跳转到审核中页面。
-     */
-    fun toReceived() {
+    private fun LoanViewModel.setData() {
+        logicData.run {
+
+            mOrderFlowMapStateData.observe(viewLifecycleOwner, Observer {
+                setOrderMapFlowState(it)
+            })
+
+            mControlOrderVisibleOrGone.observe(viewLifecycleOwner, Observer {
+                mFragmentBinding.order.orderContainer.visibility = it
+            })
+
+            mOrderViewControl.observe(viewLifecycleOwner, Observer {
+                mLoanMainViewModel?.let { model ->
+                    setOrderView(this, it, model)
+                }
+            })
+
+            //控制order的展示和隐藏。
+            mControlProductVisibleOrGone.observe(viewLifecycleOwner, Observer {
+                mFragmentBinding.productView.visibility = it
+            })
+
+            mProductList.observe(viewLifecycleOwner, Observer {
+                setProductList(it)
+            })
+            mControlMoreBtnVisibleOrGone.observe(viewLifecycleOwner, Observer {
+                moreProductContainer.visibility = it
+            })
+
+        }
+    }
+
+    //审核拒绝
+    private fun toAuditReject(time: String) {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.text = String.format(getString(R.string.loan_audit_reject_text), time)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    R.drawable.loan_audit_reject_ic,
+                    0,
+                    0
+                )
+                loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+
+            }
+        }
+    }
+
+    //订单逾期
+    private fun toBeOverdue(day: String, money: String) {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_status_be_overdue, 0, 0)
+                loanStatusDesc.text = String.format(getString(R.string.loan_order_to_overdue_text), "$day Days(s)", "₹$money")
+                loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+            }
+        }
+    }
+
+    //订单续期
+    private fun toRenewal() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_renewal, 0, 0)
+                loanStatusDesc.text = String.format(getString(R.string.loan_order_to_renewal_text))
+                loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+            }
+        }
+    }
+
+    //失效订单状态
+    private fun toInvalidReject() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                loanStatusDesc.text = getString(R.string.loan_audit_invalid_text)
+                val a: ViewGroup.MarginLayoutParams = loanStatusDesc.layoutParams as ViewGroup.MarginLayoutParams
+                a.topMargin = resources.getDimensionPixelOffset(R.dimen.laon_top_text_30)
+                loanStatusDesc.layoutParams = a
+                loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+            }
+        }
+    }
+
+    //订单关闭
+    private fun toOrderClose() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                loanStatusDesc.text = getString(R.string.loan_order_close_text)
+                loanStatusDesc.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+            }
+        }
+    }
+
+
+    //订单还款中提示。6
+    private fun toRepaymentProcessing() {
         setLoanViewState(STATUS_RECEIVE)
         context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
-            loan_status_desc?.text = getString(R.string.loan_status_received_text)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            setLoanViewState()
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.text = getString(R.string.loan_status_to_repayment_text)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_repayment_processing, 0, 0)
+            }
         }
     }
 
-
-    /**
-     * 调整到拒绝页面。
-     */
-    fun toAuditReject() {
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.text = getString(R.string.loan_audit_reject_text)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                R.drawable.loan_audit_reject_ic,
-                0,
-                0
-            )
-            loan_status_desc?.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-        }
-    }
-
-    /**
-     * 跳转到审核失效页面
-     */
-    fun toInvalidReject() {
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            loan_status_desc?.text = getString(R.string.loan_audit_invalid_text)
-            loan_status_desc?.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-        }
-    }
-
-    /***
-     * 跳转到订到关闭页面
-     */
-
-    fun toOrderClose() {
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            loan_status_desc?.text = getString(R.string.loan_order_close_text)
-            loan_status_desc?.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-        }
-    }
-
-    /**
-     * 待还款状态
-     */
-    fun toOrderUnderReview() {
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
-            loan_status_desc?.text = getString(R.string.loan_status_received_text)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            setLoanViewState(STATUS_ODER_UNDER_REVIEW)
-        }
-    }
-
-    /**
-     * 逾期
-     */
-    private  fun toBeOverdue(){
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_status_be_overdue, 0, 0)
-            loan_status_desc?.text = String.format(getString(R.string.loan_order_to_overdue_text),"1 Days(s)","₹50")
-            loan_status_desc?.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-        }
-    }
-
-    /**
-     * 续期中
-     */
-
-    private  fun toRenewal(){
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_renewal, 0, 0)
-            loan_status_desc?.text = String.format(getString(R.string.loan_order_to_renewal_text))
-            loan_status_desc?.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
-        }
-    }
-
-    /**
-     * 还款续期选择
-     */
-    private fun toRenewalSelect(){
-        setLoanViewState(STATUS_RECEIVE)
-        context?.let {
-            loan_status_fl?.background =
-                ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
-            loan_status_desc?.text = getString(R.string.loan_status_received_text)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            setLoanViewState()
-        }
-    }
-
-    /**
-     * 还款处理中
-     */
-    private fun toRepaymentProcess(){
-        setLoanViewState(STATUS_RECEIVE)
-        context?.let {
-            loan_status_fl?.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
-            loan_status_desc?.text = getString(R.string.loan_status_to_repayment_text)
-            loan_status_desc?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_repayment_processing, 0, 0)
-        }
-    }
-
-    /**
-     * 状态转换方法
-     */
+    //状态转换方法
     private fun setLoanViewState(level: Int = 0) {
         val isOpenReceive = (level >= STATUS_RECEIVE)
-        loan_app_receive?.isEnabled = isOpenReceive
-        loan_go_1?.isEnabled = isOpenReceive
-        val isOpenOrderReview = (level >= STATUS_ODER_UNDER_REVIEW)
-        loan_order_review?.isEnabled = isOpenOrderReview
-        loan_go_2?.isEnabled = isOpenOrderReview
-        val isOpenDisbursed = (level >= STATUS_DISBURSED)
-        lan_disbursed.isEnabled = isOpenDisbursed
+        mFragmentBinding.run {
+            loanAppReceive.isEnabled = isOpenReceive
+            loanGo1.isEnabled = isOpenReceive
+            val isOpenOrderReview = (level >= STATUS_ODER_UNDER_REVIEW)
+            loanOrderReview.isEnabled = isOpenOrderReview
+            loanGo2.isEnabled = isOpenOrderReview
+            val isOpenDisbursed = (level >= STATUS_DISBURSED)
+            lanDisbursed.isEnabled = isOpenDisbursed
+        }
+    }
+
+    //没有下单状态。
+    private fun toReceived() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
+                loanStatusDesc.text = getString(R.string.loan_status_received_text)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                setLoanViewState()
+            }
+        }
+    }
+
+    //预审
+    private fun toPrevCredit() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_audit_reject_bg)
+                loanStatusDesc.text = getString(R.string.loan_prev_credit)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.loan_repayment_processing, 0, 0)
+            }
+        }
+    }
+
+    //审核中
+    private fun toRenewalSelect() {
+        context?.let {
+
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
+                loanStatusDesc.text = getString(R.string.loan_status_received_text)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                setLoanViewState(STATUS_RECEIVE)
+            }
+        }
+    }
+
+    //订单审核通过，已经打款。
+    private fun toOrderUnderReview() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
+                loanStatusDesc.text = getString(R.string.loan_status_received_text)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                setLoanViewState(STATUS_ODER_UNDER_REVIEW)
+            }
+        }
+    }
+
+    //等待还款。
+    private fun toOrderRepay() {
+        context?.let {
+            mFragmentBinding.run {
+                loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
+                loanStatusDesc.text = getString(R.string.loan_status_received_text)
+                loanStatusDesc.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                setLoanViewState(STATUS_DISBURSED)
+            }
+        }
+    }
+
+    //显示产品弹出窗口。
+    private fun showDiversionDialog(list: MutableList<IListData>?) {
+        list?.let {
+            val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loan_diversion_more, null, false)
+            val builder = TDialog.Builder((activity as FragmentActivity).supportFragmentManager).setDialogView(view)
+            builder.setScreenWidthAspect(activity, 1f)
+            builder.setScreenHeightAspect(activity, 1f)
+            builder.setGravity(Gravity.CENTER)
+            builder.setCancelableOutside(false)
+            builder.setDimAmount(0.0f)
+
+            builder.setOnViewClickListener { _, _, tDialog ->
+                tDialog.dismissAllowingStateLoss()
+            }
+            builder.setOnKeyListener { _, _, _ ->
+                false
+            }
+            view.find<LoanProductView>(R.id.loanProduct).setData(it)
+            val dialog = builder.create()
+            dialog.show()
+        }
+    }
+
+
+    private fun setOrderMapFlowState(it: String?) {
+        mFragmentBinding.fl.visibility = View.GONE
+        when (it) {
+            INVALID.state -> {
+                toInvalidReject()
+            }
+            CLOSE.state -> {
+                toOrderClose()
+            }
+            AUTO_REFUSED.state -> {
+                toAuditReject(mLoanMainViewModel?.logicData?.mainDataRec?.nextTime ?: "")
+            }
+            OVERDUE.state -> {
+                val a = mLoanMainViewModel?.logicData?.mainDataRec?.orderRepay
+                toBeOverdue(a?.penaltyDay ?: "0", a?.penaltyAmout ?: "0")
+            }
+            RENEWAL.state -> {
+                toRenewal()
+            }
+            REPAY_ING.state -> {
+                toRepaymentProcessing()
+            }
+            CREDIT_VERIFIY_LOADING.state -> {  //征信认证中
+                mFragmentBinding.fl.visibility = View.VISIBLE
+                mFragmentBinding.title.text = getString(R.string.loan_credit_ing)
+                mFragmentBinding.btn.text = getString(R.string.loan_submit)
+                mFragmentBinding.btn.setOnClickListener {
+
+                }
+            }
+            CASH_FAIL.state -> { //提现失败。更改银行卡。
+                mFragmentBinding.fl.visibility = View.VISIBLE
+                mFragmentBinding.title.text = getString(R.string.loan_change_bank)
+                mFragmentBinding.btn.text = getString(R.string.loan_change_bank_btn)
+                mFragmentBinding.btn.setOnClickListener {
+
+                }
+            }
+            SUBMIT_NO_COMMIT_ORDER.state -> {
+                toReceived()
+            }
+
+            FIRST_REVIEW_ING.state -> { //预审中
+                toPrevCredit()
+            }
+            AUTO_REVIEW_ING.state, //自动审核中
+            MANUAL_REVIEW_ING.state -> {//人工复审中
+                toRenewalSelect()
+            }
+            AUTO_REVIEW_PASS.state,
+            MANUAL_REVIEW_PASS.state,
+            WAIT_CASH.state,
+            CASH_ING.state,
+            SUBMIT_ORDER_SUCCESS.state -> {
+                toOrderUnderReview()
+            }
+            REPAY.state -> {
+                toOrderRepay()
+            }
+            else -> {
+
+            }
+        }
+    }
+
+    private fun LogicData.setProductList(it: MutableList<IListData>) {
+        if (mControlProductVisibleOrGone.value == View.VISIBLE) {
+            it.forEach {
+                if (it is GoodsSx) {
+                    val orderStatus = mLoanMainViewModel?.logicData?.orderStatus
+                    it.isCanBuy = !(MANUAL_REFUSED.state == orderStatus || AUTO_REFUSED.state == orderStatus)
+                }
+            }
+            productView.setData(it).callback = object : LoanProductView.Callback {
+                //显示产品列表。
+                override fun selectPrice(price: IListData, priceTv: TextView, iv: ImageView) {
+                    choosePrice(price, priceTv, iv)
+                }
+
+                //下单，
+                override fun getNowMoney(price: IListData, money: String) {
+                    mLoanMainViewModel
+                    if (price.getChangeMoney()) {
+                        if (price is GoodsSx) {
+                            if(price.choseAmount == 0.0){
+                                price.choseAmount = price.maxAmount
+                            }
+                            mLoanMainViewModel?.saveGetNowMoney(price)
+
+                            reqSmsPermissionAndGetNowMoney()
+                        }
+                    } else {
+                        //导流app下单。
+                        if (price is DiversionProduct) {
+                            mLoanMainViewModel?.handleDiversionClick(price, DIVERSION_TYPE_TOP, requireActivity());
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun setOrderView(logicData1: LogicData, it: String?, loanViewModel: LoanViewModel) {
+        if (logicData1.mControlOrderVisibleOrGone.value == View.VISIBLE) {
+            mFragmentBinding.order.run {
+                container.visibility = View.VISIBLE
+                repaymentPlan.visibility = View.VISIBLE
+                mLoanMainViewModel?.logicData?.mainDataRec?.apply {
+                    val moneyFlag = (it == RENEWAL.state || it == OVERDUE.state || REPAY.state == it)
+                    val isShowRepayBtn = (moneyFlag || BAD.state == it)
+                    if (isShowRepayBtn) {
+                        moneyTitle.text = getString(R.string.loan_repay_amount)
+                    } else {
+                        moneyTitle.text = getString(R.string.loan_amount)
+                    }
+
+                    val visibleRepay = if (isShowRepayBtn) View.VISIBLE else View.GONE
+                    loanRepay.visibility = visibleRepay
+
+                    val isShowDelayBtn = loanViewModel.logicData.mainDataRec?.isDeplay == Constants.NUMBER_1
+                    loanDelay.visibility = if (isShowDelayBtn) View.VISIBLE else View.GONE
+
+                    if (moneyFlag) {
+                        if (this.orderInfo!!.stages > Constants.NUMBER_1) {
+                            var sumTotalMoney = 0.0
+                            if (this.orderStages.isNotEmpty()) {
+                                sumTotalMoney += this.orderStages[0].totalRepayment
+                            }
+                            money.text = StringFormat.showMoneyWithSymbol(requireContext(), sumTotalMoney.toString())
+                        } else {
+                            money.text = StringFormat.showMoneyWithSymbol(requireContext(), this.orderRepay.totalRepayment.toString())
+                        }
+                    } else {
+                        money.text = StringFormat.showMoneyWithSymbol(requireContext(), this.orderInfo?.goodsPrice)
+                    }
+                    val ifShowPaymentText =
+                        (REPAY.state == it || OVERDUE.state == it || RENEWAL.state == it || REPAY_ING.state == it || RENEWAL_ING.state == it)
+                    if (ifShowPaymentText) {
+                        dateTitle.text = getString(R.string.pay_repayment_date)
+                        date.text = orderStages[0].repayTimeStr
+                    } else {
+                        val args = StringFormat.integerFormat(this.orderInfo?.timeLimit ?: "")
+                        val format = resources.getString(R.string.loan_duration_day)
+                        date.text = String.format(format, args)
+                        dateTitle.text = getString(R.string.loan_duration)
+                    }
+
+                    val isShowBillDetailLink = (WAIT_SIGN.state == it || WAIT_CASH.state == it || CASH_FAIL.state == it)
+                    if (isShowBillDetailLink) {
+                        container.visibility = View.GONE
+                        repaymentPlan.visibility = View.GONE
+                        billDetails.visibility = View.VISIBLE
+                    } else if (isShowRepayBtn) {
+                        billDetails.visibility = View.VISIBLE
+                        repaymentPlan.visibility = View.VISIBLE
+                        billDetails.visibility = View.GONE
+                    }
+
+                    val isGoneKeepTips = (SUBMIT_ORDER_SUCCESS.state == it)
+                            || FIRST_REVIEW_ING.state == it
+                            || CREDIT_VERIFIY_LOADING.state == it
+                            || AUTO_REVIEW_ING.state == it
+                            || MANUAL_REVIEW_ING.state == it
+                            || (CASH_FAIL.state == it && mLoanMainViewModel?.logicData?.isBindBankFlag ?: false)
+                            || AUTO_REVIEW_PASS.state == it
+                            || MANUAL_REVIEW_PASS.state == it
+                            || WAIT_CASH.state == it
+                            || CASH_ING.state == it
+                    if (isGoneKeepTips) {
+                        tip.visibility = View.GONE
+                    } else {
+                        tip.visibility = View.VISIBLE
+                    }
+
+                }
+            }
+        }
+    }
+
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        AndroidPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    //显示价格改变弹出窗口,
+    private fun choosePrice(price: IListData?, priceTv: TextView, iv: ImageView) {
+        if (price == null) return
+        val borrowMoneyList = mutableListOf<Double>()
+        if (price.getChangeMoney()) {
+            if (price is GoodsSx) {
+                var startAmount = price.minAmount
+                val endMaxAmount = price.maxAmount
+                var isEqu = false
+                while (startAmount <= endMaxAmount) {
+                    if (startAmount == endMaxAmount) {
+                        isEqu = true
+                        borrowMoneyList.add(endMaxAmount)
+                        break
+                    } else {
+                        borrowMoneyList.add(startAmount)
+                        startAmount += price.increment
+                    }
+                }
+                if (!isEqu) {
+                    borrowMoneyList.add(endMaxAmount)
+                }
+                if (borrowMoneyList.size > 0) {
+                    borrowMoneyList.reverse()
+                    showMenu(borrowMoneyList, -1, priceTv, iv){
+                        price.choseAmount = it
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showMenu(data: List<Double>?, titleRes: Int, view: TextView, iv: ImageView, callback: (Double) -> Unit) {
+        val act = ActivityStack.currentActivity()
+        if (data != null && act != null && !act.isFinishing && !act.isDestroyed) {
+            var popupWindow: BasePopupWindow?
+            baseMenuModel?.apply {
+                val menuData = data.mapIndexed { i, d ->
+                    val a = UserType(null, d.toString(), d.toString(), null, "", "")
+                    MenuData(a, i, false)
+                }
+                if (titleRes == -1) {
+                    ""
+                } else {
+                    title = view.context.getString(titleRes) ?: ""
+                }
+                listData.clear()
+                listData.addAll(menuData)
+                popupWindow = BasePopupWindow(act, this, iv, x100)
+                popupWindow?.show(x187, x23)
+                callbackData = { it ->
+                    popupWindow?.dismiss()
+                    callback.invoke(it.menuInfo.info.toDouble())
+                    view.text = StringFormat.showMoneyWithSymbol(requireContext(), it.menuInfo.info)
+                    Unit
+                }
+            }
+        }
+    }
+
+    override fun callPermissionOk() {
+        super.callPermissionOk()
+        mLoanMainViewModel?.commitOrder(mFragmentBinding.root)
     }
 
 }
+
 

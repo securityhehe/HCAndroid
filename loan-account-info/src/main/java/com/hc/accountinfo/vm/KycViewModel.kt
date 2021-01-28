@@ -21,7 +21,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.hc.accountinfo.R
-import com.hc.accountinfo.api.IUserInfoService
 import com.hc.accountinfo.api.UserInfoService
 import com.hc.data.common.CommonDataModel
 import com.hc.data.formPermissionPage
@@ -320,7 +319,7 @@ class KycViewModel : BaseViewModel() {
                     val headParams = SignUtil.getInstance().addCommonParamsAndSign(groupReqMap)
                     val reqBodyMap = FileUploadUtil.getRequestMap(groupReqMap)
 
-                    var reqResult = reqApi(IUserInfoService::class.java, block = {
+                    var reqResult = reqApi(UserInfoService::class.java, block = {
                         when (requestCode) {
                             TYPE_IDCARD_BACK -> {// ad back
                                 checkAdBackImg(headParams, reqBodyMap)

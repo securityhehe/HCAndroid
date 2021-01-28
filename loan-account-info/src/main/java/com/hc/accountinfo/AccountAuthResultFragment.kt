@@ -2,33 +2,44 @@ package com.hc.accountinfo
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
-import com.hc.accountinfo.databinding.FragmentAccountProfileBinding
-import com.hc.accountinfo.databinding.FragmentPermissionSuccessBinding
-import com.hc.accountinfo.vm.AuthCenterViewModel
-import com.hc.uicomponent.annotation.BindViewModel
+import androidx.navigation.Navigation
+import com.hc.accountinfo.databinding.FragmentPermissionResultBinding
 import com.hc.uicomponent.base.BaseFragment
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.utils.FacebookEventUtils
-import kotlinx.android.synthetic.main.fragmnet_kyc_info.*
 
-class AccountAuthResultFragment : BaseFragment<FragmentPermissionSuccessBinding>(R.layout.fragment_permission_success) {
-
+class AccountAuthResultFragment : BaseFragment<FragmentPermissionResultBinding>(R.layout.fragment_permission_result) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        when(arguments?.getInt(Constants.STATE)) {
-            Constants.NUMBER_10 -> {//failure
-               mFragmentBinding.visibleFail = View.VISIBLE
-                mFragmentBinding.visibleSuccess = View.GONE
+        arguments?.getString(Constants.STATE)?.toIntOrNull()?.let { it ->
+            when (it) {
+                Constants.NUMBER_10 -> {//failure
+                    mFragmentBinding.run {
+                        fail.visibility = View.VISIBLE
+                        success.visibility = View.GONE
+                    }
+                }
+                Constants.NUMBER_20 -> {//success
+                    mFragmentBinding.run {
+                        fail.visibility = View.GONE
+                        success.visibility = View.VISIBLE
+                    }
+                    FacebookEventUtils.setFacebookEvent(requireContext(), FacebookEventUtils.PURCHASE)
+                }
             }
-            Constants.NUMBER_20 -> {//success
-                mFragmentBinding.visibleFail = View.GONE
-                mFragmentBinding.visibleSuccess = View.VISIBLE
-                FacebookEventUtils.setFacebookEvent(requireContext(), FacebookEventUtils.PURCHASE)
+            mFragmentBinding.run {
+                successBack.setOnClickListener { view ->
+                    Navigation.findNavController(view).navigate(R.id.loan_info_auth_result_to_auth_center)
+                }
+                failBack.setOnClickListener { view ->
+                    Navigation.findNavController(view).navigate(R.id.loan_info_auth_result_to_auth_center)
+                }
+
+                gotoApply.setOnClickListener { view ->
+                    Navigation.findNavController(view).navigate(R.id.loan_info_auth_result_to_profile_info)
+                }
             }
         }
     }
-
-
 
 }

@@ -10,7 +10,15 @@
 
     <string name="request_perssion_tip">Please enable [%1$s] perssion in the settings to continue using the app!</string>
     <string name="request_perssion_handle_tip">Please manually open the [%1$s] permission in the settings!</string>
+    <string name="loan_core_profile_select_operator_name">Select Operator Name</string>
+
+    <string name="mall_kyc_loading">Please wait for KYC certification to complete before proceeding!</string>
     <string name="request_perssion_open_location_service_tip">Please turn on the "network location service" of the mobile phone system!</string>
     <string name="request_perssion_handle_open_location_service_tip">Before continuing to use the application, please turn on the network location service of the mobile phone system by yourself!</string>
-    <string name="loan_core_profile_select_operator_name">Select Operator Name</string>
+
+    <string name="in_dialog_know">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">Sure</string>
+    <string name="dialog_go_it">Got it</string>
+    <string name="dialog_confirm">Confirm</string>
 </resources>

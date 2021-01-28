@@ -9,15 +9,21 @@ object Google {
     //const val af_android_sdk = "com.appsflyer:af-android-sdk:${LibVersion.af}"
     //const val play_service = "com.google.android.gms:play-services-auth:${LibVersion.play_service}"
     const val gson = "com.google.code.gson:gson:2.8.2"
-    //const val gms_base = "com.google.android.gms:play-services-base:16.0.1"
-    //const val gms_auth = "com.google.android.gms:play-services-auth:16.0.1"
-    // const val gms_identity = "com.google.android.gms:play-services-identity:16.0.0"
-    // const val gms_phone = "com.google.android.gms:play-services-auth-api-phone:16.0.0" 
-    // const val gms_lib_phone_number = "com.googlecode.libphonenumber:libphonenumber:8.10.22"
+    const val gms_base = "com.google.android.gms:play-services-base:16.0.1"
+    const val gms_auth = "com.google.android.gms:play-services-auth:16.0.1"
+     const val gms_identity = "com.google.android.gms:play-services-identity:16.0.0"
+     const val gms_phone = "com.google.android.gms:play-services-auth-api-phone:16.0.0"
+     const val gms_lib_phone_number = "com.googlecode.libphonenumber:libphonenumber:8.10.22"
 
     const val playServicesAnalytics = "com.google.android.gms:play-services-analytics:17.0.0"
     const val playServicesLocation = "com.google.android.gms:play-services-location:17.0.0"
-    //集成 AppsFlyerSDK
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.5.0"
+    const val firebaseDynamicLinks = "com.google.firebase:firebase-dynamic-links:19.1.0"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.5.0"
+    const val playServicesAnalytic = "com.google.android.gms:play-services-analytics:17.0.0";
+    const val installreferrer = "com.android.installreferrer:installreferrer:1.0"
+    const val facebookAndroid = "com.facebook.android:facebook-android-sdk:5.13.0"
+    const val appsflyer = "com.appsflyer:af-android-sdk:5.4.3"
 }
 
 
@@ -99,8 +105,9 @@ object Misc {
     //const val elva = "net.aihelp:elva:1.7.4.2"
     const val mmkv = "com.tencent:mmkv-static:1.1.0"
     const val blankj_utilcode = "com.blankj:utilcode:1.20.3"
+    const val installreferrer = "com.android.installreferrer:installreferrer:1.0"
 
-    const val datePicker= "com.wdullaer:materialdatetimepicker:4.2.3"
+    const val datePicker = "com.wdullaer:materialdatetimepicker:4.2.3"
 
     //const val lottie = "com.airbnb.android:lottie:3.4.0"
     //const val xcrash = "com.iqiyi.xcrash:xcrash-android-lib:2.4.9"

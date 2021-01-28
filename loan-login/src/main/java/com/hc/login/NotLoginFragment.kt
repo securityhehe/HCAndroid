@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import com.hc.data.CREDIT
+import com.hc.data.KYC_CERTIFY_FINISH
 import com.hc.login.databinding.FragmentNotLoginLayoutBinding
 import com.hc.login.vm.LoginVM
 import com.hc.uicomponent.annotation.BindViewModel
@@ -16,6 +18,12 @@ class NotLoginFragment : BaseFragment<FragmentNotLoginLayoutBinding>(R.layout.fr
     var viewModel: LoginVM? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            val credit = it.getDouble(CREDIT)
+            val kyc = it.getBoolean(KYC_CERTIFY_FINISH)
+            viewModel?.isKycCertifyFinish = kyc
+            mFragmentBinding.userCredit = if(credit == 0.0) "" else credit.toString()
+        }
         mFragmentBinding.vm = viewModel
     }
 

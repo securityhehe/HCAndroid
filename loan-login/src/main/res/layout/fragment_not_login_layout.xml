@@ -5,6 +5,10 @@
         <variable
             name="vm"
             type="com.hc.login.vm.LoginVM" />
+        <variable
+            name="userCredit"
+            type="java.lang.String" />
+        <import type="frame.utils.StringFormat" />
     </data>
 
     <FrameLayout
@@ -54,11 +58,12 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="15dp"
-                        android:text="₹ 25000.00"
+                        android:text="@{vm.getText(user.context,userCredit)"
                         android:textColor="#333333"
                         android:textSize="40sp"
                         android:textStyle="bold" />
