@@ -106,9 +106,9 @@ class HistoryOrderList {
  * 触发主动|续期还款请求的实体类
  */
 data class ReqPayToken(
-    var url: String,//CashFree的Token；RazorPay的orderId
+    var url: String?,//CashFree的Token；RazorPay的orderId
     var orderNo: String,// pgxxxxxxxxxxxxxxx
-    var notifyUrl: String,// www.baidu.com
+    var notifyUrl: String?,// www.baidu.com
     var email :String,
     var handlingFee:Double, //实际应付手续费
     var appId: String,
@@ -147,3 +147,29 @@ data class CFPayInfo(
 //		var upiAccount:String
 //)
 
+
+//定义其他平台订单数据结构
+data class PlatformOrder(
+    val deplayFee: Double,
+    var deplayGstFee:Double,//续期税费
+    var deplayHandlingFee:Double,//续期手续费
+    var repaymentHandlingFee:Double,//还款手续费
+
+    var deplayDay: Int,
+    var isDeplay: Int,
+
+    var orderInfo: OrderInfo,
+    var orderRepay: OrderRepay,
+    var orderStages: List<OrderStage>,
+    var platform :PlatformData
+) : Serializable {
+//    var payFinish:Boolean = false//额外标识订单是否已经结清
+
+    override fun equals(other: Any?): Boolean {
+        if (other==null) return false
+        if (other is PlatformOrder){
+            return other.orderInfo.id == this.orderInfo.id
+        }
+        return false
+    }
+}

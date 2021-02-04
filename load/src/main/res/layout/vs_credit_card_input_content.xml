@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hc.load.view.EditDelLayout
+            android:id="@+id/card_no"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            app:edit_hint="@string/pay_credit_card_nubmber"
+            app:edit_max_len="50"
+            app:edit_only_number="true"
+            app:edit_add_blank="true"
+            app:edit_add_blank_num="4"/>
+
+        <com.hc.load.view.EditDelLayout
+            android:id="@+id/card_holder_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40"
+            android:layout_below="@id/card_no"
+            android:layout_marginTop="@dimen/x10"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            app:edit_hint="@string/pay_credit_card_holder_name"
+            app:edit_max_len="100" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/card_mm_yy"
+            android:layout_width="@dimen/x145"
+            android:layout_height="@dimen/x40"
+            android:layout_below="@id/card_holder_name"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_marginEnd="@dimen/x20"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            android:gravity="center_vertical"
+            android:textColorHint="@color/C_999999"
+            android:textColor="@color/C_333333"
+            android:hint="@string/pay_credit_card_mmyy"
+            android:clickable="true"
+            android:paddingStart="@dimen/x10" />
+
+        <com.hc.load.view.EditDelLayout
+            android:id="@+id/card_cvv"
+            android:layout_width="@dimen/x145"
+            android:layout_height="@dimen/x40"
+            android:layout_below="@id/card_holder_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/x10"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            app:edit_hint="@string/pay_credit_card_cvv"
+            app:edit_max_len="50" />
+
+
+    </RelativeLayout>
+</layout>

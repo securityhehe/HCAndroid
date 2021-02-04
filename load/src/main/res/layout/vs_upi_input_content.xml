@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.hc.load.view.EditDelLayout
+        android:id="@+id/pay_upi_ed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        app:edit_hint="@string/pay_upi_id_hint"
+        app:edit_max_len="100"
+        />
+</layout>

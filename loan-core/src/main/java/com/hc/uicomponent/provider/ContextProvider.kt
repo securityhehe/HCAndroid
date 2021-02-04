@@ -71,6 +71,8 @@ object ContextProvider {
         fun getOrderDetail(): Int
         fun getCommitOrderNavId():Int
         fun getCommitOrderLoadingNavId():Int
+        fun getPlanNavId():Int
+        fun getPayNavId():Int
 
     }
 

@@ -1,9 +1,12 @@
 package com.hc.load.net
 
 import com.hc.data.mall.*
+import com.hc.data.order.CFPayHistory
 import com.hc.data.order.OrderBillRec
+import com.hc.data.order.ReqPayToken
 import com.hc.data.param.RequestParams
 import com.hc.data.user.AuthInfo
+import com.hc.data.user.UserInfoRange
 import com.tools.network.entity.HttpResult
 import retrofit2.Call
 import retrofit2.http.Field
@@ -92,5 +95,51 @@ interface LoanInfoService {
     @FormUrlEncoded
     @POST("act/mall/myOrder/getBillList.htm")
     fun getBillList(@Field(RequestParams.ORDER_ID) orderId: String?): Call<HttpResult<List<OrderBillRec>>>
+
+
+    /** 续期请求token  */
+    @FormUrlEncoded
+    @POST("act/sdk/pay/requestDelayRepay.htm")
+    fun reqDelayRepayToken(@Field(RequestParams.ORDER_ID) orderId: String?): Call<HttpResult<ReqPayToken>>
+
+
+    /* -----------------> CashFree Pay SDK for Interfaces begin <------------------- */
+    /** 还款请求token  */
+    @FormUrlEncoded
+    @POST("act/sdk/pay/requestRepay.htm")
+    fun reqRepayToken(
+        @Field(RequestParams.ORDER_ID) orderId: String?,
+        @Field(RequestParams.BORROW_NUMS) nums: Int
+    ): Call<HttpResult<ReqPayToken>> //nums传1
+
+    /**
+     * 查询用户枚举信息
+     */
+    @POST("act/mine/userInfo/ListInfo.htm")
+    fun queryListInfo(): Call<HttpResult<UserInfoRange>>
+
+    @POST("act/pay/payInfo.htm")
+    fun reqPayHistoryForSDK(): Call<HttpResult<List<CFPayHistory>>>
+
+
+    @FormUrlEncoded
+    @POST("act/pay/repayReturn.htm")
+    fun payOver2SyncInfo(
+        @Field(RequestParams.ORDER_ID) orderId: String?,
+        @Field(RequestParams.ORDER_AMOUNT) orderAmount: String?,
+        @Field(RequestParams.PAYMENT_MODE) paymentMode: String?,
+        @Field(RequestParams.REFERENCE_ID) referenceId: String?,
+        @Field(RequestParams.TX_MSG) txMsg: String?,
+        @Field(RequestParams.TX_STATUS) txStatus: String?,
+        @Field(RequestParams.TX_TIME) txTime: String?,
+        @Field(RequestParams.PAY_INFO) payInfo: String?,
+        @Field(RequestParams.PAY_TYPE) payType: Int?,
+        @Field(RequestParams.PAY_ACCOUNT) payAccount: String?
+    ): Call<HttpResult<CFPayHistory>>
+
+    /** 区分支付支付方式：1-sdk;2-h5  */
+    @POST("act/pay/paymentChooseType.htm")
+    fun reqPayType(): Call<HttpResult<Int>>
+
 
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+<!--
+        <variable
+            name="cfPayHistoryData"
+            type="java.util.List&lt;com.base.project.entity.source.receive.order.CFPayInfo&gt;" />
+
+        <variable
+            name="cfPayHistoryListener"
+            type="android.view.View.OnClickListener" />-->
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/in_save_red_flag_1"
+            android:layout_width="@dimen/x5"
+            android:layout_height="@dimen/x20"
+            android:layout_marginStart="@dimen/x15"
+            android:layout_marginTop="@dimen/x2"
+            android:background="@color/C_FEC036" />
+
+        <TextView
+            android:id="@+id/in_save_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x5"
+            android:layout_toEndOf="@id/in_save_red_flag_1"
+            android:text="@string/pay_last_pay_info"
+            android:textColor="@color/C_333333"
+            android:textSize="@dimen/x17"
+            android:textStyle="bold" />
+
+        <!--动态添加历史支付信息Item-->
+
+        <LinearLayout
+            android:id="@+id/in_history_view_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/in_save_info_title"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/x25"
+            android:paddingEnd="@dimen/x25"
+             />
+
+    </RelativeLayout>
+</layout>

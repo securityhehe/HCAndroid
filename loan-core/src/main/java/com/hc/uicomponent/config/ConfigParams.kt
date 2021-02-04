@@ -110,3 +110,11 @@ val mustNeedPermission = arrayOf(
     Manifest.permission.READ_SMS,
     Manifest.permission.READ_CONTACTS
 )
+
+
+/**
+ * 定义广播的action
+ */
+const val WEB_VIEW_OPERATE = "webViewOperate"
+const val SEND_HOME_FRAGMENT_BROADCAST = "sendBroadcast2HomeFragment"
+const val SEND_ORDER_FRAGMENT_BROADCAST = "sendBroadcast2OrderFragment"

@@ -14,7 +14,7 @@ class OrderItemView :FrameLayout{
 
     init {
        val param =  ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-       addView(LayoutInflater.from(context).inflate(R.layout.fragment_loan_order,this,false),param)
+       addView(LayoutInflater.from(context).inflate(R.layout.payment_order_details,this,false),param)
     }
 
     override fun onFinishInflate() {

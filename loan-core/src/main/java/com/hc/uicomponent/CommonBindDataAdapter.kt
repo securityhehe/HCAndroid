@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.hc.uicomponent.config.Constants
+import com.hc.uicomponent.placeView.PlaceholderHelper
+import com.hc.uicomponent.placeView.PlaceholderLayout
 import com.hc.uicomponent.provider.CommonProvider
 import com.hc.uicomponent.utils.EditTextFormat
 import frame.utils.ConverterUtil
@@ -187,6 +189,19 @@ object CommonBindDataAdapter {
         }
         view.setOnEditorActionListener(listener)
     }
+
+
+
+    @BindingAdapter(value = ["placeholderState","placeholderListener","placeholderContentView"], requireAll = false)
+    @JvmStatic
+    fun placeholderConfig(layout: PlaceholderLayout, state:Int, listener: PlaceholderLayout.OnReloadListener,  view:View) {
+        layout.setContentView(view);
+        PlaceholderHelper.getInstance().setStatus(layout, state);
+        if (listener != null) {
+            layout.setOnReloadListener(listener);
+        }
+    }
+
 
     /**
      * EditText Filter

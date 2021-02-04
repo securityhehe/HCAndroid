@@ -8,7 +8,11 @@
     <action
         android:id="@+id/main_to_login"
         app:destination="@id/loginModelNavContainer"
+        app:enterAnim="@anim/anim_right_to_middle"
+        app:exitAnim="@anim/anim_middle_to_right"
         app:launchSingleTop="true"
+        app:popEnterAnim="@anim/anim_right_to_middle"
+        app:popExitAnim="@anim/anim_middle_to_right"
         app:popUpTo="@id/loan_main_model_container"
         app:popUpToInclusive="true" />
 
@@ -22,15 +26,26 @@
             app:action="${applicationId}.DoLoginPage"
             app:uri="navigation://loan/history/order" />
         <action
-            app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right"
             android:id="@+id/action_loan_main_model_to_bill_detail"
-            app:destination="@id/loan_main_model_bill_detail" />
-        <action
+            app:destination="@id/loan_main_model_bill_detail"
             app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right"
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+        <action
             android:id="@+id/action_loan_main_model_main_to_loan_main_model_commit_order"
-            app:destination="@id/loan_main_model_commit_order" />
+            app:destination="@id/loan_main_model_commit_order"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+        <action
+            android:id="@+id/action_loan_main_model_to_plan"
+            app:destination="@id/loan_main_model_repayment_plan"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
     </fragment>
 
     <fragment
@@ -40,9 +55,11 @@
         tools:layout="@layout/fragment_account_info">
         <action
             android:id="@+id/action_navigation_account_to_navigation_settings"
+            app:destination="@id/loan_main_model_setting"
             app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right"
-            app:destination="@id/loan_main_model_setting" />
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
     </fragment>
 
     <fragment
@@ -72,10 +89,12 @@
         tools:layout="@layout/fragment_loan_commit_order_layout">
         <action
             android:id="@+id/action_loan_main_to_order_waiting"
-            app:popUpTo="@id/loan_main_model_main"
-            app:enterAnim="@anim/anim_right_to_middle"
-            app:popExitAnim="@anim/anim_middle_to_right"
             app:destination="@id/loan_main_model_commit_order_wait"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right"
+            app:popUpTo="@id/loan_main_model_main"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -88,13 +107,34 @@
 
     <fragment
         android:id="@+id/loan_main_model_commit_order_wait"
-        tools:layout="@layout/fragment_loan_loading"
-        android:name="com.hc.load.CommitOrderWaitingFragment">
+        android:name="com.hc.load.CommitOrderWaitingFragment"
+        tools:layout="@layout/fragment_loan_loading">
 
     </fragment>
 
-    <include app:graph="@navigation/loan_info_model"/>
+    <fragment
+        android:id="@+id/loan_main_model_repayment_plan"
+        android:name="com.hc.load.PayPlanFragment"
+        tools:layout="@layout/fragment_repayment_plan_layout">
+        <action
+            android:id="@+id/action_loan_main_plan_to_pay"
+            app:destination="@id/loan_main_model_pay"
+            app:enterAnim="@anim/anim_right_to_middle"
+            app:exitAnim="@anim/anim_middle_to_right"
+            app:popEnterAnim="@anim/anim_right_to_middle"
+            app:popExitAnim="@anim/anim_middle_to_right" />
+    </fragment>
 
-    <include app:graph="@navigation/login_navigation" />
+    <fragment
+        android:id="@+id/loan_main_model_pay"
+        android:name="com.hc.load.PayFragment"
+        tools:layout="@layout/fragment_real_pay">
+
+    </fragment>
+    <include
+        app:graph="@navigation/loan_info_model" />
+
+    <include
+        app:graph="@navigation/login_navigation" />
 
 </navigation>

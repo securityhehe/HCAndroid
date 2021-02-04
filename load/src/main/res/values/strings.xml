@@ -85,4 +85,62 @@
 
     <string name="mall_order_submit">Sign and submit the order</string>
     <string name="pay_order_loan_amount">Loan Amount:</string>
+
+
+    <string name="loan_repay">Repay</string>
+    <string name="loan_pay_title">Repayment Plan</string>
+    <string name="loan_bill_detail_title">Bill Details</string>
+    <string name="loan_bill_interest">Interest：</string>
+    <string name="loan_bill_total_interest">Total Interest：</string>
+    <string name="loan_bill_repay_day">Repayment in %1$s day(s)</string>
+    <string name="loan_bill_repay_money">Repayment amount %1$s</string>
+
+    <string name="pay_order_no">Order No. ：</string>
+    <string name="pay_order_no_point">Order No.</string>
+    <string name="pay_order_date">Order Date:</string>
+    <string name="pay_order_set_amount">Settlement Amount：</string>
+    <string name="pay_order_discount_amount">Discount Amount：</string>
+    <string name="pay_order_overdue_fee">Overdue Fines：</string>
+    <string name="pay_order_interest">Interest：</string>
+    <string name="pay_order_repay_pri">Repayment Principal：</string>
+    <string name="pay_order_repay_date">Repayment Date：</string>
+    <string name="pay_order_repay_amount">Repayment Amount：</string>
+    <string name="pay_order_tip">If you settle the first payment, the second payment will also be settled.</string>
+    <string name="pay_overdue_text">Overdue \n%1$s day(s)</string>
+    <string name="pay_normal_text">Normal</string>
+    <string name="pay_processing_text">Payment processing</string>
+
+    <string name="pay_total_real_pay">Total Real Pay</string>
+    <string name="pay_repayment_amount">Repayment \nAmount</string>
+    <string name="pay_detail_delay_tip"><Data><![CDATA[Now you can pay <font color="#047538">%1$s</font> to extend the payment for <font color="#047538">%2$s</font> days.]]></Data></string>
+    <!--##cashfree part begin##-->
+    <!--cashfree call pay logic -->
+    <string name="pay_method">Payment method：</string>
+    <string name="pay_upi">UPI</string>
+    <!--cashfree the custom pay page-->
+    <string name="pay_last_pay_info">Saved payment information:</string>
+    <string name="pay_card_no">Card—NO.</string>
+    <string name="pay_upi_id">UPI ID—</string>
+    <string name="pay_upi_id_hint">UPI ID</string>
+    <string name="pay_now">Pay Now</string>
+
+    <string name="pay_netbanking">Netbanking</string>
+    <string name="pay_netbanking_more_banks">More Banks>></string>
+    <string name="pay_netbanking_bob">BOB</string>
+    <string name="pay_netbanking_icici">ICICI</string>
+    <string name="pay_netbanking_hdfc">HDFC</string>
+    <string name="pay_netbanking_axis">Axis</string>
+
+    <!--Credit/Debit Card -->
+    <string name="pay_credit_or_debit_card">Credit/Debit Card</string>
+    <string name="pay_credit_card_nubmber">Card Number</string>
+    <string name="pay_credit_card_holder_name">Card Holder Name</string>
+    <string name="pay_credit_card_mmyy">MM/YY</string>
+    <string name="pay_credit_card_cvv">CVV</string>
+    <string name="pay_failed">Sorry,payment failed</string>
+
+    <string name="pay_no_select_method">You have not selected payment method!</string>
+    <string name="pay_method_parasm_input_complete">Please input the complete information before payment!</string>
+    <!--##cashfree part end##-->
+
 </resources>

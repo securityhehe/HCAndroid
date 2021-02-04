@@ -43,6 +43,7 @@
     </style>
 
     <style name="ButtonLoginYellowText">
+        <item name="android:elevation">3dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:layout_marginStart">20dp</item>

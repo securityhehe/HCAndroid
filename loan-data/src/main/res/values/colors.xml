@@ -26,4 +26,7 @@
     <color name="colorDiv">#CACACA</color>
     <color name="colorTabNotSelect">#ff666666</color>
     <color name="color_link">#FF007335</color>
+    <color name="C_999999">#ff999999</color>
+    <color name="c_white">#ffffffff</color>
+    <color name="C_333333">#ff333333</color>
 </resources>

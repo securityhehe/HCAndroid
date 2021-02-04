@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_order_2488F4">#2488F4</color>
-    <color name="color_order_F46524">#F46524</color>
+    <color name="color_order_2488F4">#FF2488F4</color>
+    <color name="color_order_F46524">#FFF46524</color>
+    <color name="C_333333">#FF333333</color>
+    <color name="C_2488F4">#FF2488f4</color>
+    <color name="C_FEC036">#FFfec036</color>
+    <color name="C_F46524">#FFf46524</color>
+    <color name="C_047538">#047538</color>
+    <color name="C_666666">#666666</color>
+    <color name="C_1777ff">#1777ff</color>
 </resources>

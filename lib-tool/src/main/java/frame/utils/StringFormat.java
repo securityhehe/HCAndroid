@@ -38,10 +38,11 @@ public class StringFormat {
      */
     public static String showMoneyWithSymbol(Context app,String money) {
         if (StringUtil.isEmpty(money)) {
-            return app.getString(R.string.money_symbol) + "25000.00";
+            return app.getString(R.string.money_symbol) + "0.00";
         }
         return app.getString(R.string.money_symbol) + twoDecimalFormat(money);
     }
+
 
     public static double getDouble(String args) {
         try {

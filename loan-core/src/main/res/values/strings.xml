@@ -21,4 +21,13 @@
     <string name="dialog_ok">Sure</string>
     <string name="dialog_go_it">Got it</string>
     <string name="dialog_confirm">Confirm</string>
+
+    <string name="place_layout_no_network_tip">Unable to connect to the network,\nplease check the network \nconfiguration.</string>
+    <string name="place_layout_no_access_tip">Sorry that this page cannot be displayed, the possible reasons are as follows:</string>
+    <string name="place_layout_no_access_tip1">• Engineers are carrying out maintenance;</string>
+    <string name="place_layout_no_access_tip2">• The server overheated and malfunctioned;</string>
+    <string name="refresh">Refresh</string>
+    <string name="mall_anno_no_content">No orders currently in progress.</string>
+    <string name="mall_notice_no_content">Recently did not issue a notice, please pay attention to the following announcement.</string>
+
 </resources>

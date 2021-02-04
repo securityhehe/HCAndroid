@@ -15,5 +15,8 @@ dependencies {
     implementation Google.gms_identity
     implementation Google.playServicesAnalytic
     implementation Google.playServicesLocation
+    implementation Misc.pickerView
+    implementation Misc.datePicker
+
 
 }

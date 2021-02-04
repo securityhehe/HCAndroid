@@ -12,6 +12,8 @@ public class Constants {
     public static final String STATUS_TRUE = "true";
     public static final String STATUS_FALSE = "false";
     public static final String STATE = "state";
+    public static final String flag = "flag";
+    public static final String platform = "platform";
     public static final String IS_CHANGE_BANK = "is_change_bank";
 
     //state
@@ -138,6 +140,22 @@ public class Constants {
 
     @Nullable
     public static final String ORDER_NUM = "order_number";
+
+
+    public static final String PRICE = "price";
+
+    public static final String EMAIL = "email";
+    public static final String PAY_TOKEN = "pay_token";
+    public static final String PAY_NOTIFY_URL = "pay_notify_url";
+
+    public static final String COMPANY_ID = "COMPANY_ID"; // 支付公司ID
+    public static final String PAY_APP_ID = "PAY_APP_ID"; // 支付订单校验ID
+
+    public static final String COMMISSION = "commission";
+    public static final String ORDER_ID = "orderId";
+    public static final String OTHER_PLATFORM_ORDER = "otherPlatformOrder";
+
+
 }
 
 

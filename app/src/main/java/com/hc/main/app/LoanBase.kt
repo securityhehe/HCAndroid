@@ -20,6 +20,8 @@ import com.tools.network.callback.IHttpParamProvider
 import java.util.*
 
 object LoanBase {
+
+
     private const val TAG = "LoanBase"
     var context: Context? = null
     private var isMainProcessInitialized = false
@@ -112,6 +114,14 @@ object LoanBase {
 
             override fun getCommitOrderLoadingNavId(): Int {
                 return R.id.action_loan_main_to_order_waiting
+            }
+
+            override fun getPlanNavId(): Int {
+                return R.id.action_loan_main_model_to_plan
+            }
+
+            override fun getPayNavId(): Int {
+                return R.id.action_loan_main_plan_to_pay
             }
         }
 

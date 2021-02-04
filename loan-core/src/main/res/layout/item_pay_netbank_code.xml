@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bankName"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/x9"
+            android:text="@{bankName}"
+            android:textColor="@color/C_333333"
+            android:textSize="@dimen/x16"
+            tools:text="Allahabad Bank" />
+
+        <CheckBox
+            android:id="@+id/in_bank_chose_cb"
+            android:layout_width="@dimen/x19"
+            android:layout_height="@dimen/x19"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/in_radio_black_selector"
+            android:button="@null"
+            android:clickable="false"
+            android:layout_marginEnd="@dimen/x9"
+            android:enabled="false" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/C_CACACA" />
+
+    </RelativeLayout>
+</layout>

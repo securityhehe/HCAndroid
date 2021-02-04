@@ -10,7 +10,7 @@
         style="@style/LoanItemCardViewStyle"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        app:contentPaddingBottom="20dp"
+        app:contentPaddingBottom="24dp"
         app:contentPadding="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,50 +77,28 @@
                     app:layout_constraintEnd_toStartOf="@id/loan_delay" />
             </LinearLayout>
 
-
             <TextView
-                android:visibility="visible"
-                android:id="@+id/repayment_plan"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:gravity="center"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:text="@string/repayment_plan"
-                android:textColor="#fffdb900"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/bill_details"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container" />
-
-            <TextView
-                android:visibility="gone"
                 android:id="@+id/bill_details"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text="@string/bill_details"
                 android:textColor="#fffdb900"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tip"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/container" />
 
-
             <TextView
+                android:layout_marginTop="20dp"
                 android:id="@+id/tip"
                 android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
@@ -130,7 +108,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/repayment_plan" />
+                app:layout_constraintTop_toBottomOf="@id/bill_details" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -182,6 +182,7 @@ class SettingViewModel : BaseViewModel() {
                         ActivityStack.currentActivity()?.let {
                             CommonDataModel.clearUser(fm.requireContext())
                             NavHostFragment.findNavController(fm).navigate(target)
+                            ContextProvider.mNavIdProvider?.showHideMainMenu(View.GONE)
                         }
                     }
                 }

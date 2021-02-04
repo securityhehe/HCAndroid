@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="15dp"
-                        android:text="@{vm.getText(user.context,userCredit)"
+                        android:text="@{vm.getText(user,userCredit)}"
                         android:textColor="#333333"
                         android:textSize="40sp"
                         android:textStyle="bold" />

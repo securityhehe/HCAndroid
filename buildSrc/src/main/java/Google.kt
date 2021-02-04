@@ -107,7 +107,12 @@ object Misc {
     const val blankj_utilcode = "com.blankj:utilcode:1.20.3"
     const val installreferrer = "com.android.installreferrer:installreferrer:1.0"
 
+    const val pickerView = "com.contrarywind:Android-PickerView:3.2.7"
     const val datePicker = "com.wdullaer:materialdatetimepicker:4.2.3"
+    const val lottie = "com.airbnb.android:lottie:3.4.0"
+
+
+
 
     //const val lottie = "com.airbnb.android:lottie:3.4.0"
     //const val xcrash = "com.iqiyi.xcrash:xcrash-android-lib:2.4.9"

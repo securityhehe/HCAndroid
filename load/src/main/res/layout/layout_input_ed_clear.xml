@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/in_corner_6_stroke_1_white_bg">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/in_edit_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:layout_toStartOf="@id/in_edit_content_clear"
+        android:background="@null"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:enabled="true"
+        android:gravity="center_vertical|left"
+        android:paddingStart="@dimen/x10"
+        android:paddingEnd="@dimen/x10" />
+
+    <ImageButton
+        android:id="@+id/in_edit_content_clear"
+        android:layout_width="@dimen/x22"
+        android:layout_height="@dimen/x22"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/x10"
+        android:background="@mipmap/in_login_delete"
+        android:visibility="gone" />
+
+</RelativeLayout>

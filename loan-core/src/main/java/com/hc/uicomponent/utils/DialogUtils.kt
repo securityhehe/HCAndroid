@@ -22,8 +22,12 @@ import com.hc.uicomponent.R
 import com.hc.uicomponent.databinding.CommonDialogBinding
 import com.hc.uicomponent.databinding.DialogMobileAuthPageBinding
 import com.hc.uicomponent.databinding.ItemMobileAuthTypeBinding
+import com.hc.uicomponent.databinding.ItemPayNetbankCodeBinding
 import com.hc.uicomponent.provider.ContextProvider
 import com.timmy.tdialog.TDialog
+import com.timmy.tdialog.base.BindViewHolder
+import com.timmy.tdialog.base.TBaseAdapter
+import com.timmy.tdialog.list.TListDialog
 
 object DialogUtils {
 
@@ -254,6 +258,38 @@ object DialogUtils {
         alertDialog.show()
         return alertDialog
     }
+
+    fun showCashFreeBankListDialog(activity: Activity,bankList:List<UserType>,netBankingChoseListener: NetBankingChoseListener) {
+        val builder = TListDialog.Builder((activity as FragmentActivity).supportFragmentManager)
+        builder.setWidth(ScreenUtils.getScreenWidth())
+        builder.setGravity(Gravity.CENTER)
+        builder.setDimAmount(0.6f)
+        builder.setScreenWidthAspect(activity,0.8f)
+        builder.setHeight(ScreenAdapterUtils.adapterWidthSize(activity,820))
+
+        builder.setAdapter(object:
+            TBaseAdapter<UserType>(R.layout.item_pay_netbank_code,bankList){
+            override fun onBind(holder: BindViewHolder, position: Int, t: UserType) {
+                DataBindingUtil.bind<ItemPayNetbankCodeBinding>(holder.itemView)?.run {
+                    this.bankName = bankList[position].name
+                }
+            }
+        })
+
+        builder.setOnAdapterItemClickListener { holder, position, t, tDialog ->
+            if (t is UserType) {
+                holder.getView<CheckBox>(R.id.in_bank_chose_cb).isChecked = true
+                netBankingChoseListener.choseBank(t.code)
+                tDialog.dismissAllowingStateLoss()
+            }
+        }
+        builder.create().show()
+    }
+
+    interface NetBankingChoseListener{
+        fun choseBank(bankCode:String)
+    }
+
 
 
 }

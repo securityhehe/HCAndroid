@@ -6,4 +6,12 @@
     <dimen name="common_toolbar_height">53dp</dimen>
     <dimen name="base_common_dialog_padding">45dp</dimen>
     <dimen name="loan_tab_height">50dp</dimen>
+    <dimen name="x213">213dp</dimen>
+    <dimen name="x175">175dp</dimen>
+    <dimen name="x43">43dp</dimen>
+    <dimen name="x15">15dp</dimen>
+    <dimen name="x45">45dp</dimen>
+    <dimen name="x18">18sp</dimen>
+    <dimen name="x10">10dp</dimen>
+    <dimen name="x16">16sp</dimen>
 </resources>

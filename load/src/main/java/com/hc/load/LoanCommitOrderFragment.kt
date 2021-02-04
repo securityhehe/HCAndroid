@@ -44,6 +44,7 @@ import com.hc.load.vm.CollectAppInfo
 import com.hc.load.vm.CommitOrderViewModel
 import com.hc.uicomponent.base.CommonDataViewModel
 import com.hc.uicomponent.annotation.BindViewModel
+import com.hc.uicomponent.base.BaseViewModel
 import com.hc.uicomponent.base.jumpDeepLikPage
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.menu.BaseMenuViewModel
@@ -130,7 +131,7 @@ class LoanCommitOrderFragment : PermissionBaseFragment<FragmentLoanCommitOrderLa
 
     //跳转到修改银行卡认证界面，重新填写银行卡信息
     private fun modifyBankCardNoClick(view: View) {
-        val url  = String.format(NavContents.loanBank,true);
+        val url = String.format(NavContents.loanBank, true);
         orderViewModel?.jumpDeepLikPage(view, null, url)
     }
 
@@ -217,8 +218,7 @@ class LoanCommitOrderFragment : PermissionBaseFragment<FragmentLoanCommitOrderLa
                 if (!TextUtil.isEmpty(checkOrder.contentUrlV1)) {
                     CommonProvider.instance?.getWebViewNavId()?.let {
                         val a = resources.getString(R.string.mall_order_submit_loan_agreement)
-                        val bundle = bundleOf(Pair("link", checkOrder.contentUrlV1), Pair("title", a))
-                        Navigation.findNavController(mFragmentBinding.root).navigate(it, bundle)
+                        baseMenuModel?.jumpWebFragment(mFragmentBinding.root,a, checkOrder.contentUrlV1 ?: "")
                     }
                 }
             }
@@ -234,8 +234,7 @@ class LoanCommitOrderFragment : PermissionBaseFragment<FragmentLoanCommitOrderLa
                 if (!TextUtil.isEmpty(checkOrder.contentUrlV2)) {
                     CommonProvider.instance?.getWebViewNavId()?.let {
                         val a = resources.getString(R.string.mall_order_submit_sanction_letter)
-                        val bundle = bundleOf(Pair("link", checkOrder.contentUrlV2), Pair("title", a))
-                        Navigation.findNavController(mFragmentBinding.root).navigate(it, bundle)
+                        baseMenuModel?.jumpWebFragment(mFragmentBinding.root, a,checkOrder.contentUrlV2 ?: "")
                     }
                 }
             }
@@ -453,6 +452,15 @@ class LoanCommitOrderFragment : PermissionBaseFragment<FragmentLoanCommitOrderLa
     }
 }
 
+fun BaseViewModel.jumpWebFragment(view: View, title: String, link: String) {
+
+    CommonProvider.instance?.getWebViewNavId()?.let {
+        val bundle = bundleOf(Pair("link", link), Pair("title", title))
+        Navigation.findNavController(view).navigate(it, bundle)
+
+    }
+
+}
 
 fun AppCompatImageView.loadImageWithCallBack(imgUrl: String?, onReadyAction: (Bitmap) -> Unit) {
     if (StringUtils.isEmpty(imgUrl)) {

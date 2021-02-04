@@ -39,9 +39,9 @@ import java.util.*
 class LogicData {
 
     companion object {
-        var TEST = true
-        var TEST_INVALID: Boolean = true
-        var TEST_SUBMIT_NO_COMMIT_ORDER: Boolean = false
+        var TEST = false
+        var TEST_INVALID: Boolean = false
+        var TEST_SUBMIT_NO_COMMIT_ORDER: Boolean = true
         var TEST_CLOSE = false
         var TEST_FIRST_REVIEW_ING = false
         var TEST_AUTO_REVIEW_ING = false
@@ -84,6 +84,7 @@ class LogicData {
         }
         homeDataHttpRes.data?.run {
             mainDataRec = this
+            isBindBankFlag = userAuth?.bankCardState == Constants.STATUS_30
             isLastOrderIsEnd = (Constants.NUMBER_1 == this.lastOrderIsEnd)
         }
     }

@@ -2,11 +2,8 @@ package com.hc.load
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.hc.data.order.OrderBillRec
 import com.hc.load.databinding.FragmentLoanBillDetailBinding
 import com.hc.load.databinding.ItemOrderBillMultiplePeriodBinding
@@ -16,10 +13,8 @@ import com.hc.uicomponent.base.BaseFragment
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.provider.ContextProvider
 import com.hc.uicomponent.utils.dynamicAddChildView
-import com.hc.uicomponent.utils.txt
 import frame.utils.StringFormat
-import kotlinx.android.synthetic.main.fragment_loan_bill_detail.*
-import kotlinx.android.synthetic.main.fragment_loan_input_money_layout.*
+
 
 class BillDetailFragment : BaseFragment<FragmentLoanBillDetailBinding>(R.layout.fragment_loan_bill_detail) {
 
@@ -64,8 +59,16 @@ class BillDetailFragment : BaseFragment<FragmentLoanBillDetailBinding>(R.layout.
                 }
                 val layoutId = R.layout.item_order_bill_multiple_period
                 dynamicAddChildView<OrderBillRec, ItemOrderBillMultiplePeriodBinding>(mFragmentBinding.ll, layoutId, list) { binding, index, item ->
-                    binding.index = index
-                    binding.item = item
+
+                   binding.run {
+                       tv1.text =  ContextProvider.getString(R.string.pay_mutliple_emi,index)
+
+                       val repaymentDays = StringFormat.showMoneyWithSymbol(requireContext(), item.repaymentDays)
+                       tv2.text =  ContextProvider.getString(R.string.loan_bill_repay_day,repaymentDays)
+
+                       val formatArgs = StringFormat.showMoneyWithSymbol(requireContext(), "${item.repaymentAmount}")
+                       tv3.text =  ContextProvider.getString(R.string.loan_bill_repay_money, formatArgs)
+                   }
                 }
             }
         }

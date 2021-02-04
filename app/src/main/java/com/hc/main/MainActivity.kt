@@ -1,7 +1,6 @@
 package com.hc.main
 
 import android.os.Bundle
-import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.hc.main.app.LoanBase
@@ -15,7 +14,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     @BindViewModel
     var mHomeViewModel: MainViewModel?=null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         LoanBase.initVideoChat(applicationContext)
         super.onCreate(savedInstanceState)

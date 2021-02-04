@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.hc.load.vm.PayViewModel.PayMethodEnum" />
+
+        <variable
+            name="itemChildListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="index"
+            type="Integer" />
+
+        <variable
+            name="netBankClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/pay_method_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/c_white"
+        android:orientation="vertical">
+
+        <!--pay method for header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x50">
+
+            <ImageView
+                android:id="@+id/in_pay_method_icon"
+                android:layout_width="@dimen/x22"
+                android:layout_height="@dimen/x22"
+                android:layout_centerVertical="true"
+                android:background="@{item.showPayMethodIcon()}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/x9"
+                android:layout_toEndOf="@id/in_pay_method_icon"
+                android:text="@{item.showPayMethodTxt()}"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x16"
+                tools:text="UPI" />
+
+            <ImageButton
+                android:id="@+id/in_pay_shrink_ib"
+                android:layout_width="@dimen/x19"
+                android:layout_height="@dimen/x20"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/x15"
+                android:background="@drawable/fold_up"
+                android:onClick="@{itemChildListener}"
+                android:tag="@{item}" />
+
+        </RelativeLayout>
+
+        <!--content upi-->
+        <ViewStub
+            android:id="@+id/in_pay_method_upi_vs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout="@layout/vs_upi_input_content" />
+
+        <!-- content netbanking -->
+        <ViewStub
+            android:id="@+id/in_pay_method_netbanking_vs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout="@layout/vs_netbanking_input_content" />
+
+        <!-- content credit/debit card -->
+        <ViewStub
+            android:id="@+id/in_pay_method_credit_card_vs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout="@layout/vs_credit_card_input_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginEnd="@dimen/x9"
+            android:background="#cacaca" />
+
+    </LinearLayout>
+</layout>

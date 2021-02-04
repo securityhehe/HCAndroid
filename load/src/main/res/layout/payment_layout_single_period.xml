@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Loan Amount -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x22"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/x169"
+                android:layout_height="wrap_content"
+                android:text="@string/loan_amount"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x62"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x14" />
+
+        </LinearLayout>
+
+        <!-- Interest -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x22"
+            android:layout_marginTop="@dimen/x5"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/x169"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_order_interest"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/interest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x62"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x14" />
+
+        </LinearLayout>
+
+        <!-- Overdue Fines： -->
+        <LinearLayout
+            android:id="@+id/overdueContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x22"
+            android:layout_marginTop="@dimen/x5"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/x169"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_order_overdue_fee"
+                android:textColor="@color/C_F46524"
+                android:textSize="@dimen/x14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/overdue_fines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x62"
+                android:textColor="@color/C_F46524"
+                android:textSize="@dimen/x14" />
+
+        </LinearLayout>
+
+        <!-- Discount Amount： -->
+        <LinearLayout
+            android:id="@+id/discountContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x22"
+            android:layout_marginTop="@dimen/x5"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/x169"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_order_discount_amount"
+                android:textColor="@color/C_2488F4"
+                android:textSize="@dimen/x14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amountRelief"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x62"
+                android:textColor="@color/C_2488F4"
+                android:textSize="@dimen/x14" />
+
+        </LinearLayout>
+
+        <!-- Settlement Amount： -->
+        <LinearLayout
+            android:id="@+id/settlementContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x22"
+            android:layout_marginTop="@dimen/x5"
+            android:gravity="center_vertical">
+
+
+            <TextView
+                android:layout_width="@dimen/x169"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_order_set_amount"
+                android:textColor="@color/C_2488F4"
+                android:textSize="@dimen/x14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amountPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x62"
+                android:textColor="@color/C_2488F4"
+                android:textSize="@dimen/x14" />
+
+        </LinearLayout>
+
+        <com.hc.uicomponent.weight.NoDoubleClickButton
+            android:id="@+id/pay_single_repay_btn"
+            style="@style/ButtonLoginYellowText"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/loan_repay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
+</layout>

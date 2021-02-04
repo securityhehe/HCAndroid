@@ -18,12 +18,11 @@ class NotLoginFragment : BaseFragment<FragmentNotLoginLayoutBinding>(R.layout.fr
     var viewModel: LoginVM? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            val credit = it.getDouble(CREDIT)
-            val kyc = it.getBoolean(KYC_CERTIFY_FINISH)
-            viewModel?.isKycCertifyFinish = kyc
-            mFragmentBinding.userCredit = if(credit == 0.0) "" else credit.toString()
-        }
+        val credit = arguments?.getDouble(CREDIT)
+        val kyc = arguments?.getBoolean(KYC_CERTIFY_FINISH)
+        viewModel?.isKycCertifyFinish = kyc?:false
+        mFragmentBinding.userCredit = if(credit == null || credit == 0.0 ) "25000"  else credit.toString()
+
         mFragmentBinding.vm = viewModel
     }
 

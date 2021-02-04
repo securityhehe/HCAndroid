@@ -54,7 +54,6 @@
     <style name="LoanDetailsValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">aaaaaaaaaa</item>
         <item name="android:textColor">#ff333333</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center_vertical|end</item>
@@ -82,6 +81,13 @@
         <item name="android:layout_height">1dp</item>
     </style>
 
+    <declare-styleable name="EditViewDelLayout">
+        <attr name="edit_hint" format="string|reference" />
+        <attr name="edit_max_len" format="integer" />
+        <attr name="edit_only_number" format="boolean" />
+        <attr name="edit_add_blank" format="boolean" />
+        <attr name="edit_add_blank_num" format="integer" />
+    </declare-styleable>
 
 
 </resources>

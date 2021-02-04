@@ -16,7 +16,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-open class BaseFragment<B : ViewBinding> constructor(@LayoutRes var fragLayout: Int, var isRetry: Boolean = true) : Fragment() {
+open class BaseFragment<B : ViewBinding> constructor(@LayoutRes var fragLayout: Int, var isRetry: Boolean = true) : Fragment()  {
 
     lateinit var mActivity: FragmentActivity
     lateinit var mFragmentBinding: B
@@ -85,4 +85,6 @@ open class BaseFragment<B : ViewBinding> constructor(@LayoutRes var fragLayout: 
     }
 
     open fun <M : BaseViewModel> createGetViewModel(clazz: Class<M>) = ViewModelProvider(this).get(clazz)
+
+
 }

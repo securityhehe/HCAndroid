@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="netBankClickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--SBI-->
+
+        <LinearLayout
+            android:id="@+id/sbi"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x50"
+            android:layout_toLeftOf="@+id/netbank_center"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/x22"
+            android:onClick="@{netBankClickListener}">
+
+            <ImageView
+                android:layout_width="@dimen/x45"
+                android:layout_height="@dimen/x41"
+                android:background="@mipmap/in_bank_bob" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_netbanking_bob"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x16"
+                android:textStyle="bold"
+                tools:text="SBI" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/netbank_center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/x5" />
+
+        <!--ICICI-->
+        <LinearLayout
+            android:id="@+id/icic"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x50"
+            android:layout_toRightOf="@id/netbank_center"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/x22"
+            android:onClick="@{netBankClickListener}">
+
+            <ImageView
+                android:layout_width="@dimen/x45"
+                android:layout_height="@dimen/x41"
+                android:background="@mipmap/in_cf_bank_icici" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="@string/pay_netbanking_icici"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x16"
+                android:textStyle="bold"
+                tools:text="ICICI" />
+
+        </LinearLayout>
+
+        <!--HDFC-->
+        <LinearLayout
+            android:id="@+id/hdfc"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x50"
+            android:layout_below="@id/sbi"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_toLeftOf="@id/netbank_center"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/x22"
+            android:onClick="@{netBankClickListener}">
+
+            <ImageView
+                android:layout_width="@dimen/x45"
+                android:layout_height="@dimen/x41"
+                android:background="@mipmap/in_cf_bank_hdfc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="@string/pay_netbanking_hdfc"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x16"
+                android:textStyle="bold"
+                tools:text="HDFC" />
+
+        </LinearLayout>
+
+        <!--axis-->
+        <LinearLayout
+            android:id="@+id/axis"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x50"
+            android:layout_below="@id/icic"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_toRightOf="@id/netbank_center"
+            android:background="@drawable/in_corner_6_stroke_1_white_bg"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/x22"
+            android:onClick="@{netBankClickListener}">
+
+            <ImageView
+                android:layout_width="@dimen/x45"
+                android:layout_height="@dimen/x41"
+                android:background="@mipmap/in_cf_bank_axis" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="@string/pay_netbanking_axis"
+                android:textColor="@color/C_333333"
+                android:textSize="@dimen/x16"
+                android:textStyle="bold"
+                tools:text="Axis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/more_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hdfc"
+            android:layout_marginTop="@dimen/x10"
+            android:onClick="@{netBankClickListener}"
+            android:text="@string/pay_netbanking_more_banks"
+            android:textColor="@color/C_1777ff"
+            android:textSize="@dimen/x16" />
+
+    </RelativeLayout>
+</layout>

@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.hc.data.MenuData
+import com.hc.data.NavContents
 import com.hc.data.OrderStateEnum.*
 import com.hc.data.mall.DiversionProduct
 import com.hc.data.mall.GoodsSx
@@ -25,6 +26,7 @@ import com.hc.load.vm.LoanViewModel
 import com.hc.load.vm.LogicData
 import com.hc.permission.AndroidPermissions
 import com.hc.uicomponent.annotation.BindViewModel
+import com.hc.uicomponent.base.jumpDeepLikPage
 import com.hc.uicomponent.config.Constants
 import com.hc.uicomponent.menu.BaseMenuViewModel
 import com.hc.uicomponent.menu.BasePopupWindow
@@ -244,7 +246,6 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
     //审核中
     private fun toRenewalSelect() {
         context?.let {
-
             mFragmentBinding.run {
                 loanStatusFl.background = ContextCompat.getDrawable(it, R.drawable.loan_status_received_bg)
                 loanStatusDesc.text = getString(R.string.loan_status_received_text)
@@ -321,15 +322,20 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
             RENEWAL.state -> {
                 toRenewal()
             }
+            RENEWAL_ING.state,
             REPAY_ING.state -> {
                 toRepaymentProcessing()
             }
-            CREDIT_VERIFIY_LOADING.state -> {  //征信认证中
+            CREDIT_VERIFIY_LOADING.state -> {  //征信认证中, 调整到问卷调查
                 mFragmentBinding.fl.visibility = View.VISIBLE
                 mFragmentBinding.title.text = getString(R.string.loan_credit_ing)
                 mFragmentBinding.btn.text = getString(R.string.loan_submit)
                 mFragmentBinding.btn.setOnClickListener {
-
+                    val url = mLoanMainViewModel?.logicData?.mainDataRec?.orderInfo?.id
+                    url?.let {
+                        val title = resources.getString(R.string.order_credit_ask_question_title)
+                        mLoanMainViewModel?.jumpWebFragment(mFragmentBinding.root, title, url)
+                    }
                 }
             }
             CASH_FAIL.state -> { //提现失败。更改银行卡。
@@ -337,26 +343,28 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                 mFragmentBinding.title.text = getString(R.string.loan_change_bank)
                 mFragmentBinding.btn.text = getString(R.string.loan_change_bank_btn)
                 mFragmentBinding.btn.setOnClickListener {
-
+                    mLoanMainViewModel?.jumpDeepLikPage(mFragmentBinding.root, null, NavContents.loanBank)
                 }
             }
             SUBMIT_NO_COMMIT_ORDER.state -> {
                 toReceived()
             }
-
-            FIRST_REVIEW_ING.state -> { //预审中
-                toPrevCredit()
-            }
-            AUTO_REVIEW_ING.state, //自动审核中
-            MANUAL_REVIEW_ING.state -> {//人工复审中
-                toRenewalSelect()
-            }
+            SUBMIT_ORDER_SUCCESS.state,
+            FIRST_REVIEW_ING.state,
+            AUTO_REVIEW_ING.state,
+            MANUAL_REVIEW_ING.state,
             AUTO_REVIEW_PASS.state,
             MANUAL_REVIEW_PASS.state,
             WAIT_CASH.state,
             CASH_ING.state,
-            SUBMIT_ORDER_SUCCESS.state -> {
-                toOrderUnderReview()
+            CASH_FAIL.state -> {
+                if (CASH_FAIL.state == it) {
+                    if (mLoanMainViewModel?.logicData?.isBindBankFlag == true) {
+                        toOrderUnderReview()
+                    }
+                } else {
+                    toOrderUnderReview()
+                }
             }
             REPAY.state -> {
                 toOrderRepay()
@@ -386,7 +394,7 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                     mLoanMainViewModel
                     if (price.getChangeMoney()) {
                         if (price is GoodsSx) {
-                            if(price.choseAmount == 0.0){
+                            if (price.choseAmount == 0.0) {
                                 price.choseAmount = price.maxAmount
                             }
                             mLoanMainViewModel?.saveGetNowMoney(price)
@@ -407,24 +415,13 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
     private fun setOrderView(logicData1: LogicData, it: String?, loanViewModel: LoanViewModel) {
         if (logicData1.mControlOrderVisibleOrGone.value == View.VISIBLE) {
             mFragmentBinding.order.run {
-                container.visibility = View.VISIBLE
-                repaymentPlan.visibility = View.VISIBLE
                 mLoanMainViewModel?.logicData?.mainDataRec?.apply {
-                    val moneyFlag = (it == RENEWAL.state || it == OVERDUE.state || REPAY.state == it)
-                    val isShowRepayBtn = (moneyFlag || BAD.state == it)
-                    if (isShowRepayBtn) {
-                        moneyTitle.text = getString(R.string.loan_repay_amount)
-                    } else {
-                        moneyTitle.text = getString(R.string.loan_amount)
-                    }
-                    val visibleRepay = if (isShowRepayBtn) View.VISIBLE else View.GONE
-                    loanRepay.visibility = visibleRepay
 
-                    val isShowDelayBtn = loanViewModel.logicData.mainDataRec?.isDeplay == Constants.NUMBER_1
-                    loanDelay.visibility = if (isShowDelayBtn) View.VISIBLE else View.GONE
-
+                    val moneyFlag = (it == RENEWAL.state || it == OVERDUE.state || REPAY.state == it || BAD.state == it)
+                    //title显示。
                     if (moneyFlag) {
-                        if (this.orderInfo!!.stages > Constants.NUMBER_1) {
+                        moneyTitle.text = getString(R.string.loan_repay_amount)
+                        if (this.orderInfo?.stages ?: 0 > Constants.NUMBER_1) {
                             var sumTotalMoney = 0.0
                             if (this.orderStages.isNotEmpty()) {
                                 sumTotalMoney += this.orderStages[0].totalRepayment
@@ -434,8 +431,10 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                             money.text = StringFormat.showMoneyWithSymbol(requireContext(), this.orderRepay.totalRepayment.toString())
                         }
                     } else {
+                        moneyTitle.text = getString(R.string.loan_amount)
                         money.text = StringFormat.showMoneyWithSymbol(requireContext(), this.orderInfo?.goodsPrice)
                     }
+
                     val ifShowPaymentText =
                         (REPAY.state == it || OVERDUE.state == it || RENEWAL.state == it || REPAY_ING.state == it || RENEWAL_ING.state == it)
                     if (ifShowPaymentText) {
@@ -448,34 +447,66 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                         dateTitle.text = getString(R.string.loan_duration)
                     }
 
-                    val isShowBillDetailLink = (WAIT_SIGN.state == it || WAIT_CASH.state == it || CASH_FAIL.state == it)
-                    if (isShowBillDetailLink) {
-                        container.visibility = View.GONE
-                        repaymentPlan.visibility = View.GONE
-                        billDetails.visibility = View.VISIBLE
-                    } else if (isShowRepayBtn) {
-                        container.visibility = View.VISIBLE
-                        repaymentPlan.visibility = View.VISIBLE
-                        billDetails.visibility = View.GONE
+                    val isShowBtnRepay = (it == RENEWAL.state || it == OVERDUE.state || REPAY.state == it || BAD.state == it)
+                    val isShowBtnDelay = loanViewModel.logicData.mainDataRec?.isDeplay == Constants.NUMBER_1
+                    val isShowBtnContainer = isShowBtnRepay || isShowBtnDelay
+                    //还款按钮按钮显示。
+                    loanRepay.visibility = if (isShowBtnRepay) View.VISIBLE else View.GONE
+                    loanDelay.visibility = if (isShowBtnDelay) View.VISIBLE else View.GONE
+                    container.visibility = if (isShowBtnContainer) View.VISIBLE else View.GONE
+
+                    loanRepay.setOnClickListener{
+                       ContextProvider.mNavIdProvider?.getPlanNavId()?.let {
+                           Navigation.findNavController(loanRepay).navigate(it )
+                       }
                     }
-                    billDetails.setOnClickListener {
-                        ContextProvider.mNavIdProvider?.getOrderDetail()?.let {
-                            val mut = (this.orderInfo?.stages?:0 > Constants.NUMBER_1)
-                            val argument = bundleOf(Pair(Constants.ORDER_NUM,this.orderInfo?.id?:""), Pair(Constants.STATE,mut))
-                            Navigation.findNavController(billDetails).navigate(it,argument)
+                    loanDelay.setOnClickListener{
+                        ContextProvider.mNavIdProvider?.getPlanNavId()?.let {
+                            val argument = bundleOf(Pair(Constants.flag,true))
+                            Navigation.findNavController(loanRepay).navigate(it, argument)
                         }
                     }
 
+                    val isShowBillDetail = (WAIT_SIGN.state == it || WAIT_CASH.state == it || CASH_FAIL.state == it)
+                    val isShowRepayment = (RENEWAL.state == it || OVERDUE.state == it || REPAY.state == it || BAD.state == it||REPAY_ING.state == it||RENEWAL_ING.state == it)
+                    when {
+                        isShowBillDetail -> {
+                            billDetails.setText(R.string.bill_details)
+                            billDetails.visibility = View.VISIBLE
+                        }
+                        isShowRepayment -> {
+                            billDetails.setText(R.string.repayment_plan)
+                            billDetails.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            billDetails.visibility = View.GONE
+                        }
+                    }
+
+                    billDetails.setOnClickListener {
+                        if (isShowBillDetail) {
+                            ContextProvider.mNavIdProvider?.getOrderDetail()?.let {
+                                val mut = (this.orderInfo?.stages ?: 0 > Constants.NUMBER_1)
+                                val argument = bundleOf(Pair(Constants.ORDER_NUM, this.orderInfo?.id ?: ""), Pair(Constants.STATE, mut))
+                                Navigation.findNavController(billDetails).navigate(it, argument)
+                            }
+                        } else {
+                            ContextProvider.mNavIdProvider?.getPlanNavId()?.let {
+                                Navigation.findNavController(loanRepay).navigate(it)
+                            }
+                        }
+                    }
+
+                    //底部文案状态展示。
                     val isGoneKeepTips = (SUBMIT_ORDER_SUCCESS.state == it)
-                            || FIRST_REVIEW_ING.state == it
-                            || CREDIT_VERIFIY_LOADING.state == it
                             || AUTO_REVIEW_ING.state == it
                             || MANUAL_REVIEW_ING.state == it
-                            || (CASH_FAIL.state == it && mLoanMainViewModel?.logicData?.isBindBankFlag == true)
                             || AUTO_REVIEW_PASS.state == it
                             || MANUAL_REVIEW_PASS.state == it
                             || WAIT_CASH.state == it
                             || CASH_ING.state == it
+                            || (CASH_FAIL.state == it && mLoanMainViewModel?.logicData?.isBindBankFlag == true)
+
                     if (isGoneKeepTips) {
                         tip.visibility = View.VISIBLE
                     } else {
@@ -514,7 +545,7 @@ class LoanMainFragment : PermissionBaseFragment<FragmentLoanInputMoneyLayoutBind
                 }
                 if (borrowMoneyList.size > 0) {
                     borrowMoneyList.reverse()
-                    showMenu(borrowMoneyList, -1, priceTv, iv){
+                    showMenu(borrowMoneyList, -1, priceTv, iv) {
                         price.choseAmount = it
                     }
                 }

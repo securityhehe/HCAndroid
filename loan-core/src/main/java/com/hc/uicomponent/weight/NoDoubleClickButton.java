@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 
 import androidx.appcompat.widget.AppCompatButton;
 
+
 /**
  * Disable continuous clicks within 1000 milliseconds for AppCompatButton
  */

@@ -37,49 +37,49 @@
 
             <include
                 android:id="@+id/on"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_on}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/la"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_la}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/ld"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_ld}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/tsf"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_tsf}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/gst"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_gst}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/cp"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_cp}" />
 
             <View style="@style/Line" />
 
             <include
                 android:id="@+id/ayg"
-                layout="@layout/loan_item_details"
+                layout="@layout/loan_bill_detail_item"
                 app:name="@{@string/loan_detail_ayg}" />
         </LinearLayout>
 
